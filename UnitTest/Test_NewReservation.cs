@@ -23,12 +23,15 @@ namespace salonfr.UnitTest
         [Test]
         public void ShouldAddNewReservation_ReturnTrue()
         {
+            SqlLiteDB.SqlLiteDBCreateTable();
             CreateInsertScripts insert = new CreateInsertScripts();
-           var result2 = CreateInsertScripts.SqlLiteDBInsertClient(
-                new Client
+            var result2 = CreateInsertScripts.SqlLiteDBInsertReservation(
+                new Reservation()
                 {
-                    client_id =1 , client_name = "marcin",client_sname = "juranek",client_description = "opis"
-                });
+                    reservation_id = 10,
+                    reservation_date = new DateTime(2020,7,15)
+                }, 1, 1
+                ) ;
             DBConnectAndExecute.ExecuteQuery(result2.First());
 
              Reservation newReservation = new Reservation()

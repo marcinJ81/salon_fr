@@ -61,11 +61,11 @@ namespace salonfr.DBConnect
                 {
                     nameTable = @"\reservation.db",
                     script = @"insert into Reservation values"
-                    + "(" + model.reservation_id.ToString() + ","
-                    + model.reservation_date + ","
+                    + "(" + model.reservation_id.ToString() + ",'"
+                    + model.reservation_date + "',"
                     + client_id.ToString() + ","
-                    + services_id.ToString() + ","
-                    + "')",
+                    + services_id.ToString() 
+                    + ")",
                     operationType = OperationType.write,
                     connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + PathDBFile + @"\reservation.db")
                 }
