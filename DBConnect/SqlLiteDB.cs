@@ -54,7 +54,7 @@ namespace salonfr.DBConnect
                     @"CREATE TABLE IF NOT EXISTS Reservation
                     (
                         reservation_id INTEGER IDENTITY PRIMARY KEY,
-                        reservation_date DATETIME  NULL,
+                        reservation_date VARCHAR  NULL,
                         client_id INT  NULL,
                         services_id INT  NULL
                     );",

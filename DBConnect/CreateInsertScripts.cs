@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -54,6 +55,7 @@ namespace salonfr.DBConnect
         }
         public static List<TableScripts> SqlLiteDBInsertReservation(Reservation model, int client_id,int services_id)
         {
+            SqliteCommand con = new SqliteCommand();
            
             tableInsertScripts.Add
             (
@@ -61,11 +63,11 @@ namespace salonfr.DBConnect
                 {
                     nameTable = @"\reservation.db",
                     script = @"insert into Reservation values"
-                    + "(" + model.reservation_id.ToString() + ","
-                    + model.reservation_date + ","
+                    + "(" + model.reservation_id.ToString() + ",'"
+                    + model.reservation_date + "',"
                     + client_id.ToString() + ","
-                    + services_id.ToString() + ","
-                    + "')",
+                    + services_id.ToString() 
+                    + ")",
                     operationType = OperationType.write,
                     connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + PathDBFile + @"\reservation.db")
                 }
