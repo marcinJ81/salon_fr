@@ -27,6 +27,24 @@ namespace salonfr.DBConnect
                 }
             }
         }
+        public static string ExecuteQuery(TableScripts tableScripts)
+        {
+            using (var com0 = new SqliteCommand(tableScripts.script, tableScripts.connectionProperties))
+            {
+                try
+                {
+                    tableScripts.connectionProperties.Open();
+                    com0.ExecuteNonQuery();
+                    tableScripts.connectionProperties.Close();
+                    return string.Empty;
+                }
+                catch (SqliteException ex)
+                {
+                    string er = ex.Message;
+                    return er;
+                }
+            }
+        }
 
     }
 }

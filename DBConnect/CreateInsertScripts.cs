@@ -6,14 +6,19 @@ using System.Threading.Tasks;
 
 namespace salonfr.DBConnect
 {
-    public static class CreateInsertScripts
+    public  class CreateInsertScripts
     {
-        private static List<TableScripts> tableInsertScripts { get; set; }
+        private  static List<TableScripts> tableInsertScripts { get; set; }
+        private static string PathDBFile { get; set; }
 
-       
+        public CreateInsertScripts()
+        {
+            PathDBFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            tableInsertScripts = new List<TableScripts>();
+        }
         public static List<TableScripts> SqlLiteDBInsertClient(Client model)
         {
-            tableInsertScripts = new List<TableScripts>();
+           
             tableInsertScripts.Add
             (
                 new TableScripts
@@ -24,14 +29,15 @@ namespace salonfr.DBConnect
                     + model.client_name + "','" 
                     + model.client_sname + "','" 
                     + model.client_description + "')",  
-                    operationType = OperationType.write
+                    operationType = OperationType.write,
+                    connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + PathDBFile + @"\client.db")
                 }  
             );
             return tableInsertScripts;
         }
         public static List<TableScripts> SqlLiteDBInsertServices(Services model)
         {
-            tableInsertScripts = new List<TableScripts>();
+           
             tableInsertScripts.Add
             (
                 new TableScripts
@@ -40,14 +46,15 @@ namespace salonfr.DBConnect
                     script = @"insert into Services values"
                     + "(" + model.services_id.ToString() + ",'"
                     + model.services_name  + "')",
-                    operationType = OperationType.write
+                    operationType = OperationType.write,
+                    connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + PathDBFile + @"\services.db")
                 }
             );
             return tableInsertScripts;
         }
         public static List<TableScripts> SqlLiteDBInsertReservation(Reservation model, int client_id,int services_id)
         {
-            tableInsertScripts = new List<TableScripts>();
+           
             tableInsertScripts.Add
             (
                 new TableScripts
@@ -59,7 +66,8 @@ namespace salonfr.DBConnect
                     + client_id.ToString() + ","
                     + services_id.ToString() + ","
                     + "')",
-                    operationType = OperationType.write
+                    operationType = OperationType.write,
+                    connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + PathDBFile + @"\reservation.db")
                 }
             );
             return tableInsertScripts;
