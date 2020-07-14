@@ -8,16 +8,23 @@ using System.Windows.Forms;
 
 namespace salonfr.DBConnect
 {
-    public class SqlLiteDB
+    public enum OperationType
     {
-        private string PathDBFile;
-        private List<CreateTable> createTable;
-        public SqlLiteDB()
+        create,
+        read,
+        write
+    }
+    public static class SqlLiteDB
+    {
+        private static string PathDBFile;
+        public static List<TableScripts> createTable { get; private set; }
+
+        public static void SqlLiteDBCreateTable()
         {
             PathDBFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            this.createTable = new List<CreateTable>()
+            createTable = new List<TableScripts>()
             {
-                new CreateTable
+                new TableScripts
                 {
                     nameTable = @"\client.db",
                     script =  @"CREATE TABLE IF NOT EXISTS Client
@@ -28,7 +35,7 @@ namespace salonfr.DBConnect
                         client_description VARCHAR  NULL
                     );"
                 },
-                new CreateTable
+                new TableScripts
                 {
                     nameTable = @"\services.db",
                     script =
@@ -38,7 +45,7 @@ namespace salonfr.DBConnect
                             client_name VARCHAR  NULL
                         );"
                 },
-                new CreateTable
+                new TableScripts
                 {
                     nameTable = @"\reservation.db",
                     script =
@@ -53,17 +60,17 @@ namespace salonfr.DBConnect
             };
             CreateTableAllTypes();  
         }
-        private bool CreateTableAllTypes()
+        private static bool CreateTableAllTypes()
         {
             bool result = false;
-            if (!this.createTable.Any())
+            if (!createTable.Any())
             {
                 return false;
             }
             foreach(var i in createTable)
             {
                 SqliteConnection con = new SqliteConnection(@"DataSource=" + PathDBFile + i.nameTable);
-                result = DBConnect.ExecuteQuery(i.script, con) == string.Empty ? true : false;
+                result = DBConnectAndExecute.ExecuteQuery(i.script, con) == string.Empty ? true : false;
                 if (!result)
                     return false;
             }
@@ -71,30 +78,6 @@ namespace salonfr.DBConnect
         }
 
     }
-    public class CreateTable
-    {
-        public string nameTable { get; set; }
-        public string script { get; set; }
-    }
-    public static class DBConnect
-        {
-        public static string ExecuteQuery(string query, SqliteConnection connection)
-        {
-            using (var com0 = new SqliteCommand(query, connection))
-            {
-                try
-                {
-                    connection.Open();
-                    com0.ExecuteNonQuery();
-                    connection.Close();
-                    return string.Empty;
-                }
-                catch (SqliteException ex)
-                {
-                    string er = ex.Message;
-                    return er;
-                }
-            }
-        }
-    }
+   
+   
 }

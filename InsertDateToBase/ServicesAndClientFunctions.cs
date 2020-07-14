@@ -1,10 +1,6 @@
 ﻿using salonfr.DBConnect;
 using salonfr.InsertReservation;
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace salonfr.InsertDateToBase
 {
@@ -21,7 +17,7 @@ namespace salonfr.InsertDateToBase
 
         public int AddClient(Client client)
         {
-            throw new NotImplementedException();
+            DBConnectAndExecute.ExecuteQuery();
         }
 
         public int AddServices(Services services)

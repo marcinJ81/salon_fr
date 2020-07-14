@@ -23,7 +23,7 @@ namespace salonfr.UnitTest
         [Test]
         public void ShouldAddNewReservation_ReturnTrue()
         {
-            SqlLiteDB sqlLiteDB = new SqlLiteDB();
+            SqlLiteDB.SqlLiteDBCreateTable();
 
             Reservation newReservation = new Reservation()
             {
