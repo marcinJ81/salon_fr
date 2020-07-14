@@ -1,4 +1,5 @@
 ﻿using NUnit.Framework;
+using salonfr.DBConnect;
 using salonfr.InsertDateToBase;
 using salonfr.InsertReservation;
 using System;
@@ -22,6 +23,8 @@ namespace salonfr.UnitTest
         [Test]
         public void ShouldAddNewReservation_ReturnTrue()
         {
+            SqlLiteDB sqlLiteDB = new SqlLiteDB();
+
             Reservation newReservation = new Reservation()
             {
                 reservation_id = 1,
