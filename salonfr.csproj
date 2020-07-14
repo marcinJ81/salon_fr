@@ -81,6 +81,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DBConnect\CreateInsertScripts.cs" />
     <Compile Include="DBConnect\CreateTable.cs" />
     <Compile Include="DBConnect\DBConnectAndExecute.cs" />
     <Compile Include="DBConnect\DBCrud.cs" />

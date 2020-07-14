@@ -33,7 +33,8 @@ namespace salonfr.DBConnect
                         client_name VARCHAR  NULL,
                         client_sname VARCHAR  NULL,
                         client_description VARCHAR  NULL
-                    );"
+                    );",
+                    operationType = OperationType.create
                 },
                 new TableScripts
                 {
@@ -43,7 +44,8 @@ namespace salonfr.DBConnect
                         (
                             services_id INTEGER IDENTITY PRIMARY KEY,
                             client_name VARCHAR  NULL
-                        );"
+                        );",
+                    operationType = OperationType.create
                 },
                 new TableScripts
                 {
@@ -55,11 +57,13 @@ namespace salonfr.DBConnect
                         reservation_date DATETIME  NULL,
                         client_id INT  NULL,
                         services_id INT  NULL
-                    );"
+                    );",
+                    operationType = OperationType.create
                 }
             };
             CreateTableAllTypes();  
         }
+       
         private static bool CreateTableAllTypes()
         {
             bool result = false;

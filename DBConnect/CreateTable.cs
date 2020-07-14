@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.Data.Sqlite;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -11,5 +12,6 @@ namespace salonfr.DBConnect
         public string nameTable { get; set; }
         public string script { get; set; }
         public OperationType operationType { get; set; }
+        public SqliteConnection connectionProperties { get; set;}
     }
 }

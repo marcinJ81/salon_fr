@@ -17,7 +17,8 @@ namespace salonfr.InsertDateToBase
 
         public int AddClient(Client client)
         {
-            DBConnectAndExecute.ExecuteQuery();
+            // DBConnectAndExecute.ExecuteQuery();
+            throw new NotImplementedException();
         }
 
         public int AddServices(Services services)
