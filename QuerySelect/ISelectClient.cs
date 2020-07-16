@@ -11,6 +11,7 @@ namespace salonfr.QuerySelect
     public interface ISelectClient
     {
         List<Client> GetClients();
+        int GetNextClientId();
     }
     public class SelectClient : ISelectClient
     {
@@ -44,6 +45,45 @@ namespace salonfr.QuerySelect
             }
 
         }
+
+        public int GetNextClientId()
+        {
+            int result = -1;
+            try
+            {
+                sqliteConnection.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand(this.querySelect, this.sqliteConnection);
+                sqliteCommand.ExecuteNonQuery();
+                List<string> result2 = new List<string>();
+                var rdr = sqliteCommand.ExecuteReader();
+                result = GetIDFromClientTable(rdr);
+                sqliteConnection.Close();
+                return result++;
+            }
+            catch (SqliteException ex)
+            {
+                string er = ex.Message;
+                return result;
+            }
+        }
+        private int GetIDFromClientTable(SqliteDataReader reader)
+        {
+            List<Client> result = new List<Client>();
+
+            while (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    result.Add(new Client
+                    {
+                        client_id = reader.GetInt32(0),
+                    });
+                }
+                reader.NextResult();
+            }
+            return result.FirstOrDefault().client_id;
+        }
+
         private List<Client> GetAllRows(SqliteDataReader reader)
         {
             List<Client> result = new List<Client>();

@@ -28,6 +28,7 @@ namespace salonfr.DBConnect
                     + "(" + model.client_id.ToString() + ",'"
                     + model.client_name + "','" 
                     + model.client_sname + "','" 
+                    +model.client_phone + "','"
                     + model.client_description + "')",  
                     operationType = OperationType.write,
                     connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + PathDBFile + @"\client.db")
