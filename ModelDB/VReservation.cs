@@ -1,4 +1,5 @@
-﻿using System;
+﻿using salonfr.QuerySelect;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -6,6 +7,27 @@ using System.Threading.Tasks;
 
 namespace salonfr
 {
+    public interface IGetVReservation
+    {
+        List<VReservation> GetVReservations();
+    }
+    public class CreateViewVreservation : IGetVReservation
+    {
+        private ISelectClient selectClient;
+        private ISelectReservation selectReservation;
+        private ISelectServices selectServices;
+
+        public CreateViewVreservation(ISelectClient selectClient, ISelectReservation selectReservation, ISelectServices selectServices)
+        {
+            this.selectClient = selectClient;
+            this.selectReservation = selectReservation;
+            this.selectServices = selectServices;
+        }
+        public List<VReservation> GetVReservations()
+        {
+            throw new NotImplementedException();
+        }
+    }
     public class VReservation
     {
         public DateTime reservation_date { get; set; }
