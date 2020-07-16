@@ -36,7 +36,7 @@ namespace salonfr.UnitTest
                 );
             DBConnectAndExecute.ExecuteQuery(result2.First());
 
-            //string query = @"select reservation_id, reservation_date,client_id,services_id from Reservation";
+            string query = @"select reservation_id, reservation_date,client_id,services_id from Reservation";
             //SelectReservation selectReservation = new SelectReservation(query);
             //selectReservation.GetReservations();
 

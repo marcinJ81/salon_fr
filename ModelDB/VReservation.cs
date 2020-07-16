@@ -1,4 +1,5 @@
 ﻿using salonfr.QuerySelect;
+using salonfr.SQLScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -25,9 +26,9 @@ namespace salonfr
         }
         public List<VReservation> GetVReservations()
         {
-            var clientsList = selectClient.GetClients();
-            var servicesList = selectServices.GetServices();
-            var reservationList = selectReservation.GetReservations();
+            var clientsList = selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
+            var servicesList = selectServices.GetServices(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery());
+            var reservationList = selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery());
 
             var result = reservationList.Join(clientsList,
                 x => x.client_id,

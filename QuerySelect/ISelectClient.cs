@@ -10,27 +10,25 @@ namespace salonfr.QuerySelect
 {
     public interface ISelectClient
     {
-        List<Client> GetClients();
-        int GetNextClientId();
+        List<Client> GetClients(string query);
+        int GetNextClientId(string query);
     }
     public class SelectClient : ISelectClient
     {
-        private string querySelect;
         private SqliteConnection sqliteConnection;
 
-        public SelectClient(string querySelect)
+        public SelectClient()
         {
-            this.querySelect = querySelect;
             this.sqliteConnection = new SqliteConnection(SDataSourceTableFilename.GetDirectoryFileDatabaseClient());
         }
 
-        public List<Client> GetClients()
+        public List<Client> GetClients(string query)
         {
             List<Client> result = new List<Client>();
             try
             {
                 sqliteConnection.Open();
-                SqliteCommand sqliteCommand = new SqliteCommand(this.querySelect, this.sqliteConnection);
+                SqliteCommand sqliteCommand = new SqliteCommand(query, this.sqliteConnection);
                 sqliteCommand.ExecuteNonQuery();
                 List<string> result2 = new List<string>();
                 var rdr = sqliteCommand.ExecuteReader();
@@ -46,13 +44,13 @@ namespace salonfr.QuerySelect
 
         }
 
-        public int GetNextClientId()
+        public int GetNextClientId(string query)
         {
             int result = -1;
             try
             {
                 sqliteConnection.Open();
-                SqliteCommand sqliteCommand = new SqliteCommand(this.querySelect, this.sqliteConnection);
+                SqliteCommand sqliteCommand = new SqliteCommand(query, this.sqliteConnection);
                 sqliteCommand.ExecuteNonQuery();
                 List<string> result2 = new List<string>();
                 var rdr = sqliteCommand.ExecuteReader();

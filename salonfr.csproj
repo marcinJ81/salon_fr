@@ -101,7 +101,8 @@
     <Compile Include="QuerySelect\ISelectClient.cs" />
     <Compile Include="QuerySelect\ISelectReservation.cs" />
     <Compile Include="QuerySelect\ISelectServices.cs" />
-    <Compile Include="SGetIdFromSpecificTable.cs" />
+    <Compile Include="SQLScripts\SGetAllRowsFromSpecificTable.cs" />
+    <Compile Include="SQLScripts\SGetIdFromSpecificTable.cs" />
     <Compile Include="UnitTest\Fake_AddServicesAndClients.cs" />
     <Compile Include="UnitTest\Fake_VReservation.cs" />
     <Compile Include="UnitTest\Test_CreateViewReservation.cs" />

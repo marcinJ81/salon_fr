@@ -10,25 +10,24 @@ namespace salonfr.QuerySelect
 {
     public interface ISelectReservation
     {
-        List<Reservation> GetReservations();
+        List<Reservation> GetReservations(string query);
+        int GetNextReservationtId(string query);
     }
 
     public class SelectReservation : ISelectReservation
     {
-        private string querySelect;
         private SqliteConnection sqliteConnection;
-        public SelectReservation(string querySelect)
+        public SelectReservation()
         {
-            this.querySelect = querySelect;
             this.sqliteConnection = new SqliteConnection(SDataSourceTableFilename.GetDirectoryFileDatabaseReservation());
         }
-        public List<Reservation> GetReservations()
+        public List<Reservation> GetReservations(string query)
         {
             List<Reservation> result = new List<Reservation>();
             try
             {
                 sqliteConnection.Open();
-                SqliteCommand sqliteCommand = new SqliteCommand(this.querySelect, this.sqliteConnection);
+                SqliteCommand sqliteCommand = new SqliteCommand(query, this.sqliteConnection);
                 sqliteCommand.ExecuteNonQuery();
                 List<string> result2 = new List<string>();
                 var rdr = sqliteCommand.ExecuteReader();
@@ -43,6 +42,23 @@ namespace salonfr.QuerySelect
             }
         }
 
+        private int GetIDFromReservationTable(SqliteDataReader reader)
+        {
+            List<Reservation> result = new List<Reservation>();
+
+            while (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    result.Add(new Reservation
+                    {
+                        reservation_id = reader.GetInt32(0),
+                    });
+                }
+                reader.NextResult();
+            }
+            return result.FirstOrDefault().reservation_id;
+        }
         private List<Reservation> GetAllRows(SqliteDataReader reader)
         {
             List<Reservation> result = new List<Reservation>();
@@ -63,6 +79,27 @@ namespace salonfr.QuerySelect
             }
 
             return result;
+        }
+
+        public int GetNextReservationtId(string query)
+        {
+            int result = -1;
+            try
+            {
+                sqliteConnection.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand(query, this.sqliteConnection);
+                sqliteCommand.ExecuteNonQuery();
+                List<string> result2 = new List<string>();
+                var rdr = sqliteCommand.ExecuteReader();
+                result = GetIDFromReservationTable(rdr);
+                sqliteConnection.Close();
+                return result++;
+            }
+            catch (SqliteException ex)
+            {
+                string er = ex.Message;
+                return result;
+            }
         }
     }
    

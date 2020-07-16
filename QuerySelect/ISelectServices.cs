@@ -10,27 +10,48 @@ namespace salonfr.QuerySelect
 {
     public interface ISelectServices
     {
-        List<Services> GetServices();
+        List<Services> GetServices(string query);
+        int GetNextServicesId(string query);
     }
 
     public class SelectServices : ISelectServices
     {
-        private string querySelect;
         private SqliteConnection sqliteConnection;
 
         public SelectServices(string querySelect)
         {
-            this.querySelect = querySelect;
             this.sqliteConnection = new SqliteConnection(SDataSourceTableFilename.GetDirectoryFileDatabaseReservation());
         }
 
-        public List<Services> GetServices()
+        public int GetNextServicesId(string query)
+        {
+            int result = -1;
+            try
+            {
+                sqliteConnection.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand(query, this.sqliteConnection);
+                sqliteCommand.ExecuteNonQuery();
+                List<string> result2 = new List<string>();
+                var rdr = sqliteCommand.ExecuteReader();
+                result = GetIDFromServicesTable(rdr);
+                sqliteConnection.Close();
+                return result++;
+            }
+            catch (SqliteException ex)
+            {
+                string er = ex.Message;
+                return result;
+            }
+        }
+
+
+        public List<Services> GetServices(string query)
         {
             List<Services> result = new List<Services>();
             try
             {
                 sqliteConnection.Open();
-                SqliteCommand sqliteCommand = new SqliteCommand(this.querySelect, this.sqliteConnection);
+                SqliteCommand sqliteCommand = new SqliteCommand(query, this.sqliteConnection);
                 sqliteCommand.ExecuteNonQuery();
                 List<string> result2 = new List<string>();
                 var rdr = sqliteCommand.ExecuteReader();
@@ -62,6 +83,23 @@ namespace salonfr.QuerySelect
                 reader.NextResult();
             }
             return result;
+        }
+        private int GetIDFromServicesTable(SqliteDataReader reader)
+        {
+            List<Services> result = new List<Services>();
+
+            while (reader.HasRows)
+            {
+                while (reader.Read())
+                {
+                    result.Add(new Services
+                    {
+                        services_id = reader.GetInt32(0),
+                    });
+                }
+                reader.NextResult();
+            }
+            return result.FirstOrDefault().services_id;
         }
     }
 }
