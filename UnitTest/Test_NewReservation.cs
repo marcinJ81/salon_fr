@@ -38,7 +38,6 @@ namespace salonfr.UnitTest
             
             string query = @"select reservation_id, reservation_date,client_id,services_id from Reservation";
             SelectReservation selectReservation = new SelectReservation(query);
-            
             selectReservation.GetReservations();
 
              Reservation newReservation = new Reservation()

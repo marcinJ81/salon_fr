@@ -32,6 +32,7 @@ namespace salonfr.DBConnect
                         client_id INTEGER IDENTITY PRIMARY KEY,
                         client_name VARCHAR  NULL,
                         client_sname VARCHAR  NULL,
+                        client_phone VARCHAR  NULL,
                         client_description VARCHAR  NULL
                     );",
                     operationType = OperationType.create

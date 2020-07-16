@@ -57,7 +57,8 @@ namespace salonfr.QuerySelect
                         client_id = reader.GetInt32(0),
                         client_name = reader.GetString(1),
                         client_sname = reader.GetString(2),
-                        client_description = reader.GetString(3)
+                        client_phone = reader.GetString(3),
+                        client_description = reader.GetString(4)
                     });
                 }
                 reader.NextResult();

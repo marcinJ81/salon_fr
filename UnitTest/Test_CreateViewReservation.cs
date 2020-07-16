@@ -9,11 +9,6 @@ namespace salonfr.UnitTest
 {
     public class Test_CreateViewReservation
     {
-        [Test]
-        [Ignore("to many mocks ;-)")]
-        public void ShouldAnyElemntFromView_ReturnOneRow()
-        {
-
-        }
+        
     }
 }
