@@ -35,11 +35,11 @@ namespace salonfr.UnitTest
             //    }, 1, 1
             //    ) ;
             //DBConnectAndExecute.ExecuteQuery(result2.First());
-            string PathDBFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            
             string query = @"select reservation_id, reservation_date,client_id,services_id from Reservation";
             SelectReservation selectReservation = new SelectReservation(query);
             
-            selectReservation.GetReservations(new SqliteConnection(SDataSourceTableFilename.GetDirectoryFileDatabaseReservation()));
+            selectReservation.GetReservations();
 
              Reservation newReservation = new Reservation()
             {

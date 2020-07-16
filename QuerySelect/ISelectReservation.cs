@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using salonfr.DBConnect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,25 +10,25 @@ namespace salonfr.QuerySelect
 {
     public interface ISelectReservation
     {
-        List<Reservation> GetReservations(SqliteConnection sqliteConnection);
+        List<Reservation> GetReservations();
     }
 
     public class SelectReservation : ISelectReservation
     {
         private string querySelect;
-
+        private SqliteConnection sqliteConnection;
         public SelectReservation(string querySelect)
         {
             this.querySelect = querySelect;
+            this.sqliteConnection = new SqliteConnection(SDataSourceTableFilename.GetDirectoryFileDatabaseReservation());
         }
-
-        public List<Reservation> GetReservations(SqliteConnection sqliteConnection)
+        public List<Reservation> GetReservations()
         {
             List<Reservation> result = new List<Reservation>();
             try
             {
                 sqliteConnection.Open();
-                SqliteCommand sqliteCommand = new SqliteCommand(this.querySelect, sqliteConnection);
+                SqliteCommand sqliteCommand = new SqliteCommand(this.querySelect, this.sqliteConnection);
                 sqliteCommand.ExecuteNonQuery();
                 List<string> result2 = new List<string>();
                 var rdr = sqliteCommand.ExecuteReader();

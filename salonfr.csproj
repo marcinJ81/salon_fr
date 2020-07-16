@@ -103,6 +103,7 @@
     <Compile Include="QuerySelect\ISelectServices.cs" />
     <Compile Include="UnitTest\Fake_AddServicesAndClients.cs" />
     <Compile Include="UnitTest\Fake_VReservation.cs" />
+    <Compile Include="UnitTest\Test_CreateViewReservation.cs" />
     <Compile Include="UnitTest\Test_NewReservation.cs" />
     <Compile Include="UnitTest\Test_Reservation.cs" />
     <Compile Include="ViewClientsAndServices\IShowClientsAndServices.cs" />

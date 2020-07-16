@@ -25,7 +25,12 @@ namespace salonfr
         }
         public List<VReservation> GetVReservations()
         {
-            throw new NotImplementedException();
+
+            var clientsList = selectClient.GetClients();
+            var servicesList = selectServices.GetServices();
+            var reservationList = selectReservation.GetReservations();
+
+            return new List<VReservation>();
         }
     }
     public class VReservation

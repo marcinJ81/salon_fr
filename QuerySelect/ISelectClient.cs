@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using salonfr.DBConnect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -9,24 +10,26 @@ namespace salonfr.QuerySelect
 {
     public interface ISelectClient
     {
-        List<Client> GetClients(SqliteConnection sqliteConnection);
+        List<Client> GetClients();
     }
     public class SelectClient : ISelectClient
     {
         private string querySelect;
+        private SqliteConnection sqliteConnection;
 
         public SelectClient(string querySelect)
         {
             this.querySelect = querySelect;
+            this.sqliteConnection = new SqliteConnection(SDataSourceTableFilename.GetDirectoryFileDatabaseClient());
         }
 
-        public List<Client> GetClients(SqliteConnection sqliteConnection)
+        public List<Client> GetClients()
         {
             List<Client> result = new List<Client>();
             try
             {
                 sqliteConnection.Open();
-                SqliteCommand sqliteCommand = new SqliteCommand(this.querySelect, sqliteConnection);
+                SqliteCommand sqliteCommand = new SqliteCommand(this.querySelect, this.sqliteConnection);
                 sqliteCommand.ExecuteNonQuery();
                 List<string> result2 = new List<string>();
                 var rdr = sqliteCommand.ExecuteReader();
