@@ -25,9 +25,7 @@ namespace salonfr.InsertDateToBase
                 return -1;
             }
             var lastAddedClient = selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
-                            .Where(x => x.client_name == dataObject.client_name && 
-                                        x.client_sname == dataObject.client_sname &&
-                                        x.client_phone == dataObject.client_phone).First();
+                            .Where(x => x.client_id == dataObject.client_id).First();
             return lastAddedClient.client_id;
         }
     }
@@ -50,8 +48,31 @@ namespace salonfr.InsertDateToBase
                 return -1;
             }
             var lastAddedServices = selectServices.GetServices(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery())
-                            .Where(x => x.services_name == dataObject.services_name ).First();
+                            .Where(x => x.services_id == dataObject.services_id ).First();
             return lastAddedServices.services_id;
+        }
+    }
+
+    public class DBInsertReservation : IInsertToDB<Reservation>
+    {
+        private ISelectReservation selectReservation;
+
+        public DBInsertReservation(ISelectReservation selectReservation)
+        {
+            this.selectReservation = selectReservation;
+        }
+
+        public int InsertObjectToDB(Reservation dataObject)
+        {
+            var insertReservation = SInsertScripts.SqlLiteDBInsertReservation(dataObject,dataObject.client_id,dataObject.services_id);
+            string result = DBConnectAndExecute.ExecuteQuery(insertReservation);
+            if (result != string.Empty)
+            {
+                return -1;
+            }
+            var lastAddedReservation = selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery())
+                            .Where(x => x.reservation_id == dataObject.reservation_id).First();
+            return lastAddedReservation.reservation_id;
         }
     }
 }

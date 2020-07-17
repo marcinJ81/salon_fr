@@ -15,45 +15,64 @@ namespace salonfr.UnitTest
     {
         private IInsertToDB<Client> addClient;
         private IInsertToDB<Services> addServices;
+        private IInsertToDB<Reservation> addReservation;
         private ISelectClient selectClient;
         private ISelectServices selectServices;
+        private ISelectReservation selectReservation;
          [SetUp]
         public void Setup()
         {
             selectClient = new SelectClient();
             selectServices = new SelectServices();
+            selectReservation = new SelectReservation();
             addClient = new DBInsertClient(selectClient);
             addServices = new DBInsertServices(selectServices);
+            addReservation = new DBInsertReservation(selectReservation);
         }
         [Test]
         public void ShouldAddNewClient_ReturnNewID()
         {
             SqlLiteDB.SqlLiteDBCreateTable();
-            int clientID = 1;//selectClient.GetNextClientId(SGetIdFromSpecificTable.queryGetLatestClientID());
+            int clientID = selectClient.GetNextClientId(SGetIdFromSpecificTable.queryGetLatestClientID());
             Client client = new Client()
             {
                 client_id =clientID,
                 client_name = "Julian",
                 client_sname = "Krol",
                 client_phone = "123456789",
-                client_description = "test"
+                client_description = "test kolejny"
             };
-            int lastIndex = 1;// addClient.InsertObjectToDB(client);
+            int lastIndex =  addClient.InsertObjectToDB(client);
 
             Assert.AreEqual(lastIndex,clientID);
         }
         [Test]
-        public void ShoulAddNewServices_ReturnNewID()
+        public void ShouldAddNewServices_ReturnNewID()
         {
             SqlLiteDB.SqlLiteDBCreateTable();
-            int servicesID = 1;// selectServices.GetNextServicesId(SGetIdFromSpecificTable.queryGetLatestServicesID());
+            int servicesID = selectServices.GetNextServicesId(SGetIdFromSpecificTable.queryGetLatestServicesID());
             Services services = new Services()
             {
                 services_id = servicesID,
                 services_name = "trwała"
             };
-            int lastIndex = 1;//addServices.InsertObjectToDB(services);
+            int lastIndex = addServices.InsertObjectToDB(services);
             Assert.AreEqual(lastIndex, servicesID);
+        }
+        [Test]
+        public void ShouldAddNewReservation_ReturnNewID()
+        {
+            SqlLiteDB.SqlLiteDBCreateTable();
+            int reservationID = selectReservation.GetNextReservationtId(SGetIdFromSpecificTable.queryGetLatestReservationID());
+            Reservation reservation = new Reservation()
+            {
+                reservation_id = reservationID,
+                reservation_date = new DateTime(2020, 7, 17,12,1,1),
+                client_id = 2,
+                services_id = 2
+            };
+            int lastIndex = addReservation.InsertObjectToDB(reservation);
+            Assert.AreEqual(lastIndex, reservationID);
         }
     }
 }
