@@ -2,7 +2,6 @@
 using NUnit.Framework;
 using salonfr.DBConnect;
 using salonfr.InsertDateToBase;
-using salonfr.InsertReservation;
 using salonfr.QuerySelect;
 using System;
 using System.Collections.Generic;
@@ -14,39 +13,30 @@ namespace salonfr.UnitTest
 {
    public class Test_NewReservation
     {
-        private IAddReservation addreservation;
-        private IAddClientAndServices fake_addClientAndServices;
-        [SetUp]
+        private IInsertToDB<Client> addClient;
+        private ISelectClient selectClient;
+         [SetUp]
         public void Setup()
         {
-            this.fake_addClientAndServices = new Fake_AddServicesAndClients();
-            this.addreservation = new ReservationFunctions(fake_addClientAndServices);
+            selectClient = new SelectClient();
+            addClient = new DBInsertClient(selectClient);
         }
         [Test]
-        public void ShouldAddNewReservation_ReturnTrue()
+        public void ShouldAddNewClient_ReturnTrue()
         {
             SqlLiteDB.SqlLiteDBCreateTable();
-            CreateInsertScripts insert = new CreateInsertScripts();
-            var result2 = CreateInsertScripts.SqlLiteDBInsertReservation(
-                new Reservation()
-                {
-                    reservation_id = 3,
-                    reservation_date = new DateTime(2020, 7, 15,11,10,0,0)
-                }, 1, 1
-                );
-            DBConnectAndExecute.ExecuteQuery(result2.First());
-
-            string query = @"select reservation_id, reservation_date,client_id,services_id from Reservation";
-            //SelectReservation selectReservation = new SelectReservation(query);
-            //selectReservation.GetReservations();
-
-            Reservation newReservation = new Reservation()
+            int clientID = selectClient.GetNextClientId(SGetIdFromSpecificTable.queryGetLatestClientID());
+            Client client = new Client()
             {
-                reservation_id = 1,
-                reservation_date = new DateTime(2020,7,13),
+                client_id =clientID,
+                client_name = "Marcin",
+                client_sname = "Juranek",
+                client_phone = "123456789",
+                client_description = "test"
             };
-            bool result = addreservation.AddReservation(newReservation);
-            Assert.IsTrue(result);
+            int lastIndex = addClient.InsertObjectToDB(client);
+
+            Assert.AreEqual(lastIndex,clientID);
         }
     }
 }
