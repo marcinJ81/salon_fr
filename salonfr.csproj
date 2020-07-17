@@ -95,7 +95,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="ModelDB\reservation.cs" />
     <Compile Include="ModelDB\Services.cs" />
-    <Compile Include="DBConnect\QueQuery.cs" />
     <Compile Include="ModelDB\VReservation.cs" />
     <Compile Include="QuerySelect\ISelectClient.cs" />
     <Compile Include="QuerySelect\ISelectReservation.cs" />

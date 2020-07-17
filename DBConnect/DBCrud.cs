@@ -10,16 +10,4 @@ namespace salonfr.DBConnect
     {
         int InsertObjectToDB(T dataObject);
     }
-    public class DBCrud<T> : IInsertToDB<T>
-    {
-        public int InsertObjectToDB(T dataObject)
-        {
-            //insert specific type of data
-            if (dataObject == null)
-            {
-                return 0;
-            }
-            return 1;
-        }
-    }
 }
