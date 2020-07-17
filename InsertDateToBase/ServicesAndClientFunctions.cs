@@ -1,29 +1,22 @@
 ﻿using salonfr.DBConnect;
-using salonfr.InsertReservation;
 using System;
 
 namespace salonfr.InsertDateToBase
 {
-    public class ServicesAndClientFunctions : IAddClientAndServices
+
+    public class ServicesAndClientFunctions 
     {
         private IInsertToDB<Client> addClient;
         private IInsertToDB<Services> addServices;
+        private IInsertToDB<Reservation> addReservation;
 
-        public ServicesAndClientFunctions(IInsertToDB<Client> addClient, IInsertToDB<Services> addServices)
+        public ServicesAndClientFunctions(IInsertToDB<Client> addClient, IInsertToDB<Services> addServices,IInsertToDB<Reservation> addReservation)
         {
             this.addClient = addClient;
             this.addServices = addServices;
+            this.addReservation = addReservation;
         }
 
-        public int AddClient(Client client)
-        {
-            // DBConnectAndExecute.ExecuteQuery();
-            throw new NotImplementedException();
-        }
-
-        public int AddServices(Services services)
-        {
-            throw new NotImplementedException();
-        }
+        
     }
 }

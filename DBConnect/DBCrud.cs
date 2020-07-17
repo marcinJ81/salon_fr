@@ -8,18 +8,18 @@ namespace salonfr.DBConnect
 {
     public interface IInsertToDB<T>
     {
-        bool InsertObjectToDB(T dataObject);
+        int InsertObjectToDB(T dataObject);
     }
     public class DBCrud<T> : IInsertToDB<T>
     {
-        public bool InsertObjectToDB(T dataObject)
+        public int InsertObjectToDB(T dataObject)
         {
             //insert specific type of data
             if (dataObject == null)
             {
-                return false;
+                return 0;
             }
-            return true;
+            return 1;
         }
     }
 }

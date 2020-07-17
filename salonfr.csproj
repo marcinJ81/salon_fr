@@ -81,15 +81,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="DBConnect\CreateInsertScripts.cs" />
     <Compile Include="DBConnect\CreateTable.cs" />
     <Compile Include="DBConnect\DBConnectAndExecute.cs" />
     <Compile Include="DBConnect\DBCrud.cs" />
     <Compile Include="DBConnect\SDicionaryTableFilename.cs" />
+    <Compile Include="DBConnect\SInsertScripts.cs" />
     <Compile Include="DBConnect\SqlLiteDB.cs" />
-    <Compile Include="InsertDateToBase\ReservationFunctions.cs" />
+    <Compile Include="InsertDateToBase\DBInsertClient.cs" />
     <Compile Include="InsertDateToBase\ServicesAndClientFunctions.cs" />
-    <Compile Include="InsertDateToBase\IAddReservation.cs" />
     <Compile Include="IViewReservation.cs" />
     <Compile Include="ModelDB\Client.cs" />
     <Compile Include="Program.cs" />
@@ -133,9 +132,7 @@
   <ItemGroup>
     <None Include="App.config" />
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controler\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
