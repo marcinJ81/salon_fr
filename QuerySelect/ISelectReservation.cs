@@ -46,7 +46,7 @@ namespace salonfr.QuerySelect
         {
             List<Reservation> result = new List<Reservation>();
             if (!reader.HasRows)
-                return 1;
+                return 0;
             while (reader.HasRows)
             {
                 while (reader.Read())
@@ -94,7 +94,9 @@ namespace salonfr.QuerySelect
                 var rdr = sqliteCommand.ExecuteReader();
                 result = GetIDFromReservationTable(rdr);
                 sqliteConnection.Close();
-                return result++;
+                if (result == 0)
+                    return 1;
+                return ++result;
             }
             catch (SqliteException ex)
             {

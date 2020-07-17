@@ -56,7 +56,9 @@ namespace salonfr.QuerySelect
                 var rdr = sqliteCommand.ExecuteReader();
                 result = GetIDFromClientTable(rdr);
                 sqliteConnection.Close();
-                return result++;
+                if (result == 0)
+                    return 1;
+                return ++result;
             }
             catch (SqliteException ex)
             {
@@ -68,7 +70,7 @@ namespace salonfr.QuerySelect
         {
             List<Client> result = new List<Client>();
             if (!reader.HasRows)
-                return 1;
+                return 0;
             while (reader.HasRows)
             {
                 while (reader.Read())

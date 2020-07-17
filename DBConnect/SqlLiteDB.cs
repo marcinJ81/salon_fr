@@ -44,7 +44,7 @@ namespace salonfr.DBConnect
                      @"CREATE TABLE IF NOT EXISTS Services
                         (
                             services_id INTEGER IDENTITY PRIMARY KEY,
-                            client_name VARCHAR  NULL
+                            services_name VARCHAR  NULL
                         );",
                     operationType = OperationType.create
                 },

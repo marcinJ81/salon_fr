@@ -31,4 +31,27 @@ namespace salonfr.InsertDateToBase
             return lastAddedClient.client_id;
         }
     }
+
+    public class DBInsertServices : IInsertToDB<Services>
+    {
+        private ISelectServices selectServices;
+
+        public DBInsertServices(ISelectServices selectServices)
+        {
+            this.selectServices = selectServices;
+        }
+
+        public int InsertObjectToDB(Services dataObject)
+        {
+            var insertServices = SInsertScripts.SqlLiteDBInsertServices(dataObject);
+            string result = DBConnectAndExecute.ExecuteQuery(insertServices);
+            if (result != string.Empty)
+            {
+                return -1;
+            }
+            var lastAddedServices = selectServices.GetServices(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery())
+                            .Where(x => x.services_name == dataObject.services_name ).First();
+            return lastAddedServices.services_id;
+        }
+    }
 }

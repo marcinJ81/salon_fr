@@ -18,9 +18,9 @@ namespace salonfr.QuerySelect
     {
         private SqliteConnection sqliteConnection;
 
-        public SelectServices(string querySelect)
+        public SelectServices()
         {
-            this.sqliteConnection = new SqliteConnection(SDataSourceTableFilename.GetDirectoryFileDatabaseReservation());
+            this.sqliteConnection = new SqliteConnection(SDataSourceTableFilename.GetDirectoryFileDatabaseServices());
         }
 
         public int GetNextServicesId(string query)
@@ -35,7 +35,9 @@ namespace salonfr.QuerySelect
                 var rdr = sqliteCommand.ExecuteReader();
                 result = GetIDFromServicesTable(rdr);
                 sqliteConnection.Close();
-                return result++;
+                if (result == 0)
+                    return 1;
+                return ++result;
             }
             catch (SqliteException ex)
             {
@@ -88,7 +90,7 @@ namespace salonfr.QuerySelect
         {
             List<Services> result = new List<Services>();
             if (!reader.HasRows)
-                return 1;
+                return 0;
             while (reader.HasRows)
             {
                 while (reader.Read())
