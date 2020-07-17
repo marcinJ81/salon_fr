@@ -87,7 +87,8 @@ namespace salonfr.QuerySelect
         private int GetIDFromServicesTable(SqliteDataReader reader)
         {
             List<Services> result = new List<Services>();
-
+            if (!reader.HasRows)
+                return 1;
             while (reader.HasRows)
             {
                 while (reader.Read())

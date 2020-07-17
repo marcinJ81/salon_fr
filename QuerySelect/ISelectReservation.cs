@@ -45,7 +45,8 @@ namespace salonfr.QuerySelect
         private int GetIDFromReservationTable(SqliteDataReader reader)
         {
             List<Reservation> result = new List<Reservation>();
-
+            if (!reader.HasRows)
+                return 1;
             while (reader.HasRows)
             {
                 while (reader.Read())

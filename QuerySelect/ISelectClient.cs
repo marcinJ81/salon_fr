@@ -67,7 +67,8 @@ namespace salonfr.QuerySelect
         private int GetIDFromClientTable(SqliteDataReader reader)
         {
             List<Client> result = new List<Client>();
-
+            if (!reader.HasRows)
+                return 1;
             while (reader.HasRows)
             {
                 while (reader.Read())
@@ -85,7 +86,7 @@ namespace salonfr.QuerySelect
         private List<Client> GetAllRows(SqliteDataReader reader)
         {
             List<Client> result = new List<Client>();
-
+     
             while (reader.HasRows)
             {
                 while (reader.Read())
