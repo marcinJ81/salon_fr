@@ -30,6 +30,7 @@ namespace salonfr.UnitTest
             addReservation = new DBInsertReservation(selectReservation);
         }
         [Test]
+        [Ignore("insert into real db")]
         public void ShouldAddNewClient_ReturnNewID()
         {
             SqlLiteDB.SqlLiteDBCreateTable();
@@ -47,6 +48,7 @@ namespace salonfr.UnitTest
             Assert.AreEqual(lastIndex,clientID);
         }
         [Test]
+        [Ignore("insert into real db")]
         public void ShouldAddNewServices_ReturnNewID()
         {
             SqlLiteDB.SqlLiteDBCreateTable();
@@ -60,6 +62,7 @@ namespace salonfr.UnitTest
             Assert.AreEqual(lastIndex, servicesID);
         }
         [Test]
+        [Ignore("insert into real db")]
         public void ShouldAddNewReservation_ReturnNewID()
         {
             SqlLiteDB.SqlLiteDBCreateTable();
