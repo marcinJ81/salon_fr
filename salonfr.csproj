@@ -116,8 +116,8 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\salonfrSource\salonfrSource.csproj">
-      <Project>{19ddea6c-b3d7-44ff-b742-716f30e3afdd}</Project>
+    <ProjectReference Include="salonfrSource\salonfrSource.csproj">
+      <Project>{1dfb628e-c2e0-4e24-b234-7127acb9d995}</Project>
       <Name>salonfrSource</Name>
     </ProjectReference>
   </ItemGroup>
