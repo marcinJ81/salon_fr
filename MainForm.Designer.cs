@@ -57,6 +57,12 @@
             this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
+            this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnClearControl = new System.Windows.Forms.Button();
+            this.btnExit = new System.Windows.Forms.Button();
+            this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
+            this.dtpDateFind = new System.Windows.Forms.DateTimePicker();
+            this.label6 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVReservation)).BeginInit();
@@ -68,6 +74,9 @@
             this.groupBox3.SuspendLayout();
             this.tableLayoutPanel7.SuspendLayout();
             this.tableLayoutPanel6.SuspendLayout();
+            this.groupBox4.SuspendLayout();
+            this.tableLayoutPanel8.SuspendLayout();
+            this.tableLayoutPanel9.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -102,10 +111,13 @@
             // 
             // dgvVReservation
             // 
+            this.dgvVReservation.AllowUserToAddRows = false;
+            this.dgvVReservation.AllowUserToDeleteRows = false;
             this.dgvVReservation.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.dgvVReservation.Dock = System.Windows.Forms.DockStyle.Fill;
             this.dgvVReservation.Location = new System.Drawing.Point(3, 16);
             this.dgvVReservation.Name = "dgvVReservation";
+            this.dgvVReservation.ReadOnly = true;
             this.dgvVReservation.Size = new System.Drawing.Size(759, 250);
             this.dgvVReservation.TabIndex = 0;
             // 
@@ -127,7 +139,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 49.86301F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 127F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 132F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 139F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 140F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 1, 0);
@@ -201,7 +213,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label2.Location = new System.Drawing.Point(183, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(174, 25);
+            this.label2.Size = new System.Drawing.Size(173, 25);
             this.label2.TabIndex = 2;
             this.label2.Text = "Dane klienta";
             // 
@@ -210,7 +222,7 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(363, 0);
+            this.label3.Location = new System.Drawing.Point(362, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(121, 25);
             this.label3.TabIndex = 3;
@@ -262,7 +274,7 @@
             // txbClientDescription
             // 
             this.txbClientDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txbClientDescription.Location = new System.Drawing.Point(363, 28);
+            this.txbClientDescription.Location = new System.Drawing.Point(362, 28);
             this.txbClientDescription.Multiline = true;
             this.txbClientDescription.Name = "txbClientDescription";
             this.txbClientDescription.Size = new System.Drawing.Size(121, 99);
@@ -274,7 +286,7 @@
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(490, 0);
+            this.label4.Location = new System.Drawing.Point(489, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(126, 25);
             this.label4.TabIndex = 6;
@@ -283,7 +295,7 @@
             // dtpReservationDate
             // 
             this.dtpReservationDate.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.dtpReservationDate.Location = new System.Drawing.Point(490, 28);
+            this.dtpReservationDate.Location = new System.Drawing.Point(489, 28);
             this.dtpReservationDate.Name = "dtpReservationDate";
             this.dtpReservationDate.Size = new System.Drawing.Size(126, 20);
             this.dtpReservationDate.TabIndex = 7;
@@ -293,9 +305,9 @@
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(622, 0);
+            this.label5.Location = new System.Drawing.Point(621, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(134, 25);
+            this.label5.Size = new System.Drawing.Size(135, 25);
             this.label5.TabIndex = 8;
             this.label5.Text = "Usługi";
             // 
@@ -306,7 +318,7 @@
             this.tableLayoutPanel5.Controls.Add(this.cmbListServices, 0, 2);
             this.tableLayoutPanel5.Controls.Add(this.txbNewServices, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.ckbNewServices, 0, 0);
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(622, 28);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(621, 28);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 3;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.15385F));
@@ -343,6 +355,7 @@
             this.ckbNewServices.TabIndex = 2;
             this.ckbNewServices.Text = "Nowa usługa";
             this.ckbNewServices.UseVisualStyleBackColor = true;
+            this.ckbNewServices.CheckedChanged += new System.EventHandler(this.CkbNewServices_CheckedChanged);
             // 
             // groupBox3
             // 
@@ -360,6 +373,7 @@
             this.tableLayoutPanel7.ColumnCount = 1;
             this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel7.Controls.Add(this.btnNewReservation, 0, 0);
+            this.tableLayoutPanel7.Controls.Add(this.tableLayoutPanel8, 0, 1);
             this.tableLayoutPanel7.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel7.Location = new System.Drawing.Point(3, 16);
             this.tableLayoutPanel7.Name = "tableLayoutPanel7";
@@ -380,6 +394,7 @@
             this.btnNewReservation.TabIndex = 0;
             this.btnNewReservation.Text = "Dodaj rezerwacje";
             this.btnNewReservation.UseVisualStyleBackColor = false;
+            this.btnNewReservation.Click += new System.EventHandler(this.BtnNewReservation_Click);
             // 
             // tableLayoutPanel6
             // 
@@ -398,6 +413,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.tableLayoutPanel9);
             this.groupBox4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox4.Location = new System.Drawing.Point(3, 3);
             this.groupBox4.Name = "groupBox4";
@@ -414,7 +430,77 @@
             this.groupBox5.Size = new System.Drawing.Size(154, 129);
             this.groupBox5.TabIndex = 1;
             this.groupBox5.TabStop = false;
-            this.groupBox5.Text = "Opcje oddatkowe";
+            this.groupBox5.Text = "Opcje dodatkowe";
+            // 
+            // tableLayoutPanel8
+            // 
+            this.tableLayoutPanel8.ColumnCount = 2;
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel8.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel8.Controls.Add(this.btnClearControl, 0, 0);
+            this.tableLayoutPanel8.Controls.Add(this.btnExit, 1, 0);
+            this.tableLayoutPanel8.Location = new System.Drawing.Point(3, 68);
+            this.tableLayoutPanel8.Name = "tableLayoutPanel8";
+            this.tableLayoutPanel8.RowCount = 1;
+            this.tableLayoutPanel8.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel8.Size = new System.Drawing.Size(148, 59);
+            this.tableLayoutPanel8.TabIndex = 1;
+            // 
+            // btnClearControl
+            // 
+            this.btnClearControl.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnClearControl.Location = new System.Drawing.Point(3, 3);
+            this.btnClearControl.Name = "btnClearControl";
+            this.btnClearControl.Size = new System.Drawing.Size(68, 53);
+            this.btnClearControl.TabIndex = 0;
+            this.btnClearControl.Text = "Anuluj";
+            this.btnClearControl.UseVisualStyleBackColor = true;
+            this.btnClearControl.Click += new System.EventHandler(this.Button1_Click);
+            // 
+            // btnExit
+            // 
+            this.btnExit.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.btnExit.Location = new System.Drawing.Point(77, 3);
+            this.btnExit.Name = "btnExit";
+            this.btnExit.Size = new System.Drawing.Size(68, 53);
+            this.btnExit.TabIndex = 1;
+            this.btnExit.Text = "Wyjście";
+            this.btnExit.UseVisualStyleBackColor = true;
+            this.btnExit.Click += new System.EventHandler(this.BtnExit_Click);
+            // 
+            // tableLayoutPanel9
+            // 
+            this.tableLayoutPanel9.ColumnCount = 1;
+            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
+            this.tableLayoutPanel9.Controls.Add(this.dtpDateFind, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.label6, 0, 0);
+            this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel9.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel9.Name = "tableLayoutPanel9";
+            this.tableLayoutPanel9.RowCount = 2;
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 33.02752F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 66.97248F));
+            this.tableLayoutPanel9.Size = new System.Drawing.Size(148, 109);
+            this.tableLayoutPanel9.TabIndex = 0;
+            // 
+            // dtpDateFind
+            // 
+            this.dtpDateFind.Location = new System.Drawing.Point(3, 39);
+            this.dtpDateFind.Name = "dtpDateFind";
+            this.dtpDateFind.Size = new System.Drawing.Size(142, 20);
+            this.dtpDateFind.TabIndex = 0;
+            this.dtpDateFind.ValueChanged += new System.EventHandler(this.DtpDateFind_ValueChanged);
+            // 
+            // label6
+            // 
+            this.label6.AutoSize = true;
+            this.label6.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label6.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label6.Location = new System.Drawing.Point(3, 0);
+            this.label6.Name = "label6";
+            this.label6.Size = new System.Drawing.Size(142, 36);
+            this.label6.TabIndex = 1;
+            this.label6.Text = "Data Rezerwacji";
             // 
             // MainForm
             // 
@@ -440,6 +526,10 @@
             this.groupBox3.ResumeLayout(false);
             this.tableLayoutPanel7.ResumeLayout(false);
             this.tableLayoutPanel6.ResumeLayout(false);
+            this.groupBox4.ResumeLayout(false);
+            this.tableLayoutPanel8.ResumeLayout(false);
+            this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel9.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -475,5 +565,11 @@
         private System.Windows.Forms.GroupBox groupBox5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
         private System.Windows.Forms.Button btnNewReservation;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
+        private System.Windows.Forms.Button btnClearControl;
+        private System.Windows.Forms.Button btnExit;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
+        private System.Windows.Forms.DateTimePicker dtpDateFind;
+        private System.Windows.Forms.Label label6;
     }
 }
