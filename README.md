@@ -4,7 +4,7 @@ Very simple application for barber. User interface was create in C# Winforms, da
 [![](https://github.com/marcinJ81/salon_fr/blob/master/Image/salonfr.png)](https://github.com/marcinJ81/salon_fr/blob/master/Image/salonfr.png "Example Screen")
 ### Some Code
 When I didn't have user interface. I wrote unit test for verify how work insert data to Database. In this example I verified adding client.
-````csharp
+```csharp
 [Test]
  public void ShouldAddNewClient_ReturnNewID()
 {
@@ -21,7 +21,7 @@ When I didn't have user interface. I wrote unit test for verify how work insert 
         int lastIndex =  addClient.InsertObjectToDB(client);
   Assert.AreEqual(lastIndex,clientID);
 }
-````### Features
+```
 Verifyng update client data
 First interface declaration
 ````csharp
@@ -30,10 +30,10 @@ public interface IUpdateObject<T>
     bool UpdateObject(T dataobjectForChange, int id);
     bool VerifyUpdateData(T newData, T modifiedData);
 }
-````### Features
+````
 Next interface definiotion in UpdateClient class 
-````csharp	
-  public class UpdateClient : IUpdateObject<Client>
+```csharp
+ public class UpdateClient : IUpdateObject<Client>
 {
     private ISelectClient selectClient;
 
@@ -65,6 +65,6 @@ Next interface definiotion in UpdateClient class
         return !listError.Any(x => !x);
     }
 }
-````### Features
+```
 
 
