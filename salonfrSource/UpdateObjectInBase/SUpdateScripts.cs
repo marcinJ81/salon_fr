@@ -21,10 +21,10 @@ namespace salonfrSource.UpdateObjectInBase
                 nameTable = @"\client.db",
                 script = @"update Client "
                   + " set " 
-                  + " client_name= " + model.client_name + "','"
-                  + " cleint_sname= " +model.client_sname + "','"
-                  + " client_phone= "  +model.client_phone + "','"
-                  + " client_description= " +model.client_description 
+                  + " client_name= " + "'" + model.client_name + "',"
+                  + " client_sname= " + "'" + model.client_sname + "',"
+                  + " client_phone= " + "'" + model.client_phone + "',"
+                  + " client_description= " + "'" + model.client_description + "'" 
                   + " where client_id=" + client_id.ToString(),
                 operationType = OperationType.update,
                 connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + GetPathDBFile() + @"\client.db")
