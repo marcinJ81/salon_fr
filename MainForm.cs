@@ -251,7 +251,11 @@ namespace salonfr
                     client_phone = txbClientPhone.Text,
                     client_description = txbClientDescription.Text
                 };
-                updateClient.UpdateObject(clientU, clientID);
+               bool updateResult = updateClient.UpdateObject(clientU, clientID);
+                if (!updateResult)
+                {
+                    MessageBox.Show("Błąd aktualizacji");
+                }
                 FillTheGrid(getVReservation.GetVReservations());
                 SetDataToCmbClient();
                 

@@ -12,6 +12,7 @@ namespace salonfrSource.UpdateObjectInBase
     public interface IUpdateObject<T>
     {
         bool UpdateObject(T dataobjectForChange, int id);
+        bool VerifyUpdateData(T newData, T modifiedData);
     }
     
     public class UpdateClient : IUpdateObject<Client>
@@ -31,8 +32,19 @@ namespace salonfrSource.UpdateObjectInBase
             {
                 return false;
             }
-            return selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
-                            .Any(x => x.client_id == id);
+
+           return VerifyUpdateData(dataobjectForChange, selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
+                .Where(x => x.client_id == id).First());
+        }
+
+        public bool VerifyUpdateData(Client newData, Client modiefiedData)
+        {
+            List<bool> listError = new List<bool>();
+            listError.Add(newData.client_name == modiefiedData.client_name ? true : false);
+            listError.Add(newData.client_sname == modiefiedData.client_sname ? true : false);
+            listError.Add(newData.client_description == modiefiedData.client_description ? true : false);
+            listError.Add(newData.client_phone == modiefiedData.client_phone ? true : false);
+            return !listError.Any(x => !x);
         }
     }
 }
