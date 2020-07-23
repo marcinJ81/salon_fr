@@ -2,6 +2,7 @@
 using salonfr.InsertDateToBase;
 using salonfr.QuerySelect;
 using salonfr.SQLScripts;
+using salonfr.UserInterface;
 using salonfrSource.UpdateObjectInBase;
 using System;
 using System.Collections.Generic;
@@ -60,28 +61,14 @@ namespace salonfr
         }
         private void MainForm_Load(object sender, EventArgs e)
         {
-            FillTheGrid(getVReservation.GetVReservations());
+            GridBuilder.FillTheGrid(getVReservation.GetVReservations(),dgvVReservation);
             SetEnabledClientControl(false);
             SetEnabledServiceControl(false);
-            SetDataToCmbClient();
-            SetDAtaToCmbServices();
-            clearClientField();
-        }
-        private void FillTheGrid(List<VReservation> source)
-        {
-            dgvVReservation.AutoGenerateColumns = true;
-            dgvVReservation.DataSource = source;
-            dgvVReservation.Columns["services_id"].Visible = false;
-            dgvVReservation.Columns["reservation_id"].HeaderText = "Id";
-            dgvVReservation.Columns["client_name"].HeaderText = "Imię";
-            dgvVReservation.Columns["client_sname"].HeaderText = "Nazwisko";
-            dgvVReservation.Columns["client_description"].HeaderText = "Opis";
-            dgvVReservation.Columns["client_phone"].HeaderText = "Nr tel.";
-            dgvVReservation.Columns["services_name"].HeaderText = "Usługa";
-            dgvVReservation.Columns["reservation_date"].HeaderText = "Data rezerwacji";
+            ComboBoxSetData.SetDataToCmbClient(cmbClientList);
 
+            ComboBoxSetData.SetDataToCmbServices(cmbListServices);
+            FillClientControls(null, true);
         }
-
         private void CkbNewServices_CheckedChanged(object sender, EventArgs e)
         {
             if (ckbNewServices.Checked)
@@ -101,7 +88,7 @@ namespace salonfr
 
         private void Button1_Click(object sender, EventArgs e)
         {
-            clearClientField();
+            FillClientControls(null, true);
             txbNewServices.Text = "usługa";
             cmbClientList.SelectedIndex = 0;
             cmbListServices.SelectedIndex = 0;
@@ -115,30 +102,7 @@ namespace salonfr
             Application.Exit();
         }
 
-        private void SetDataToCmbClient()
-        {
-            List<Client> clientList = new List<Client>();
-            clientList.Add(new Client { client_id = 0, client_name = "klient" });
-            foreach (var i in selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery()))
-            {
-                clientList.Add(new Client { client_id = i.client_id, client_name = i.client_name +" "+ i.client_sname });
-            }
-            cmbClientList.DataSource = clientList;
-            cmbClientList.DisplayMember = "client_name";
-            cmbClientList.ValueMember = "client_id";
-        }
-        private void SetDAtaToCmbServices()
-        {
-            List<Services> listServices = new List<Services>();
-            listServices.Add(new Services { services_id = 0, services_name = "usługa" });
-            foreach (var i in selectServices.GetServices(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery()))
-            {
-                listServices.Add(i);
-            }
-            cmbListServices.DataSource = listServices;
-            cmbListServices.DisplayMember = "services_name";
-            cmbListServices.ValueMember = "services_id";
-        }
+        
 
         private void BtnNewReservation_Click(object sender, EventArgs e)
         {
@@ -198,10 +162,10 @@ namespace salonfr
             };
             int lastIndex = insertReservation.InsertObjectToDB(reservation);
 
-            FillTheGrid(getVReservation.GetVReservations());
-            SetDataToCmbClient();
-            SetDAtaToCmbServices();
-            clearClientField();
+            GridBuilder.FillTheGrid(getVReservation.GetVReservations(),dgvVReservation);
+            ComboBoxSetData.SetDataToCmbClient(cmbClientList);
+            ComboBoxSetData.SetDataToCmbServices(cmbListServices);
+            FillClientControls(null, true);
         }
 
         private void DtpDateFind_ValueChanged(object sender, EventArgs e)
@@ -210,7 +174,7 @@ namespace salonfr
             var result = getVReservation.GetVReservations()
                                         .Where(x => x.reservation_date.ToShortDateString() == dtpDateFind.Value.ToShortDateString())
                                         .ToList();
-            FillTheGrid(result);
+            GridBuilder.FillTheGrid(result,dgvVReservation);
         }
 
         private void CkbUpdateClient_CheckedChanged(object sender, EventArgs e)
@@ -256,9 +220,8 @@ namespace salonfr
                 {
                     MessageBox.Show("Błąd aktualizacji");
                 }
-                FillTheGrid(getVReservation.GetVReservations());
-                SetDataToCmbClient();
-                
+                GridBuilder.FillTheGrid(getVReservation.GetVReservations(),dgvVReservation);
+                ComboBoxSetData.SetDataToCmbClient(cmbClientList);
             }
         }
 
@@ -268,25 +231,41 @@ namespace salonfr
             {
                 if (cmbClientList.SelectedIndex == 0)
                 {
-                    clearClientField();
+                    FillClientControls(null,true);
                     return;
                 }
                     
                 var selectedClient = selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
                             .Where(x => x.client_id == cmbClientList.SelectedIndex).First();
-                txbClientDescription.Text = selectedClient.client_description;
-                txbClientName.Text = selectedClient.client_name;
-                txbClientSName.Text = selectedClient.client_sname;
-                txbClientPhone.Text = selectedClient.client_phone;
+                FillClientControls(selectedClient, false);
             }
         }
-        private void clearClientField()
+
+        private void BtnFindClient_Click(object sender, EventArgs e)
         {
-            txbClientName.Text = "imie";
-            txbClientDescription.Text = "opis";
-            txbClientPhone.Text = "nr tel";
-            txbClientSName.Text = "nazwisko";
-           
+            int clientId;
+            var clientData = SClientFullTextSearch.GetClientFullTextSearch(txbFindClient.Text,out clientId);
+            FillClientControls(clientData, false);
+            lblIdFindClient.Text = clientId.ToString();
         }
+        private void FillClientControls(Client client, bool clear)
+        {
+            if (clear)
+            {
+                txbClientName.Text = "imie";
+                txbClientDescription.Text = "opis";
+                txbClientPhone.Text = "nr tel";
+                txbClientSName.Text = "nazwisko";
+                lblIdFindClient.Text = "";
+            }
+            if (client != null)
+            {
+                txbClientDescription.Text = client.client_description;
+                txbClientName.Text = client.client_name;
+                txbClientSName.Text = client.client_sname;
+                txbClientPhone.Text = client.client_phone;
+            }
+        }
+        
     }
 }
