@@ -41,6 +41,7 @@ namespace salonfr
                     clDesc = y.client_description,
                     resId = x.reservation_id,
                     resDate = x.reservation_date,
+                    resTime = x.reservation_time,
                     serId = x.services_id
                 }).Join(servicesList,
                 x => x.serId,
@@ -49,13 +50,14 @@ namespace salonfr
                 {
                     reservation_id = x.resId,
                     reservation_date = x.resDate,
+                    reservation_time = x.resTime,
                     client_name = x.clName,
                     client_sname = x.clSname,
                     client_phone = x.clPhone,
                     client_description = x.clDesc,
                     services_name = y.services_name,
                     services_id = y.services_id
-                }).ToList();
+                }).OrderByDescending(x => x.reservation_date.ToShortDateString()).ThenByDescending(y => y.reservation_time).ToList();
 
             return result;
         }
@@ -64,6 +66,7 @@ namespace salonfr
     {
         public int reservation_id { get; set; }
         public DateTime reservation_date { get; set; }
+        public TimeSpan reservation_time { get; set; }
         public string client_name { get; set; }
         public string client_sname { get; set; }
         public string client_description { get; set; }

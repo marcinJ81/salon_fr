@@ -57,7 +57,8 @@ namespace salonfr.DBConnect
                     nameTable = @"\reservation.db",
                     script = @"insert into Reservation values"
                     + "(" + model.reservation_id.ToString() + ",'"
-                    + model.reservation_date + "',"
+                    + model.reservation_date + "','"
+                    +model.reservation_time + "',"
                     + client_id.ToString() + ","
                     + services_id.ToString()
                     + ")",

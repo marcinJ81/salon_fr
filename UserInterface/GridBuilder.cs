@@ -21,6 +21,7 @@ namespace salonfr.UserInterface
             dgvVReservation.Columns["client_phone"].HeaderText = "Nr tel.";
             dgvVReservation.Columns["services_name"].HeaderText = "Usługa";
             dgvVReservation.Columns["reservation_date"].HeaderText = "Data rezerwacji";
+            dgvVReservation.Columns["reservation_time"].HeaderText = "Godzina rezerwacji";
             return dgvVReservation;
         }
     }
