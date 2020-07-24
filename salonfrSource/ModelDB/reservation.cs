@@ -10,6 +10,7 @@ namespace salonfr
     {
         public int reservation_id { get; set; }
         public DateTime reservation_date { get; set; }
+        public TimeSpan reservation_time { get; set; }
         public int client_id { get; set; }
         public int services_id { get; set; }
     }

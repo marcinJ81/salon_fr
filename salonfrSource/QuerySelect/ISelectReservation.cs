@@ -64,21 +64,23 @@ namespace salonfr.QuerySelect
         {
             List<Reservation> result = new List<Reservation>();
 
-            while (reader.HasRows)
-            {
-                while (reader.Read())
+                while (reader.HasRows)
                 {
-                    result.Add(new Reservation
+                    while (reader.Read())
                     {
-                        reservation_id = reader.GetInt32(0),
-                        reservation_date = DateTime.Parse(reader.GetString(1)),
-                        client_id = reader.GetInt32(2),
-                        services_id = reader.GetInt32(3)
-                    });
+                        result.Add(new Reservation
+                        {
+                            reservation_id = reader.GetInt32(0),
+                            reservation_date = DateTime.Parse(reader.GetString(1)),
+                            reservation_time = TimeSpan.Parse(reader.GetString(2)),
+                            client_id = reader.GetInt32(3),
+                            services_id = reader.GetInt32(4)
+                        });
+                    }
+                    reader.NextResult();
                 }
-                reader.NextResult();
-            }
-
+            
+           
             return result;
         }
 

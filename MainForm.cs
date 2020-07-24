@@ -157,6 +157,7 @@ namespace salonfr
             {
                 reservation_id = reservationID,
                 reservation_date = dtpReservationDate.Value,
+                reservation_time = new TimeSpan(Convert.ToInt32(nudHour.Value), Convert.ToInt32(nudMinute.Value), 0),
                 client_id = clientID,
                 services_id = servicesID
             };

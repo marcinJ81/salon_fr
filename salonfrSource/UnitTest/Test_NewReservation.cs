@@ -70,7 +70,8 @@ namespace salonfr.UnitTest
             Reservation reservation = new Reservation()
             {
                 reservation_id = reservationID,
-                reservation_date = new DateTime(2020, 7, 17,12,1,1),
+                reservation_date = new DateTime(2020, 7, 17, 12, 1, 1),
+                reservation_time = new TimeSpan(11, 5, 0),
                 client_id = 2,
                 services_id = 2
             };

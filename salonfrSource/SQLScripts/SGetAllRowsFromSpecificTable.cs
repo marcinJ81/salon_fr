@@ -18,7 +18,7 @@ namespace salonfr.SQLScripts
         }
         public static string ReservationSelectAllRowsQuery()
         {
-            return @"select reservation_id, reservation_date,client_id,services_id from Reservation";
+            return @"select reservation_id, reservation_date,reservation_time,client_id,services_id from Reservation";
         }
     }
 }
