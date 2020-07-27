@@ -1,6 +1,8 @@
 ﻿using salonfr.DBConnect;
 using salonfr.QuerySelect;
 using salonfr.SQLScripts;
+using salonfrSource.ModelDB;
+using salonfrSource.QuerySelect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -73,6 +75,28 @@ namespace salonfr.InsertDateToBase
             var lastAddedReservation = selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery())
                             .Where(x => x.reservation_id == dataObject.reservation_id).First();
             return lastAddedReservation.reservation_id;
+        }
+    }
+    public class DBInsertEmployee : IInsertToDB<Employee>
+    {
+        private ISelectEmployee selectEmployee;
+
+        public DBInsertEmployee(ISelectEmployee selectEmpoloyee)
+        {
+            this.selectEmployee = selectEmpoloyee;
+        }
+
+        public int InsertObjectToDB(Employee dataObject)
+        {
+            var insertEmployes = SInsertScripts.SqlLiteDBInsertEmployee(dataObject);
+            string result = DBConnectAndExecute.ExecuteQuery(insertEmployes);
+            if (result != string.Empty)
+            {
+                return -1;
+            }
+            var lastAddedServices = selectEmployee.GetEmployes(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery())
+                            .Where(x => x.employee_id == dataObject.employee_id).First();
+            return lastAddedServices.employee_id;
         }
     }
 }

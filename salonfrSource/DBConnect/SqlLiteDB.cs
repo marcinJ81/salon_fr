@@ -62,6 +62,17 @@ namespace salonfr.DBConnect
                         services_id INT  NULL
                     );",
                     operationType = OperationType.create
+                },
+                new TableScripts
+                {
+                    nameTable = @"\employee.db",
+                    script =
+                     @"CREATE TABLE IF NOT EXISTS Employee
+                        (
+                            employee_id INTEGER IDENTITY PRIMARY KEY,
+                            employee_name VARCHAR  NULL
+                        );",
+                    operationType = OperationType.create
                 }
             };
             CreateTableAllTypes();  

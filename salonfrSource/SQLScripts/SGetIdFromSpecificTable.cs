@@ -20,6 +20,10 @@ namespace salonfr
         {
             return "select reservation_id from Reservation order by reservation_id desc";
         }
+        public static string queryGetLatestEmployeeID()
+        {
+            return "select employee_id from Employee order by employee_id desc";
+        }
 
     }
 }

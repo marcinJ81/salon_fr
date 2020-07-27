@@ -161,7 +161,7 @@ namespace salonfr
                 client_id = clientID,
                 services_id = servicesID
             };
-            int lastIndex = insertReservation.InsertObjectToDB(reservation);
+            insertReservation.InsertObjectToDB(reservation);
 
             GridBuilder.FillTheGrid(getVReservation.GetVReservations(),dgvVReservation);
             ComboBoxSetData.SetDataToCmbClient(cmbClientList);

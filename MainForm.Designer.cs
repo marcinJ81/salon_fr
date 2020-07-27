@@ -686,6 +686,7 @@
             this.dtpDateFind.Name = "dtpDateFind";
             this.dtpDateFind.Size = new System.Drawing.Size(142, 20);
             this.dtpDateFind.TabIndex = 0;
+            this.dtpDateFind.Value = new System.DateTime(2020, 7, 24, 0, 0, 0, 0);
             this.dtpDateFind.ValueChanged += new System.EventHandler(this.DtpDateFind_ValueChanged);
             // 
             // label6
