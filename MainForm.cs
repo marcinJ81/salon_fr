@@ -38,7 +38,7 @@ namespace salonfr
             this.selectServices = new SelectServices();
             this.selectReservation = new SelectReservation();
             this.selectEmployee = new SelectEmployee();
-            this.getVReservation = new CreateViewVreservation(selectClient, selectReservation, selectServices);          
+            this.getVReservation = new CreateViewVreservation(selectClient, selectReservation, selectServices,selectEmployee);          
             insertClient = new DBInsertClient(selectClient);
             insertServices = new DBInsertServices(selectServices);
             insertReservation = new DBInsertReservation(selectReservation);

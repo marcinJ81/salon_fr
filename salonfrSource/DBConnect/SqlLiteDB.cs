@@ -59,7 +59,8 @@ namespace salonfr.DBConnect
                         reservation_date DATETIME  NULL,
                         reservation_time DATETIME NULL,
                         client_id INT  NULL,
-                        services_id INT  NULL
+                        services_id INT  NULL,
+                        employee_id INT NULL
                     );",
                     operationType = OperationType.create
                 },

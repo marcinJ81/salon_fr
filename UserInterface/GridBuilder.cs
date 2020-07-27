@@ -14,7 +14,8 @@ namespace salonfr.UserInterface
             dgvVReservation.AutoGenerateColumns = true;
             dgvVReservation.DataSource = source;
             dgvVReservation.Columns["services_id"].Visible = false;
-            dgvVReservation.Columns["reservation_id"].HeaderText = "Id";
+            dgvVReservation.Columns["reservation_id"].Visible = false;
+            dgvVReservation.Columns["employee_name"].HeaderText = "Pracownik";
             dgvVReservation.Columns["client_name"].HeaderText = "Imię";
             dgvVReservation.Columns["client_sname"].HeaderText = "Nazwisko";
             dgvVReservation.Columns["client_description"].HeaderText = "Opis";
