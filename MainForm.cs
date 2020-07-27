@@ -261,6 +261,7 @@ namespace salonfr
             var clientData = SClientFullTextSearch.GetClientFullTextSearch(txbFindClient.Text,out clientId);
             FillClientControls(clientData, false);
             lblIdFindClient.Text = clientId.ToString();
+            cmbClientList.SelectedIndex = clientId;
         }
         private void FillClientControls(Client client, bool clear)
         {
