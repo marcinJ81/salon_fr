@@ -29,5 +29,12 @@ namespace salonfr.DBConnect
             result = @"DataSource=" + PathDBFile + @"\services.db";
             return result;
         }
+        public static string GetDirectoryFileDatabaseEmployee()
+        {
+            string PathDBFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            string result;
+            result = @"DataSource=" + PathDBFile + @"\employee.db";
+            return result;
+        }
     }
 }

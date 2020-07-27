@@ -20,5 +20,9 @@ namespace salonfr.SQLScripts
         {
             return @"select reservation_id, reservation_date,reservation_time,client_id,services_id from Reservation";
         }
+        public static string EmployeeSelectAllRowsQuery()
+        {
+            return @"select employee_id, employee_name from Employee";
+        }
     }
 }

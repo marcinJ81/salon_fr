@@ -1,4 +1,5 @@
-﻿using System;
+﻿using salonfrSource.ModelDB;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -44,6 +45,21 @@ namespace salonfr.DBConnect
                     + model.services_name + "')",
                     operationType = OperationType.write,
                     connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + GetPathDBFile() + @"\services.db")
+                };
+            return tableInsertScripts;
+        }
+        public static TableScripts SqlLiteDBInsertEmployee(Employee model)
+        {
+            TableScripts tableInsertScripts;
+            tableInsertScripts =
+                new TableScripts
+                {
+                    nameTable = @"\employee.db",
+                    script = @"insert into Employee values"
+                    + "(" + model.employee_id.ToString() + ",'"
+                    + model.employee_name + "')",
+                    operationType = OperationType.write,
+                    connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + GetPathDBFile() + @"\employee.db")
                 };
             return tableInsertScripts;
         }
