@@ -1,5 +1,7 @@
 ﻿using salonfr.QuerySelect;
 using salonfr.SQLScripts;
+using salonfrSource.ModelDB;
+using salonfrSource.QuerySelect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -13,6 +15,7 @@ namespace salonfr.UserInterface
     {
         private static ISelectClient selectClient;
         private static ISelectServices selectServices;
+        private static ISelectEmployee selectEmployee;
         public static void SetDataToCmbClient(ComboBox cmbClientList)
         {
             selectClient = new SelectClient();
@@ -39,6 +42,19 @@ namespace salonfr.UserInterface
             cmbListServices.DataSource = listServices;
             cmbListServices.DisplayMember = "services_name";
             cmbListServices.ValueMember = "services_id";
+        }
+        public static void SetDataToCmbEmployee(ComboBox cmbEmployee)
+        {
+            selectEmployee = new SelectEmployee();
+            List<Employee> listEmployee = new List<Employee>();
+            listEmployee.Add(new Employee { employee_id = 0, employee_name = "wybierz pracownika" });
+            foreach (var i in selectEmployee.GetEmployes(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery()))
+            {
+                listEmployee.Add(i);
+            }
+            cmbEmployee.DataSource = listEmployee;
+            cmbEmployee.DisplayMember = "employee_name";
+            cmbEmployee.ValueMember = "employee_id";
         }
     }
 }

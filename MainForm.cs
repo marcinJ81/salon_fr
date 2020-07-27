@@ -3,6 +3,8 @@ using salonfr.InsertDateToBase;
 using salonfr.QuerySelect;
 using salonfr.SQLScripts;
 using salonfr.UserInterface;
+using salonfrSource.ModelDB;
+using salonfrSource.QuerySelect;
 using salonfrSource.UpdateObjectInBase;
 using System;
 using System.Collections.Generic;
@@ -22,10 +24,12 @@ namespace salonfr
         private ISelectServices selectServices;
         private ISelectReservation selectReservation;
         private IGetVReservation getVReservation;
+        private ISelectEmployee selectEmployee;
         private IInsertToDB<Client> insertClient;
         private IInsertToDB<Services> insertServices;
         private IInsertToDB<Reservation> insertReservation;
         private IUpdateObject<Client> updateClient;
+        private IInsertToDB<Employee> insertEmployee;
         public MainForm()
         {
             InitializeComponent();
@@ -33,11 +37,13 @@ namespace salonfr
             this.selectClient = new SelectClient();
             this.selectServices = new SelectServices();
             this.selectReservation = new SelectReservation();
-            this.getVReservation = new CreateViewVreservation(selectClient, selectReservation, selectServices);
+            this.selectEmployee = new SelectEmployee();
+            this.getVReservation = new CreateViewVreservation(selectClient, selectReservation, selectServices);          
             insertClient = new DBInsertClient(selectClient);
             insertServices = new DBInsertServices(selectServices);
             insertReservation = new DBInsertReservation(selectReservation);
             this.updateClient = new UpdateClient(selectClient);
+            this.insertEmployee = new DBInsertEmployee(selectEmployee);
         }
 
         private void CkbNewClient_CheckedChanged(object sender, EventArgs e)
@@ -68,6 +74,7 @@ namespace salonfr
 
             ComboBoxSetData.SetDataToCmbServices(cmbListServices);
             FillClientControls(null, true);
+            ComboBoxSetData.SetDataToCmbEmployee(tscmbEmployee.ComboBox);
         }
         private void CkbNewServices_CheckedChanged(object sender, EventArgs e)
         {
@@ -102,8 +109,8 @@ namespace salonfr
             Application.Exit();
         }
 
+       
         
-
         private void BtnNewReservation_Click(object sender, EventArgs e)
         {
             insertNewReservation();
@@ -267,6 +274,25 @@ namespace salonfr
                 txbClientPhone.Text = client.client_phone;
             }
         }
-        
+
+        private void BtnAddEmployee_Click(object sender, EventArgs e)
+        {
+            int employeID = -1;
+            if (tscmbEmployee.ComboBox.SelectedIndex == 0)
+            {
+                employeID = selectEmployee.GetNextEmployeetId(SGetIdFromSpecificTable.queryGetLatestEmployeeID());
+                Employee employee = new Employee()
+                {
+                    employee_id = employeID,
+                    employee_name = tstxbEmployeeName.TextBox.Text
+                };
+                insertEmployee.InsertObjectToDB(employee);
+                ComboBoxSetData.SetDataToCmbEmployee(tscmbEmployee.ComboBox);
+            }
+            else
+            {
+                MessageBox.Show("Nie można dodać nowego pracownika");
+            }
+        }
     }
 }
