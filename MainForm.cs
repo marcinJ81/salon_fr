@@ -38,7 +38,7 @@ namespace salonfr
             this.selectServices = new SelectServices();
             this.selectReservation = new SelectReservation();
             this.selectEmployee = new SelectEmployee();
-            this.getVReservation = new CreateViewVreservation(selectClient, selectReservation, selectServices);          
+            this.getVReservation = new CreateViewVreservation(selectClient, selectReservation, selectServices,selectEmployee);          
             insertClient = new DBInsertClient(selectClient);
             insertServices = new DBInsertServices(selectServices);
             insertReservation = new DBInsertReservation(selectReservation);
@@ -120,6 +120,7 @@ namespace salonfr
         {
             int clientID = -1;
             int servicesID = -1;
+            int employeeID = -1;
             if (ckbNewClient.Checked)
             {
                 clientID = selectClient.GetNextClientId(SGetIdFromSpecificTable.queryGetLatestClientID());
@@ -159,6 +160,10 @@ namespace salonfr
                 }
                 servicesID = cmbListServices.SelectedIndex;
             }
+            if (tscmbEmployee.ComboBox.SelectedIndex == 0)
+            {
+                MessageBox.Show("Wybierz pracownika");
+            }
             int reservationID = selectReservation.GetNextReservationtId(SGetIdFromSpecificTable.queryGetLatestReservationID());
             Reservation reservation = new Reservation()
             {
@@ -166,7 +171,8 @@ namespace salonfr
                 reservation_date = dtpReservationDate.Value,
                 reservation_time = new TimeSpan(Convert.ToInt32(nudHour.Value), Convert.ToInt32(nudMinute.Value), 0),
                 client_id = clientID,
-                services_id = servicesID
+                services_id = servicesID,
+                employee_id = tscmbEmployee.SelectedIndex
             };
             insertReservation.InsertObjectToDB(reservation);
 

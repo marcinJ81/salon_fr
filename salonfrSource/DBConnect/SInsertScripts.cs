@@ -64,7 +64,7 @@ namespace salonfr.DBConnect
             return tableInsertScripts;
         }
 
-        public static TableScripts SqlLiteDBInsertReservation(Reservation model, int client_id, int services_id)
+        public static TableScripts SqlLiteDBInsertReservation(Reservation model, int client_id, int services_id, int employee_id)
         {
             TableScripts tableInsertScripts;
             tableInsertScripts =
@@ -76,7 +76,8 @@ namespace salonfr.DBConnect
                     + model.reservation_date + "','"
                     +model.reservation_time + "',"
                     + client_id.ToString() + ","
-                    + services_id.ToString()
+                    + services_id.ToString() + ","
+                    + employee_id.ToString()
                     + ")",
                     operationType = OperationType.write,
                     connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + GetPathDBFile() + @"\reservation.db")

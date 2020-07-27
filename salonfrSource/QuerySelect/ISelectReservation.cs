@@ -74,7 +74,8 @@ namespace salonfr.QuerySelect
                             reservation_date = DateTime.Parse(reader.GetString(1)),
                             reservation_time = TimeSpan.Parse(reader.GetString(2)),
                             client_id = reader.GetInt32(3),
-                            services_id = reader.GetInt32(4)
+                            services_id = reader.GetInt32(4),
+                            employee_id = reader.GetInt32(5)
                         });
                     }
                     reader.NextResult();

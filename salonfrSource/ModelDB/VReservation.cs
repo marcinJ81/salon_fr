@@ -1,5 +1,6 @@
 ﻿using salonfr.QuerySelect;
 using salonfr.SQLScripts;
+using salonfrSource.QuerySelect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,18 +18,22 @@ namespace salonfr
         private ISelectClient selectClient;
         private ISelectReservation selectReservation;
         private ISelectServices selectServices;
+        private ISelectEmployee selectEmployee;
 
-        public CreateViewVreservation(ISelectClient selectClient, ISelectReservation selectReservation, ISelectServices selectServices)
+        public CreateViewVreservation(ISelectClient selectClient, ISelectReservation selectReservation,
+            ISelectServices selectServices, ISelectEmployee selectEmployee)
         {
             this.selectClient = selectClient;
             this.selectReservation = selectReservation;
             this.selectServices = selectServices;
+            this.selectEmployee = selectEmployee;
         }
         public List<VReservation> GetVReservations()
         {
             var clientsList = selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
             var servicesList = selectServices.GetServices(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery());
             var reservationList = selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery());
+            var employeeList = selectEmployee.GetEmployes(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery());
 
             var result = reservationList.Join(clientsList,
                 x => x.client_id,
@@ -42,11 +47,41 @@ namespace salonfr
                     resId = x.reservation_id,
                     resDate = x.reservation_date,
                     resTime = x.reservation_time,
-                    serId = x.services_id
-                }).Join(servicesList,
+                    serId = x.services_id,
+                    empID = x.employee_id
+                })
+                .Join(servicesList,
                 x => x.serId,
                 y => y.services_id,
-                (x, y) => new VReservation
+                (x, y) => new 
+                {
+                    x.resId,
+                    x.resDate,
+                    x.resTime,
+                    x.clName,
+                    x.clSname,
+                    x.clPhone,
+                    x.clDesc,
+                    y.services_name,
+                    y.services_id,
+                    x.empID 
+                })
+                .Join(employeeList,
+                x => x.empID,
+                y => y.employee_id,
+                (x, y) => new
+                {
+                    x.clName,
+                    x.clSname,
+                    x.clPhone,
+                    x.clDesc,
+                    x.resId,
+                    x.resDate,
+                    x.resTime,
+                    x.services_id,
+                    x.services_name,
+                    empName = y.employee_name
+                }).Select(x => new VReservation
                 {
                     reservation_id = x.resId,
                     reservation_date = x.resDate,
@@ -55,11 +90,13 @@ namespace salonfr
                     client_sname = x.clSname,
                     client_phone = x.clPhone,
                     client_description = x.clDesc,
-                    services_name = y.services_name,
-                    services_id = y.services_id
+                    services_name = x.services_name,
+                    services_id = x.services_id,
+                    employee_name = x.empName
                 }).OrderByDescending(x => x.reservation_date.ToShortDateString()).ThenByDescending(y => y.reservation_time).ToList();
 
             return result;
+ 
         }
     }
     public class VReservation
@@ -73,6 +110,7 @@ namespace salonfr
         public string client_phone { get; set; }
         public string services_name { get; set; }
         public int services_id { get; set; }
+        public string employee_name { get; set; } 
     }
 
 

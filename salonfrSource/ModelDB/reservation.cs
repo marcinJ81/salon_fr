@@ -13,5 +13,6 @@ namespace salonfr
         public TimeSpan reservation_time { get; set; }
         public int client_id { get; set; }
         public int services_id { get; set; }
+        public int employee_id { get; set; }
     }
 }
