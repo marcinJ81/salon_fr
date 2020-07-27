@@ -94,7 +94,7 @@ namespace salonfr.InsertDateToBase
             {
                 return -1;
             }
-            var lastAddedServices = selectEmployee.GetEmployes(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery())
+            var lastAddedServices = selectEmployee.GetEmployes(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery())
                             .Where(x => x.employee_id == dataObject.employee_id).First();
             return lastAddedServices.employee_id;
         }
