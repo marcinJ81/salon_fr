@@ -84,6 +84,7 @@ namespace salonfr.QuerySelect
             }
             return result.FirstOrDefault().client_id;
         }
+        
 
         private List<Client> GetAllRows(SqliteDataReader reader)
         {

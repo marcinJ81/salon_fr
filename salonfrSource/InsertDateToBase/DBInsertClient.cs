@@ -66,7 +66,7 @@ namespace salonfr.InsertDateToBase
 
         public int InsertObjectToDB(Reservation dataObject)
         {
-            var insertReservation = SInsertScripts.SqlLiteDBInsertReservation(dataObject,dataObject.client_id,dataObject.services_id);
+            var insertReservation = SInsertScripts.SqlLiteDBInsertReservation(dataObject,dataObject.client_id,dataObject.services_id,dataObject.employee_id);
             string result = DBConnectAndExecute.ExecuteQuery(insertReservation);
             if (result != string.Empty)
             {

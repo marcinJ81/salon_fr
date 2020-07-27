@@ -49,25 +49,39 @@ namespace salonfr
                     resTime = x.reservation_time,
                     serId = x.services_id,
                     empID = x.employee_id
-                }).Join(employeeList,
-                x => x.empID,
-                y => y.employee_id,
-                (x,y) => new
-                {
-                    clName = x.clName,
-                    clSname = x.clSname,
-                    clPhone = x.clPhone,
-                    clDesc = x.clDesc,
-                    resId = x.resId,
-                    resDate = x.resDate,
-                    resTime = x.resTime,
-                    serId = x.serId,
-                    empName = y.employee_name
                 })
                 .Join(servicesList,
                 x => x.serId,
                 y => y.services_id,
-                (x, y) => new VReservation
+                (x, y) => new 
+                {
+                    x.resId,
+                    x.resDate,
+                    x.resTime,
+                    x.clName,
+                    x.clSname,
+                    x.clPhone,
+                    x.clDesc,
+                    y.services_name,
+                    y.services_id,
+                    x.empID 
+                })
+                .Join(employeeList,
+                x => x.empID,
+                y => y.employee_id,
+                (x, y) => new
+                {
+                    x.clName,
+                    x.clSname,
+                    x.clPhone,
+                    x.clDesc,
+                    x.resId,
+                    x.resDate,
+                    x.resTime,
+                    x.services_id,
+                    x.services_name,
+                    empName = y.employee_name
+                }).Select(x => new VReservation
                 {
                     reservation_id = x.resId,
                     reservation_date = x.resDate,
@@ -76,12 +90,13 @@ namespace salonfr
                     client_sname = x.clSname,
                     client_phone = x.clPhone,
                     client_description = x.clDesc,
-                    services_name = y.services_name,
-                    services_id = y.services_id,
+                    services_name = x.services_name,
+                    services_id = x.services_id,
                     employee_name = x.empName
                 }).OrderByDescending(x => x.reservation_date.ToShortDateString()).ThenByDescending(y => y.reservation_time).ToList();
 
             return result;
+ 
         }
     }
     public class VReservation
