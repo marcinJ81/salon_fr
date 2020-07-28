@@ -3,6 +3,7 @@ using salonfr;
 using salonfr.DBConnect;
 using salonfr.QuerySelect;
 using salonfr.SQLScripts;
+using salonfrSource.QuerySelect;
 using salonfrSource.UpdateObjectInBase;
 using System;
 using System.Collections.Generic;
@@ -14,7 +15,7 @@ namespace salonfrSource.UnitTest
     public class Test_UpdateClientServices
     {
         private IUpdateObject<Client> updateClient;
-        private ISelectClient selectClient;
+        private ISelectTableObject<Client> selectClient;
         [SetUp]
         public void Setup()
         {
@@ -26,7 +27,7 @@ namespace salonfrSource.UnitTest
         {
             SqlLiteDB.SqlLiteDBCreateTable();
             //search client
-            var clientResult = selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery()).First();
+            var clientResult = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery()).First();
             //get his client_id
             int clientId = clientResult.client_id;
             //change his data

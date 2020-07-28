@@ -2,6 +2,7 @@
 using salonfr.DBConnect;
 using salonfr.QuerySelect;
 using salonfr.SQLScripts;
+using salonfrSource.QuerySelect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,9 +18,9 @@ namespace salonfrSource.UpdateObjectInBase
     
     public class UpdateClient : IUpdateObject<Client>
     {
-        private ISelectClient selectClient;
+        private ISelectTableObject<Client> selectClient;
 
-        public UpdateClient(ISelectClient selectClient)
+        public UpdateClient(ISelectTableObject<Client> selectClient)
         {
             this.selectClient = selectClient;
         }
@@ -33,7 +34,7 @@ namespace salonfrSource.UpdateObjectInBase
                 return false;
             }
 
-           return VerifyUpdateData(dataobjectForChange, selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
+           return VerifyUpdateData(dataobjectForChange, selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
                 .Where(x => x.client_id == id).First());
         }
 

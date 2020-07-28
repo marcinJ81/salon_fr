@@ -1,5 +1,6 @@
 ﻿using salonfr.QuerySelect;
 using salonfr.SQLScripts;
+using salonfrSource.QuerySelect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,14 +11,14 @@ namespace salonfr.UserInterface
 {
     public static class SClientFullTextSearch
     {
-        private static  ISelectClient selectClient;
+        private static ISelectTableObject<Client> selectClient;
         public static Client GetClientFullTextSearch(string searchText, out int clientId)
         {
             
             //error with non unique value in result
             selectClient = new SelectClient();
             List<Client> result = new List<Client>();
-            result = selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
+            result = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
             var client = result.Select(x => new
             {
                 id = x.client_id,
@@ -29,7 +30,7 @@ namespace salonfr.UserInterface
                 return new Client { client_id = 0, client_name = "brak", client_phone = "brak", client_sname = "brak", client_description = "brak" };
             }
 
-            var selectedClient = selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery()).Where(x => x.client_id == client.First().id).First();
+            var selectedClient = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery()).Where(x => x.client_id == client.First().id).First();
             clientId = client.First().id;
             return selectedClient;
         }

@@ -13,8 +13,8 @@ namespace salonfr.InsertDateToBase
 {
     public class DBInsertClient : IInsertToDB<Client>
     {
-        private ISelectClient selectClient;
-        public DBInsertClient(ISelectClient selectClient)
+        private ISelectTableObject<Client> selectClient;
+        public DBInsertClient(ISelectTableObject<Client> selectClient)
         {
             this.selectClient = selectClient;
         }
@@ -26,7 +26,7 @@ namespace salonfr.InsertDateToBase
             {
                 return -1;
             }
-            var lastAddedClient = selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
+            var lastAddedClient = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
                             .Where(x => x.client_id == dataObject.client_id).First();
             return lastAddedClient.client_id;
         }

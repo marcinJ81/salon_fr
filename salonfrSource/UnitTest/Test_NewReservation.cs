@@ -3,6 +3,7 @@ using NUnit.Framework;
 using salonfr.DBConnect;
 using salonfr.InsertDateToBase;
 using salonfr.QuerySelect;
+using salonfrSource.QuerySelect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -16,7 +17,7 @@ namespace salonfr.UnitTest
         private IInsertToDB<Client> addClient;
         private IInsertToDB<Services> addServices;
         private IInsertToDB<Reservation> addReservation;
-        private ISelectClient selectClient;
+        private ISelectTableObject<Client> selectClient;
         private ISelectServices selectServices;
         private ISelectReservation selectReservation;
          [SetUp]
@@ -34,7 +35,7 @@ namespace salonfr.UnitTest
         public void ShouldAddNewClient_ReturnNewID()
         {
             SqlLiteDB.SqlLiteDBCreateTable();
-            int clientID = selectClient.GetNextClientId(SGetIdFromSpecificTable.queryGetLatestClientID());
+            int clientID = selectClient.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestClientID());
             Client client = new Client()
             {
                 client_id =clientID,
