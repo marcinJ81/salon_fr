@@ -1,4 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
+using salonfrSource.Log;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -22,6 +23,7 @@ namespace salonfr.DBConnect
                 }
                 catch (SqliteException ex)
                 {
+                    SLogToFile.SaveInfoInFile("|ExecuteQuery|" + ex.Message);
                     string er = ex.Message;
                     return er;
                 }
@@ -40,6 +42,7 @@ namespace salonfr.DBConnect
                 }
                 catch (SqliteException ex)
                 {
+                    SLogToFile.SaveInfoInFile("|ExecuteQuery|" + ex.Message);
                     string er = ex.Message;
                     return er;
                 }

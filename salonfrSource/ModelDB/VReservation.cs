@@ -15,12 +15,12 @@ namespace salonfr
     }
     public class CreateViewVreservation : IGetVReservation
     {
-        private ISelectClient selectClient;
+        private ISelectTableObject<Client> selectClient;
         private ISelectReservation selectReservation;
         private ISelectServices selectServices;
         private ISelectEmployee selectEmployee;
 
-        public CreateViewVreservation(ISelectClient selectClient, ISelectReservation selectReservation,
+        public CreateViewVreservation(ISelectTableObject<Client> selectClient, ISelectReservation selectReservation,
             ISelectServices selectServices, ISelectEmployee selectEmployee)
         {
             this.selectClient = selectClient;
@@ -30,7 +30,7 @@ namespace salonfr
         }
         public List<VReservation> GetVReservations()
         {
-            var clientsList = selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
+            var clientsList = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
             var servicesList = selectServices.GetServices(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery());
             var reservationList = selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery());
             var employeeList = selectEmployee.GetEmployes(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery());

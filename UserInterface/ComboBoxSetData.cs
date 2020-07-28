@@ -13,7 +13,7 @@ namespace salonfr.UserInterface
 {
    public static  class ComboBoxSetData
     {
-        private static ISelectClient selectClient;
+        private static ISelectTableObject<Client> selectClient;
         private static ISelectServices selectServices;
         private static ISelectEmployee selectEmployee;
         public static void SetDataToCmbClient(ComboBox cmbClientList)
@@ -21,7 +21,7 @@ namespace salonfr.UserInterface
             selectClient = new SelectClient();
             List<Client> clientList = new List<Client>();
             clientList.Add(new Client { client_id = 0, client_name = "klient" });
-            foreach (var i in selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery()))
+            foreach (var i in selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery()))
             {
                 clientList.Add(new Client { client_id = i.client_id, client_name = i.client_name + " " + i.client_sname });
             }

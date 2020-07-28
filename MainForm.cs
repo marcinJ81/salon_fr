@@ -3,6 +3,7 @@ using salonfr.InsertDateToBase;
 using salonfr.QuerySelect;
 using salonfr.SQLScripts;
 using salonfr.UserInterface;
+using salonfrSource.Log;
 using salonfrSource.ModelDB;
 using salonfrSource.QuerySelect;
 using salonfrSource.UpdateObjectInBase;
@@ -20,7 +21,7 @@ namespace salonfr
 {
     public partial class MainForm : Form
     {
-        private ISelectClient selectClient;
+        private ISelectTableObject<Client> selectClient;
         private ISelectServices selectServices;
         private ISelectReservation selectReservation;
         private IGetVReservation getVReservation;
@@ -123,7 +124,7 @@ namespace salonfr
             int employeeID = -1;
             if (ckbNewClient.Checked)
             {
-                clientID = selectClient.GetNextClientId(SGetIdFromSpecificTable.queryGetLatestClientID());
+                clientID = selectClient.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestClientID());
                 Client client = new Client()
                 {
                     client_id = clientID,
@@ -174,6 +175,7 @@ namespace salonfr
                 services_id = servicesID,
                 employee_id = tscmbEmployee.SelectedIndex
             };
+            SLogToFile.SaveInfoInFile("reservation|"+reservation.ToString());
             insertReservation.InsertObjectToDB(reservation);
 
             GridBuilder.FillTheGrid(getVReservation.GetVReservations(),dgvVReservation);
@@ -249,7 +251,7 @@ namespace salonfr
                     return;
                 }
                     
-                var selectedClient = selectClient.GetClients(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
+                var selectedClient = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
                             .Where(x => x.client_id == cmbClientList.SelectedIndex).First();
                 FillClientControls(selectedClient, false);
             }
