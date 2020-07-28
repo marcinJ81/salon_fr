@@ -12,6 +12,11 @@ namespace salonfrSource.Log
            string PathDBFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             File.AppendAllText(PathDBFile+ @"\salonFrLog.txt", text);
         }
+        public static void SaveDataTebleInToFile(string tabelName,string text)
+        {
+            string PathDBFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
+            File.AppendAllText(PathDBFile + @"\"+tabelName, text);
+        }
 
     }
 }

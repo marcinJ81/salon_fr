@@ -140,6 +140,7 @@ namespace salonfr
                 if (cmbClientList.SelectedIndex == 0)
                 {
                     MessageBox.Show("Wybierz klienta");
+                    return;
                 }
                 clientID = cmbClientList.SelectedIndex;
             }
@@ -158,12 +159,14 @@ namespace salonfr
                 if (cmbListServices.SelectedIndex == 0)
                 {
                     MessageBox.Show("Wybierz usługę");
+                    return;
                 }
                 servicesID = cmbListServices.SelectedIndex;
             }
             if (tscmbEmployee.ComboBox.SelectedIndex == 0)
             {
                 MessageBox.Show("Wybierz pracownika");
+                return;
             }
             int reservationID = selectReservation.GetNextReservationtId(SGetIdFromSpecificTable.queryGetLatestReservationID());
             Reservation reservation = new Reservation()
@@ -175,7 +178,7 @@ namespace salonfr
                 services_id = servicesID,
                 employee_id = tscmbEmployee.SelectedIndex
             };
-            SLogToFile.SaveInfoInFile("reservation|"+reservation.ToString());
+            SLogToFile.SaveDataTebleInToFile("reservation" ,"|"+reservation.ToString());
             insertReservation.InsertObjectToDB(reservation);
 
             GridBuilder.FillTheGrid(getVReservation.GetVReservations(),dgvVReservation);
