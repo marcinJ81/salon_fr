@@ -166,7 +166,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.38211F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 141F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 215F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 154F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 155F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 1, 0);
@@ -314,7 +314,7 @@
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label2.Location = new System.Drawing.Point(314, 0);
             this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(172, 30);
+            this.label2.Size = new System.Drawing.Size(171, 30);
             this.label2.TabIndex = 2;
             this.label2.Text = "Dane klienta";
             // 
@@ -323,7 +323,7 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(492, 0);
+            this.label3.Location = new System.Drawing.Point(491, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(135, 30);
             this.label3.TabIndex = 3;
@@ -342,7 +342,7 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(172, 99);
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(171, 99);
             this.tableLayoutPanel4.TabIndex = 4;
             // 
             // txbClientName
@@ -350,7 +350,7 @@
             this.txbClientName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txbClientName.Location = new System.Drawing.Point(3, 3);
             this.txbClientName.Name = "txbClientName";
-            this.txbClientName.Size = new System.Drawing.Size(166, 20);
+            this.txbClientName.Size = new System.Drawing.Size(165, 20);
             this.txbClientName.TabIndex = 0;
             this.txbClientName.Text = "Imię";
             // 
@@ -359,7 +359,7 @@
             this.txbClientSName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txbClientSName.Location = new System.Drawing.Point(3, 35);
             this.txbClientSName.Name = "txbClientSName";
-            this.txbClientSName.Size = new System.Drawing.Size(166, 20);
+            this.txbClientSName.Size = new System.Drawing.Size(165, 20);
             this.txbClientSName.TabIndex = 1;
             this.txbClientSName.Text = "Nazwisko";
             // 
@@ -368,14 +368,14 @@
             this.txbClientPhone.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txbClientPhone.Location = new System.Drawing.Point(3, 67);
             this.txbClientPhone.Name = "txbClientPhone";
-            this.txbClientPhone.Size = new System.Drawing.Size(166, 20);
+            this.txbClientPhone.Size = new System.Drawing.Size(165, 20);
             this.txbClientPhone.TabIndex = 2;
             this.txbClientPhone.Text = "Nr tel";
             // 
             // txbClientDescription
             // 
             this.txbClientDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txbClientDescription.Location = new System.Drawing.Point(492, 33);
+            this.txbClientDescription.Location = new System.Drawing.Point(491, 33);
             this.txbClientDescription.Multiline = true;
             this.txbClientDescription.Name = "txbClientDescription";
             this.txbClientDescription.Size = new System.Drawing.Size(135, 116);
@@ -387,7 +387,7 @@
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(633, 0);
+            this.label4.Location = new System.Drawing.Point(632, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(209, 30);
             this.label4.TabIndex = 6;
@@ -398,9 +398,9 @@
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(848, 0);
+            this.label5.Location = new System.Drawing.Point(847, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(149, 30);
+            this.label5.Size = new System.Drawing.Size(150, 30);
             this.label5.TabIndex = 8;
             this.label5.Text = "Usługi";
             // 
@@ -412,13 +412,13 @@
             this.tableLayoutPanel5.Controls.Add(this.txbNewServices, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.ckbNewServices, 0, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(848, 33);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(847, 33);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 3;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.15385F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.84615F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(149, 116);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(150, 116);
             this.tableLayoutPanel5.TabIndex = 9;
             // 
             // cmbListServices
@@ -427,7 +427,7 @@
             this.cmbListServices.FormattingEnabled = true;
             this.cmbListServices.Location = new System.Drawing.Point(3, 87);
             this.cmbListServices.Name = "cmbListServices";
-            this.cmbListServices.Size = new System.Drawing.Size(143, 21);
+            this.cmbListServices.Size = new System.Drawing.Size(144, 21);
             this.cmbListServices.TabIndex = 0;
             // 
             // txbNewServices
@@ -435,7 +435,7 @@
             this.txbNewServices.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txbNewServices.Location = new System.Drawing.Point(3, 42);
             this.txbNewServices.Name = "txbNewServices";
-            this.txbNewServices.Size = new System.Drawing.Size(143, 20);
+            this.txbNewServices.Size = new System.Drawing.Size(144, 20);
             this.txbNewServices.TabIndex = 1;
             this.txbNewServices.Text = "Nowa usługa";
             // 
@@ -460,7 +460,7 @@
             this.tableLayoutPanel11.Controls.Add(this.tableLayoutPanel14, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.lblIdFindClient, 0, 1);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel11.Location = new System.Drawing.Point(633, 33);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(632, 33);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 2;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.46465F));

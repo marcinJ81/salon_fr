@@ -3,6 +3,7 @@ using salonfr.InsertDateToBase;
 using salonfr.QuerySelect;
 using salonfr.SQLScripts;
 using salonfr.UserInterface;
+using salonfrSource.Log;
 using salonfrSource.ModelDB;
 using salonfrSource.QuerySelect;
 using salonfrSource.UpdateObjectInBase;
@@ -174,6 +175,7 @@ namespace salonfr
                 services_id = servicesID,
                 employee_id = tscmbEmployee.SelectedIndex
             };
+            SLogToFile.SaveInfoInFile("reservation|"+reservation.ToString());
             insertReservation.InsertObjectToDB(reservation);
 
             GridBuilder.FillTheGrid(getVReservation.GetVReservations(),dgvVReservation);
