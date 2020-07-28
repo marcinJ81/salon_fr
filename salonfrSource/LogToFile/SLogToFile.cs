@@ -15,7 +15,7 @@ namespace salonfrSource.Log
         public static void SaveDataTebleInToFile(string tabelName,string text)
         {
             string PathDBFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
-            File.AppendAllText(PathDBFile + @"\"+tabelName, text);
+            File.AppendAllText(PathDBFile + @"\"+tabelName+"_log.txt", text);
         }
 
     }

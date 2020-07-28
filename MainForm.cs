@@ -178,7 +178,7 @@ namespace salonfr
                 services_id = servicesID,
                 employee_id = tscmbEmployee.SelectedIndex
             };
-            SLogToFile.SaveDataTebleInToFile("reservation" ,"|"+reservation.ToString());
+            SLogToFile.SaveDataTebleInToFile("reservation" ,reservation.ToString());
             insertReservation.InsertObjectToDB(reservation);
 
             GridBuilder.FillTheGrid(getVReservation.GetVReservations(),dgvVReservation);

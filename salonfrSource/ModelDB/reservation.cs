@@ -19,7 +19,7 @@ namespace salonfr
             string result = String.Empty;
             result += "reservation_id;" + this.reservation_id.ToString()
                   + ";"
-                  + "reservation_date;"
+                  + "reservation_date"
                   + ";"
                   + reservation_date.ToShortDateString()
                   + ";"
