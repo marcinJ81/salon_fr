@@ -22,10 +22,10 @@ namespace salonfr
     public partial class MainForm : Form
     {
         private ISelectTableObject<Client> selectClient;
-        private ISelectServices selectServices;
+        private ISelectTableObject<Services> selectServices;
         private ISelectReservation selectReservation;
         private IGetVReservation getVReservation;
-        private ISelectEmployee selectEmployee;
+        private ISelectTableObject<Employee> selectEmployee;
         private IInsertToDB<Client> insertClient;
         private IInsertToDB<Services> insertServices;
         private IInsertToDB<Reservation> insertReservation;
@@ -76,6 +76,7 @@ namespace salonfr
             ComboBoxSetData.SetDataToCmbServices(cmbListServices);
             FillClientControls(null, true);
             ComboBoxSetData.SetDataToCmbEmployee(tscmbEmployee.ComboBox);
+           // dtpDateFind.Value = DateTime.Now;
         }
         private void CkbNewServices_CheckedChanged(object sender, EventArgs e)
         {
@@ -146,7 +147,7 @@ namespace salonfr
             }
             if (ckbNewServices.Checked)
             {
-                servicesID = selectServices.GetNextServicesId(SGetIdFromSpecificTable.queryGetLatestServicesID());
+                servicesID = selectServices.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestServicesID());
                 Services services = new Services()
                 {
                     services_id = servicesID,
@@ -277,6 +278,7 @@ namespace salonfr
                 txbClientPhone.Text = "nr tel";
                 txbClientSName.Text = "nazwisko";
                 lblIdFindClient.Text = "";
+
             }
             if (client != null)
             {
@@ -292,7 +294,7 @@ namespace salonfr
             int employeID = -1;
             if (tscmbEmployee.ComboBox.SelectedIndex == 0)
             {
-                employeID = selectEmployee.GetNextEmployeetId(SGetIdFromSpecificTable.queryGetLatestEmployeeID());
+                employeID = selectEmployee.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestEmployeeID());
                 Employee employee = new Employee()
                 {
                     employee_id = employeID,

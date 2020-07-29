@@ -14,8 +14,8 @@ namespace salonfr.UserInterface
    public static  class ComboBoxSetData
     {
         private static ISelectTableObject<Client> selectClient;
-        private static ISelectServices selectServices;
-        private static ISelectEmployee selectEmployee;
+        private static ISelectTableObject<Services> selectServices;
+        private static ISelectTableObject<Employee> selectEmployee;
         public static void SetDataToCmbClient(ComboBox cmbClientList)
         {
             selectClient = new SelectClient();
@@ -35,7 +35,7 @@ namespace salonfr.UserInterface
             selectServices = new SelectServices();
             List<Services> listServices = new List<Services>();
             listServices.Add(new Services { services_id = 0, services_name = "usługa" });
-            foreach (var i in selectServices.GetServices(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery()))
+            foreach (var i in selectServices.GetRowsForTable(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery()))
             {
                 listServices.Add(i);
             }
@@ -48,7 +48,7 @@ namespace salonfr.UserInterface
             selectEmployee = new SelectEmployee();
             List<Employee> listEmployee = new List<Employee>();
             listEmployee.Add(new Employee { employee_id = 0, employee_name = "wybierz pracownika" });
-            foreach (var i in selectEmployee.GetEmployes(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery()))
+            foreach (var i in selectEmployee.GetRowsForTable(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery()))
             {
                 listEmployee.Add(i);
             }

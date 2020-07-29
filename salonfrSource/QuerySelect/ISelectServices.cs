@@ -1,5 +1,6 @@
 ﻿using Microsoft.Data.Sqlite;
 using salonfr.DBConnect;
+using salonfrSource.QuerySelect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,7 +15,7 @@ namespace salonfr.QuerySelect
         int GetNextServicesId(string query);
     }
 
-    public class SelectServices : ISelectServices
+    public class SelectServices : ISelectTableObject<Services>
     {
         private SqliteConnection sqliteConnection;
 
@@ -23,7 +24,8 @@ namespace salonfr.QuerySelect
             this.sqliteConnection = new SqliteConnection(SDataSourceTableFilename.GetDirectoryFileDatabaseServices());
         }
 
-        public int GetNextServicesId(string query)
+        
+        public int GetNextTabletId(string query)
         {
             int result = -1;
             try
@@ -46,8 +48,7 @@ namespace salonfr.QuerySelect
             }
         }
 
-
-        public List<Services> GetServices(string query)
+        public List<Services> GetRowsForTable(string query)
         {
             List<Services> result = new List<Services>();
             try
@@ -67,7 +68,6 @@ namespace salonfr.QuerySelect
                 return result;
             }
         }
-
         private List<Services> GetAllRows(SqliteDataReader reader)
         {
             List<Services> result = new List<Services>();

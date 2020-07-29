@@ -34,9 +34,9 @@ namespace salonfr.InsertDateToBase
 
     public class DBInsertServices : IInsertToDB<Services>
     {
-        private ISelectServices selectServices;
+        private ISelectTableObject<Services>  selectServices;
 
-        public DBInsertServices(ISelectServices selectServices)
+        public DBInsertServices(ISelectTableObject<Services> selectServices)
         {
             this.selectServices = selectServices;
         }
@@ -49,7 +49,7 @@ namespace salonfr.InsertDateToBase
             {
                 return -1;
             }
-            var lastAddedServices = selectServices.GetServices(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery())
+            var lastAddedServices = selectServices.GetRowsForTable(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery())
                             .Where(x => x.services_id == dataObject.services_id ).First();
             return lastAddedServices.services_id;
         }
@@ -79,9 +79,9 @@ namespace salonfr.InsertDateToBase
     }
     public class DBInsertEmployee : IInsertToDB<Employee>
     {
-        private ISelectEmployee selectEmployee;
+        private ISelectTableObject<Employee> selectEmployee;
 
-        public DBInsertEmployee(ISelectEmployee selectEmpoloyee)
+        public DBInsertEmployee(ISelectTableObject<Employee> selectEmpoloyee)
         {
             this.selectEmployee = selectEmpoloyee;
         }
@@ -94,7 +94,7 @@ namespace salonfr.InsertDateToBase
             {
                 return -1;
             }
-            var lastAddedServices = selectEmployee.GetEmployes(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery())
+            var lastAddedServices = selectEmployee.GetRowsForTable(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery())
                             .Where(x => x.employee_id == dataObject.employee_id).First();
             return lastAddedServices.employee_id;
         }

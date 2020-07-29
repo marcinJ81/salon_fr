@@ -1,5 +1,6 @@
 ﻿using salonfr.QuerySelect;
 using salonfr.SQLScripts;
+using salonfrSource.ModelDB;
 using salonfrSource.QuerySelect;
 using System;
 using System.Collections.Generic;
@@ -17,11 +18,11 @@ namespace salonfr
     {
         private ISelectTableObject<Client> selectClient;
         private ISelectReservation selectReservation;
-        private ISelectServices selectServices;
-        private ISelectEmployee selectEmployee;
+        private ISelectTableObject<Services> selectServices;
+        private ISelectTableObject<Employee> selectEmployee;
 
         public CreateViewVreservation(ISelectTableObject<Client> selectClient, ISelectReservation selectReservation,
-            ISelectServices selectServices, ISelectEmployee selectEmployee)
+            ISelectTableObject<Services> selectServices, ISelectTableObject<Employee> selectEmployee)
         {
             this.selectClient = selectClient;
             this.selectReservation = selectReservation;
@@ -31,9 +32,9 @@ namespace salonfr
         public List<VReservation> GetVReservations()
         {
             var clientsList = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
-            var servicesList = selectServices.GetServices(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery());
+            var servicesList = selectServices.GetRowsForTable(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery());
             var reservationList = selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery());
-            var employeeList = selectEmployee.GetEmployes(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery());
+            var employeeList = selectEmployee.GetRowsForTable(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery());
 
             var result = reservationList.Join(clientsList,
                 x => x.client_id,

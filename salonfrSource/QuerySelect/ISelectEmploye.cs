@@ -14,7 +14,8 @@ namespace salonfrSource.QuerySelect
         int GetNextEmployeetId(string query);
     }
 
-    public class SelectEmployee : ISelectEmployee
+   
+    public class SelectEmployee :  ISelectTableObject<Employee>
     {
         private SqliteConnection sqliteConnection;
 
@@ -102,6 +103,50 @@ namespace salonfrSource.QuerySelect
                 reader.NextResult();
             }
             return result;
+        }
+
+        public List<Employee> GetRowsForTable(string query)
+        {
+            List<Employee> result = new List<Employee>();
+            try
+            {
+                sqliteConnection.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand(query, this.sqliteConnection);
+                sqliteCommand.ExecuteNonQuery();
+                List<string> result2 = new List<string>();
+                var rdr = sqliteCommand.ExecuteReader();
+                result = GetAllRows(rdr);
+                sqliteConnection.Close();
+                return result;
+            }
+            catch (SqliteException ex)
+            {
+                string er = ex.Message;
+                return result;
+            }
+        }
+
+        public int GetNextTabletId(string query)
+        {
+            int result = -1;
+            try
+            {
+                sqliteConnection.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand(query, this.sqliteConnection);
+                sqliteCommand.ExecuteNonQuery();
+                List<string> result2 = new List<string>();
+                var rdr = sqliteCommand.ExecuteReader();
+                result = GetIDFromEmployeeTable(rdr);
+                sqliteConnection.Close();
+                if (result == 0)
+                    return 1;
+                return ++result;
+            }
+            catch (SqliteException ex)
+            {
+                string er = ex.Message;
+                return result;
+            }
         }
     }
 }
