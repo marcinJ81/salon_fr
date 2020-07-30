@@ -81,6 +81,9 @@
             this.tscmbEmployee = new System.Windows.Forms.ToolStripComboBox();
             this.tstxbEmployeeName = new System.Windows.Forms.ToolStripTextBox();
             this.btnAddEmployee = new System.Windows.Forms.Button();
+            this.tableLayoutPanel16 = new System.Windows.Forms.TableLayoutPanel();
+            this.btnDeleteResrvation = new System.Windows.Forms.Button();
+            this.label8 = new System.Windows.Forms.Label();
             this.tableLayoutPanel1.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.dgvVReservation)).BeginInit();
@@ -103,7 +106,9 @@
             this.tableLayoutPanel6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
+            this.groupBox5.SuspendLayout();
             this.menuStrip1.SuspendLayout();
+            this.tableLayoutPanel16.SuspendLayout();
             this.SuspendLayout();
             // 
             // tableLayoutPanel1
@@ -166,7 +171,7 @@
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 36.38211F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 141F));
             this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 215F));
-            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 158F));
+            this.tableLayoutPanel2.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 159F));
             this.tableLayoutPanel2.Controls.Add(this.label1, 0, 0);
             this.tableLayoutPanel2.Controls.Add(this.tableLayoutPanel3, 0, 1);
             this.tableLayoutPanel2.Controls.Add(this.label2, 1, 0);
@@ -193,7 +198,7 @@
             this.label1.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label1.Location = new System.Drawing.Point(3, 0);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(303, 30);
+            this.label1.Size = new System.Drawing.Size(302, 30);
             this.label1.TabIndex = 0;
             this.label1.Text = "Klient nowy lub istniejący";
             // 
@@ -214,7 +219,7 @@
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 48.61111F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 51.38889F));
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 37F));
-            this.tableLayoutPanel3.Size = new System.Drawing.Size(303, 116);
+            this.tableLayoutPanel3.Size = new System.Drawing.Size(302, 116);
             this.tableLayoutPanel3.TabIndex = 1;
             // 
             // ckbNewClient
@@ -244,7 +249,7 @@
             // cmbClientList
             // 
             this.cmbClientList.FormattingEnabled = true;
-            this.cmbClientList.Location = new System.Drawing.Point(134, 41);
+            this.cmbClientList.Location = new System.Drawing.Point(133, 41);
             this.cmbClientList.Name = "cmbClientList";
             this.cmbClientList.Size = new System.Drawing.Size(141, 21);
             this.cmbClientList.TabIndex = 0;
@@ -257,7 +262,7 @@
             this.tableLayoutPanel13.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 26.42857F));
             this.tableLayoutPanel13.Controls.Add(this.txbFindClient, 0, 0);
             this.tableLayoutPanel13.Controls.Add(this.btnFindClient, 1, 0);
-            this.tableLayoutPanel13.Location = new System.Drawing.Point(134, 81);
+            this.tableLayoutPanel13.Location = new System.Drawing.Point(133, 81);
             this.tableLayoutPanel13.Name = "tableLayoutPanel13";
             this.tableLayoutPanel13.RowCount = 1;
             this.tableLayoutPanel13.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -293,7 +298,7 @@
             this.tableLayoutPanel15.Name = "tableLayoutPanel15";
             this.tableLayoutPanel15.RowCount = 1;
             this.tableLayoutPanel15.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel15.Size = new System.Drawing.Size(125, 32);
+            this.tableLayoutPanel15.Size = new System.Drawing.Size(124, 32);
             this.tableLayoutPanel15.TabIndex = 5;
             // 
             // label7
@@ -303,7 +308,7 @@
             this.label7.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.label7.Location = new System.Drawing.Point(3, 0);
             this.label7.Name = "label7";
-            this.label7.Size = new System.Drawing.Size(119, 32);
+            this.label7.Size = new System.Drawing.Size(118, 32);
             this.label7.TabIndex = 5;
             this.label7.Text = "Wyszukaj klienta";
             // 
@@ -312,7 +317,7 @@
             this.label2.AutoSize = true;
             this.label2.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label2.Location = new System.Drawing.Point(312, 0);
+            this.label2.Location = new System.Drawing.Point(311, 0);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(170, 30);
             this.label2.TabIndex = 2;
@@ -323,7 +328,7 @@
             this.label3.AutoSize = true;
             this.label3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label3.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label3.Location = new System.Drawing.Point(488, 0);
+            this.label3.Location = new System.Drawing.Point(487, 0);
             this.label3.Name = "label3";
             this.label3.Size = new System.Drawing.Size(135, 30);
             this.label3.TabIndex = 3;
@@ -336,7 +341,7 @@
             this.tableLayoutPanel4.Controls.Add(this.txbClientName, 0, 0);
             this.tableLayoutPanel4.Controls.Add(this.txbClientSName, 0, 1);
             this.tableLayoutPanel4.Controls.Add(this.txbClientPhone, 0, 2);
-            this.tableLayoutPanel4.Location = new System.Drawing.Point(312, 33);
+            this.tableLayoutPanel4.Location = new System.Drawing.Point(311, 33);
             this.tableLayoutPanel4.Name = "tableLayoutPanel4";
             this.tableLayoutPanel4.RowCount = 3;
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
@@ -375,7 +380,7 @@
             // txbClientDescription
             // 
             this.txbClientDescription.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.txbClientDescription.Location = new System.Drawing.Point(488, 33);
+            this.txbClientDescription.Location = new System.Drawing.Point(487, 33);
             this.txbClientDescription.Multiline = true;
             this.txbClientDescription.Name = "txbClientDescription";
             this.txbClientDescription.Size = new System.Drawing.Size(135, 116);
@@ -387,7 +392,7 @@
             this.label4.AutoSize = true;
             this.label4.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label4.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label4.Location = new System.Drawing.Point(629, 0);
+            this.label4.Location = new System.Drawing.Point(628, 0);
             this.label4.Name = "label4";
             this.label4.Size = new System.Drawing.Size(209, 30);
             this.label4.TabIndex = 6;
@@ -398,9 +403,9 @@
             this.label5.AutoSize = true;
             this.label5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.label5.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.label5.Location = new System.Drawing.Point(844, 0);
+            this.label5.Location = new System.Drawing.Point(843, 0);
             this.label5.Name = "label5";
-            this.label5.Size = new System.Drawing.Size(153, 30);
+            this.label5.Size = new System.Drawing.Size(154, 30);
             this.label5.TabIndex = 8;
             this.label5.Text = "Usługi";
             // 
@@ -412,13 +417,13 @@
             this.tableLayoutPanel5.Controls.Add(this.txbNewServices, 0, 1);
             this.tableLayoutPanel5.Controls.Add(this.ckbNewServices, 0, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(844, 33);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(843, 33);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 3;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.15385F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 53.84615F));
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 31F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(153, 116);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(154, 116);
             this.tableLayoutPanel5.TabIndex = 9;
             // 
             // cmbListServices
@@ -427,7 +432,7 @@
             this.cmbListServices.FormattingEnabled = true;
             this.cmbListServices.Location = new System.Drawing.Point(3, 87);
             this.cmbListServices.Name = "cmbListServices";
-            this.cmbListServices.Size = new System.Drawing.Size(147, 21);
+            this.cmbListServices.Size = new System.Drawing.Size(148, 21);
             this.cmbListServices.TabIndex = 0;
             // 
             // txbNewServices
@@ -435,7 +440,7 @@
             this.txbNewServices.Dock = System.Windows.Forms.DockStyle.Fill;
             this.txbNewServices.Location = new System.Drawing.Point(3, 42);
             this.txbNewServices.Name = "txbNewServices";
-            this.txbNewServices.Size = new System.Drawing.Size(147, 20);
+            this.txbNewServices.Size = new System.Drawing.Size(148, 20);
             this.txbNewServices.TabIndex = 1;
             this.txbNewServices.Text = "Nowa usługa";
             // 
@@ -460,7 +465,7 @@
             this.tableLayoutPanel11.Controls.Add(this.tableLayoutPanel14, 0, 0);
             this.tableLayoutPanel11.Controls.Add(this.lblIdFindClient, 0, 1);
             this.tableLayoutPanel11.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel11.Location = new System.Drawing.Point(629, 33);
+            this.tableLayoutPanel11.Location = new System.Drawing.Point(628, 33);
             this.tableLayoutPanel11.Name = "tableLayoutPanel11";
             this.tableLayoutPanel11.RowCount = 2;
             this.tableLayoutPanel11.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 46.46465F));
@@ -704,9 +709,9 @@
             // 
             this.dtpDateFind.Location = new System.Drawing.Point(3, 48);
             this.dtpDateFind.Name = "dtpDateFind";
-            this.dtpDateFind.Size = new System.Drawing.Size(142, 20);
+            this.dtpDateFind.Size = new System.Drawing.Size(187, 20);
             this.dtpDateFind.TabIndex = 0;
-            this.dtpDateFind.Value = new System.DateTime(2020, 7, 24, 0, 0, 0, 0);
+            this.dtpDateFind.Value = new System.DateTime(2020, 7, 30, 0, 0, 0, 0);
             this.dtpDateFind.ValueChanged += new System.EventHandler(this.DtpDateFind_ValueChanged);
             // 
             // label6
@@ -722,6 +727,7 @@
             // 
             // groupBox5
             // 
+            this.groupBox5.Controls.Add(this.tableLayoutPanel16);
             this.groupBox5.Dock = System.Windows.Forms.DockStyle.Fill;
             this.groupBox5.Location = new System.Drawing.Point(3, 165);
             this.groupBox5.Name = "groupBox5";
@@ -760,6 +766,44 @@
             this.btnAddEmployee.Text = "Dodaj pracownika";
             this.btnAddEmployee.UseVisualStyleBackColor = true;
             this.btnAddEmployee.Click += new System.EventHandler(this.BtnAddEmployee_Click);
+            // 
+            // tableLayoutPanel16
+            // 
+            this.tableLayoutPanel16.ColumnCount = 2;
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 47.73869F));
+            this.tableLayoutPanel16.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 84F));
+            this.tableLayoutPanel16.Controls.Add(this.btnDeleteResrvation, 1, 0);
+            this.tableLayoutPanel16.Controls.Add(this.label8, 0, 0);
+            this.tableLayoutPanel16.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.tableLayoutPanel16.Location = new System.Drawing.Point(3, 16);
+            this.tableLayoutPanel16.Name = "tableLayoutPanel16";
+            this.tableLayoutPanel16.RowCount = 2;
+            this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 21.89781F));
+            this.tableLayoutPanel16.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 78.10219F));
+            this.tableLayoutPanel16.Size = new System.Drawing.Size(199, 137);
+            this.tableLayoutPanel16.TabIndex = 0;
+            // 
+            // btnDeleteResrvation
+            // 
+            this.btnDeleteResrvation.BackColor = System.Drawing.Color.Red;
+            this.btnDeleteResrvation.Location = new System.Drawing.Point(118, 3);
+            this.btnDeleteResrvation.Name = "btnDeleteResrvation";
+            this.btnDeleteResrvation.Size = new System.Drawing.Size(75, 23);
+            this.btnDeleteResrvation.TabIndex = 1;
+            this.btnDeleteResrvation.Text = "Usuń";
+            this.btnDeleteResrvation.UseVisualStyleBackColor = false;
+            this.btnDeleteResrvation.Click += new System.EventHandler(this.BtnDeleteResrvation_Click);
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.label8.Font = new System.Drawing.Font("Microsoft Sans Serif", 9.75F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label8.Location = new System.Drawing.Point(3, 0);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(109, 29);
+            this.label8.TabIndex = 2;
+            this.label8.Text = "Usuń rezerwację";
             // 
             // MainForm
             // 
@@ -803,8 +847,11 @@
             this.groupBox4.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
             this.tableLayoutPanel9.PerformLayout();
+            this.groupBox5.ResumeLayout(false);
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            this.tableLayoutPanel16.ResumeLayout(false);
+            this.tableLayoutPanel16.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -865,5 +912,8 @@
         private System.Windows.Forms.ToolStripComboBox tscmbEmployee;
         private System.Windows.Forms.ToolStripTextBox tstxbEmployeeName;
         private System.Windows.Forms.Button btnAddEmployee;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel16;
+        private System.Windows.Forms.Button btnDeleteResrvation;
+        private System.Windows.Forms.Label label8;
     }
 }

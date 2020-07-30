@@ -3,6 +3,7 @@ using salonfr.InsertDateToBase;
 using salonfr.QuerySelect;
 using salonfr.SQLScripts;
 using salonfr.UserInterface;
+using salonfrSource.DeleteReservation;
 using salonfrSource.Log;
 using salonfrSource.ModelDB;
 using salonfrSource.QuerySelect;
@@ -31,6 +32,7 @@ namespace salonfr
         private IInsertToDB<Reservation> insertReservation;
         private IUpdateObject<Client> updateClient;
         private IInsertToDB<Employee> insertEmployee;
+        private IDeleteReservation deleteReservation;
         public MainForm()
         {
             InitializeComponent();
@@ -45,6 +47,8 @@ namespace salonfr
             insertReservation = new DBInsertReservation(selectReservation);
             this.updateClient = new UpdateClient(selectClient);
             this.insertEmployee = new DBInsertEmployee(selectEmployee);
+            this.deleteReservation = new DeleteReservation();
+
         }
 
         private void CkbNewClient_CheckedChanged(object sender, EventArgs e)
@@ -307,6 +311,19 @@ namespace salonfr
             {
                 MessageBox.Show("Nie można dodać nowego pracownika");
             }
+        }
+
+        private void BtnDeleteResrvation_Click(object sender, EventArgs e)
+        {
+            
+            int numer = dgvVReservation.Rows.GetFirstRow(DataGridViewElementStates.Selected);
+            int reservationID = int.Parse(dgvVReservation.Rows[numer].Cells["reservation_id"].Value.ToString());
+            if (!deleteReservation.DeleteReservation(reservationID))
+            {
+                MessageBox.Show("Usunięcie rezerwacji niemożliwe. Zajrzyj do loga");
+                return;
+            }
+            GridBuilder.FillTheGrid(getVReservation.GetVReservations(), dgvVReservation);
         }
     }
 }

@@ -8,13 +8,7 @@ using System.Text;
 
 namespace salonfrSource.QuerySelect
 {
-   public interface ISelectEmployee
-    {
-        List<Employee> GetEmployes(string query);
-        int GetNextEmployeetId(string query);
-    }
-
-   
+     
     public class SelectEmployee :  ISelectTableObject<Employee>
     {
         private SqliteConnection sqliteConnection;

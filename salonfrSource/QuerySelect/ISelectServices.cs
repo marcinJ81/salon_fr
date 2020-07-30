@@ -9,11 +9,6 @@ using System.Threading.Tasks;
 
 namespace salonfr.QuerySelect
 {
-    public interface ISelectServices
-    {
-        List<Services> GetServices(string query);
-        int GetNextServicesId(string query);
-    }
 
     public class SelectServices : ISelectTableObject<Services>
     {

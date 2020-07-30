@@ -43,8 +43,8 @@ namespace salonfr.DBConnect
                 catch (SqliteException ex)
                 {
                     SLogToFile.SaveInfoInFile("|ExecuteQuery|" + ex.Message);
-                    string er = ex.Message;
-                    return er;
+                    return  ex.Message;
+                     
                 }
             }
         }
