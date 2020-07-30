@@ -13,7 +13,8 @@ namespace salonfr.DBConnect
         create,
         read,
         write,
-        update
+        update,
+        delete
     }
     public static class SqlLiteDB
     {
