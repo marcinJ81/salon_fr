@@ -120,6 +120,10 @@
     <None Include="App.config" />
   </ItemGroup>
   <ItemGroup>
+    <ProjectReference Include="..\salonFR_controler\salonFR_controler.csproj">
+      <Project>{8532b38c-0012-4fb1-b340-c8998c5bf35c}</Project>
+      <Name>salonFR_controler</Name>
+    </ProjectReference>
     <ProjectReference Include="salonfrSource\salonfrSource.csproj">
       <Project>{1dfb628e-c2e0-4e24-b234-7127acb9d995}</Project>
       <Name>salonfrSource</Name>
