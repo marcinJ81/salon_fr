@@ -173,7 +173,9 @@ namespace salonfr
                 MessageBox.Show("Wybierz pracownika");
                 return;
             }
+            
             int reservationID = selectReservation.GetNextReservationtId(SGetIdFromSpecificTable.queryGetLatestReservationID());
+
             Reservation reservation = new Reservation()
             {
                 reservation_id = reservationID,
@@ -183,6 +185,14 @@ namespace salonfr
                 services_id = servicesID,
                 employee_id = tscmbEmployee.SelectedIndex
             };
+            if (selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery())
+                    .Any(x => x.reservation_date == reservation.reservation_date 
+                    && x.reservation_time == reservation.reservation_time
+                    && x.employee_id == reservation.employee_id))
+            {
+                MessageBox.Show("Nie można daoć reservacji w tym terminie. Jest on zajęty");
+                return;
+            }
             SLogToFile.SaveDataTebleInToFile("reservation" ,reservation.ToString());
             insertReservation.InsertObjectToDB(reservation);
 
