@@ -36,7 +36,7 @@ namespace salonfr
         public MainForm()
         {
             InitializeComponent();
-            SqlLiteDB.SqlLiteDBCreateTable();
+            SqlLiteDB.SqlLiteDBCreateTableIFNotExist();
             this.selectClient = new SelectClient();
             this.selectServices = new SelectServices();
             this.selectReservation = new SelectReservation();
@@ -122,23 +122,34 @@ namespace salonfr
             insertNewReservation();
         }
 
+        private int GetClientIdAndInsertToDB(string clientName, string clientSName, string clientPhone, string clientDescription)
+        {
+            Client client = new Client()
+            {
+                client_id = selectClient.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestClientID()),
+                client_name = clientName,
+                client_sname = clientSName,
+                client_phone = clientPhone,
+                client_description = clientDescription
+            };
+           return  insertClient.InsertObjectToDB(client);
+        }
+        private int GetServicesIdAndInsertDB(string servicesName)
+        {
+            Services services = new Services()
+            {
+                services_id = selectServices.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestServicesID()),
+                services_name = servicesName
+            };
+           return insertServices.InsertObjectToDB(services);
+        }
         public void insertNewReservation()
         {
-            int clientID = -1;
             int servicesID = -1;
-            int employeeID = -1;
+            int clientID = -1;
             if (ckbNewClient.Checked)
             {
-                clientID = selectClient.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestClientID());
-                Client client = new Client()
-                {
-                    client_id = clientID,
-                    client_name = txbClientName.Text,
-                    client_sname = txbClientSName.Text,
-                    client_phone = txbClientPhone.Text,
-                    client_description = txbClientDescription.Text
-                };
-                insertClient.InsertObjectToDB(client);
+                clientID = GetClientIdAndInsertToDB(txbClientName.Text, txbClientSName.Text, txbClientPhone.Text, txbClientDescription.Text);
             }
             else
             {
@@ -151,13 +162,7 @@ namespace salonfr
             }
             if (ckbNewServices.Checked)
             {
-                servicesID = selectServices.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestServicesID());
-                Services services = new Services()
-                {
-                    services_id = servicesID,
-                    services_name = txbNewServices.Text
-                };
-                insertServices.InsertObjectToDB(services);
+                servicesID = GetServicesIdAndInsertDB(txbNewServices.Text);
             }
             else
             {
@@ -173,35 +178,42 @@ namespace salonfr
                 MessageBox.Show("Wybierz pracownika");
                 return;
             }
-            
-            int reservationID = selectReservation.GetNextReservationtId(SGetIdFromSpecificTable.queryGetLatestReservationID());
-
-            Reservation reservation = new Reservation()
+            if (!GetReservationIdAndInsertToDB(dtpReservationDate.Value, Convert.ToInt32(nudHour.Value), Convert.ToInt32(nudMinute.Value),
+             clientID, servicesID, tscmbEmployee.SelectedIndex))
             {
-                reservation_id = reservationID,
-                reservation_date = dtpReservationDate.Value,
-                reservation_time = new TimeSpan(Convert.ToInt32(nudHour.Value), Convert.ToInt32(nudMinute.Value), 0),
-                client_id = clientID,
-                services_id = servicesID,
-                employee_id = tscmbEmployee.SelectedIndex
-            };
-            if (selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery())
-                    .Any(x => x.reservation_date == reservation.reservation_date 
-                    && x.reservation_time == reservation.reservation_time
-                    && x.employee_id == reservation.employee_id))
-            {
-                MessageBox.Show("Nie można daoć reservacji w tym terminie. Jest on zajęty");
+                MessageBox.Show("Nie można dodać reserwacji w tym terminie. Jest on zajęty");
                 return;
             }
-            SLogToFile.SaveDataTebleInToFile("reservation" ,reservation.ToString());
-            insertReservation.InsertObjectToDB(reservation);
-
             GridBuilder.FillTheGrid(getVReservation.GetVReservations(),dgvVReservation);
             ComboBoxSetData.SetDataToCmbClient(cmbClientList);
             ComboBoxSetData.SetDataToCmbServices(cmbListServices);
             FillClientControls(null, true);
         }
-
+        private bool GetReservationIdAndInsertToDB(DateTime reservationDate, int reservationHour, int reservationMinute,
+            int clientID, int servicesID,int employeeID)
+        {
+            int reservationID = selectReservation.GetNextReservationtId(SGetIdFromSpecificTable.queryGetLatestReservationID());
+            Reservation reservation = new Reservation()
+            {
+                reservation_id = reservationID,
+                reservation_date = reservationDate,
+                reservation_time = new TimeSpan(reservationHour, reservationMinute, 0),
+                client_id = clientID,
+                services_id = servicesID,
+                employee_id = employeeID
+            };
+            if (selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery())
+                    .Any(x => x.reservation_date == reservation.reservation_date
+                    && x.reservation_time == reservation.reservation_time
+                    && x.employee_id == reservation.employee_id))
+            {
+                
+                return false;
+            }
+            SLogToFile.SaveDataTebleInToFile("reservation", reservation.ToString());
+            insertReservation.InsertObjectToDB(reservation);
+            return true;
+        }
         private void DtpDateFind_ValueChanged(object sender, EventArgs e)
         {
 
@@ -303,18 +315,23 @@ namespace salonfr
             }
         }
 
+        private int GetEmployeeIdAndInsertToDB(string employeeName)
+        {
+            int employeID = -1;
+            employeID = selectEmployee.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestEmployeeID());
+            Employee employee = new Employee()
+            {
+                employee_id = employeID,
+                employee_name = employeeName
+            };
+            return insertEmployee.InsertObjectToDB(employee);
+        }
         private void BtnAddEmployee_Click(object sender, EventArgs e)
         {
             int employeID = -1;
             if (tscmbEmployee.ComboBox.SelectedIndex == 0)
             {
-                employeID = selectEmployee.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestEmployeeID());
-                Employee employee = new Employee()
-                {
-                    employee_id = employeID,
-                    employee_name = tstxbEmployeeName.TextBox.Text
-                };
-                insertEmployee.InsertObjectToDB(employee);
+                employeID = GetEmployeeIdAndInsertToDB(tstxbEmployeeName.TextBox.Text);
                 ComboBoxSetData.SetDataToCmbEmployee(tscmbEmployee.ComboBox);
             }
             else

@@ -26,6 +26,7 @@ namespace salonfr.InsertDateToBase
             {
                 return -1;
             }
+            //this is not nessery because i passes in client_id in the parameter
             var lastAddedClient = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
                             .Where(x => x.client_id == dataObject.client_id).First();
             return lastAddedClient.client_id;

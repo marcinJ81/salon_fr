@@ -25,7 +25,7 @@ namespace salonfrSource.UnitTest
         [Test]
         public void ShouldUpdateClient_when_IHaveHisId_returnTrue()
         {
-            SqlLiteDB.SqlLiteDBCreateTable();
+            SqlLiteDB.SqlLiteDBCreateTableIFNotExist();
             //search client
             var clientResult = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery()).First();
             //get his client_id
