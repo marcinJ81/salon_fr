@@ -34,7 +34,7 @@ namespace salonfr.UnitTest
         [Ignore("insert into real db")]
         public void ShouldAddNewClient_ReturnNewID()
         {
-            SqlLiteDB.SqlLiteDBCreateTable();
+            SqlLiteDB.SqlLiteDBCreateTableIFNotExist();
             int clientID = selectClient.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestClientID());
             Client client = new Client()
             {
@@ -52,7 +52,7 @@ namespace salonfr.UnitTest
         [Ignore("insert into real db")]
         public void ShouldAddNewServices_ReturnNewID()
         {
-            SqlLiteDB.SqlLiteDBCreateTable();
+            SqlLiteDB.SqlLiteDBCreateTableIFNotExist();
             int servicesID = selectServices.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestServicesID());
             Services services = new Services()
             {
@@ -66,7 +66,7 @@ namespace salonfr.UnitTest
         [Ignore("insert into real db")]
         public void ShouldAddNewReservation_ReturnNewID()
         {
-            SqlLiteDB.SqlLiteDBCreateTable();
+            SqlLiteDB.SqlLiteDBCreateTableIFNotExist();
             int reservationID = selectReservation.GetNextReservationtId(SGetIdFromSpecificTable.queryGetLatestReservationID());
             Reservation reservation = new Reservation()
             {

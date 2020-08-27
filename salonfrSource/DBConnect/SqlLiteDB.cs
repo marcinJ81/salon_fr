@@ -21,7 +21,7 @@ namespace salonfr.DBConnect
         private static string PathDBFile;
         public static List<TableScripts> createTable { get; private set; }
 
-        public static void SqlLiteDBCreateTable()
+        public static void SqlLiteDBCreateTableIFNotExist()
         {
             PathDBFile = Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
             createTable = new List<TableScripts>()
