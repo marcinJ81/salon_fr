@@ -22,15 +22,19 @@ namespace salonfr
     }
     public class FasadeInsertDB : IFasadeInsertDB
     {
+        //----------------------------------------------
         private IInsertToDB<Client> insertClient;
-        private IInsertToDB<Services> insertServices;
-        private IInsertToDB<Reservation> insertReservation;
-        private IInsertToDB<Employee> insertEmployee;
         private ISelectTableObject<Client> selectClient;
+        //----------------------------------------------
+        private IInsertToDB<Services> insertServices;
         private ISelectTableObject<Services> selectServices;
+        //----------------------------------------------
+        private IInsertToDB<Reservation> insertReservation;
         private ISelectReservation selectReservation;
+        //----------------------------------------------
+        private IInsertToDB<Employee> insertEmployee;   
         private ISelectTableObject<Employee> selectEmployee;
-
+        //----------------------------------------------
         public FasadeInsertDB(IInsertToDB<Client> insertClient, IInsertToDB<Services> insertServices, 
             IInsertToDB<Reservation> insertReservation, IInsertToDB<Employee> insertEmployee,
             ISelectTableObject<Client> selectClient, ISelectTableObject<Services> selectServices, 
