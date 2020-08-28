@@ -27,12 +27,9 @@ namespace salonfr
         private ISelectReservation selectReservation;
         private IGetVReservation getVReservation;
         private ISelectTableObject<Employee> selectEmployee;
-        private IInsertToDB<Client> insertClient;
-        private IInsertToDB<Services> insertServices;
-        private IInsertToDB<Reservation> insertReservation;
         private IUpdateObject<Client> updateClient;
-        private IInsertToDB<Employee> insertEmployee;
         private IDeleteReservation deleteReservation;
+        private IFasadeInsertDB insertObjectToDB;
         public MainForm()
         {
             InitializeComponent();
@@ -42,12 +39,10 @@ namespace salonfr
             this.selectReservation = new SelectReservation();
             this.selectEmployee = new SelectEmployee();
             this.getVReservation = new CreateViewVreservation(selectClient, selectReservation, selectServices,selectEmployee);          
-            insertClient = new DBInsertClient(selectClient);
-            insertServices = new DBInsertServices(selectServices);
-            insertReservation = new DBInsertReservation(selectReservation);
             this.updateClient = new UpdateClient(selectClient);
-            this.insertEmployee = new DBInsertEmployee(selectEmployee);
             this.deleteReservation = new DeleteReservation();
+            this.insertObjectToDB = new FasadeInsertDB(new DBInsertClient(selectClient), new DBInsertServices(selectServices), new DBInsertReservation(selectReservation),
+                new DBInsertEmployee(selectEmployee), new SelectClient(), new SelectServices(), new SelectReservation(), new SelectEmployee());
 
         }
 
@@ -122,34 +117,15 @@ namespace salonfr
             insertNewReservation();
         }
 
-        private int GetClientIdAndInsertToDB(string clientName, string clientSName, string clientPhone, string clientDescription)
-        {
-            Client client = new Client()
-            {
-                client_id = selectClient.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestClientID()),
-                client_name = clientName,
-                client_sname = clientSName,
-                client_phone = clientPhone,
-                client_description = clientDescription
-            };
-           return  insertClient.InsertObjectToDB(client);
-        }
-        private int GetServicesIdAndInsertDB(string servicesName)
-        {
-            Services services = new Services()
-            {
-                services_id = selectServices.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestServicesID()),
-                services_name = servicesName
-            };
-           return insertServices.InsertObjectToDB(services);
-        }
+      
+      
         public void insertNewReservation()
         {
             int servicesID = -1;
             int clientID = -1;
             if (ckbNewClient.Checked)
             {
-                clientID = GetClientIdAndInsertToDB(txbClientName.Text, txbClientSName.Text, txbClientPhone.Text, txbClientDescription.Text);
+                clientID = insertObjectToDB.GetClientIdAndInsertToDB(txbClientName.Text, txbClientSName.Text, txbClientPhone.Text, txbClientDescription.Text);
             }
             else
             {
@@ -162,7 +138,7 @@ namespace salonfr
             }
             if (ckbNewServices.Checked)
             {
-                servicesID = GetServicesIdAndInsertDB(txbNewServices.Text);
+                servicesID = insertObjectToDB.GetServicesIdAndInsertDB(txbNewServices.Text);
             }
             else
             {
@@ -178,7 +154,7 @@ namespace salonfr
                 MessageBox.Show("Wybierz pracownika");
                 return;
             }
-            if (!GetReservationIdAndInsertToDB(dtpReservationDate.Value, Convert.ToInt32(nudHour.Value), Convert.ToInt32(nudMinute.Value),
+            if (!insertObjectToDB.GetReservationIdAndInsertToDB(dtpReservationDate.Value, Convert.ToInt32(nudHour.Value), Convert.ToInt32(nudMinute.Value),
              clientID, servicesID, tscmbEmployee.SelectedIndex))
             {
                 MessageBox.Show("Nie można dodać reserwacji w tym terminie. Jest on zajęty");
@@ -189,31 +165,7 @@ namespace salonfr
             ComboBoxSetData.SetDataToCmbServices(cmbListServices);
             FillClientControls(null, true);
         }
-        private bool GetReservationIdAndInsertToDB(DateTime reservationDate, int reservationHour, int reservationMinute,
-            int clientID, int servicesID,int employeeID)
-        {
-            int reservationID = selectReservation.GetNextReservationtId(SGetIdFromSpecificTable.queryGetLatestReservationID());
-            Reservation reservation = new Reservation()
-            {
-                reservation_id = reservationID,
-                reservation_date = reservationDate,
-                reservation_time = new TimeSpan(reservationHour, reservationMinute, 0),
-                client_id = clientID,
-                services_id = servicesID,
-                employee_id = employeeID
-            };
-            if (selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery())
-                    .Any(x => x.reservation_date == reservation.reservation_date
-                    && x.reservation_time == reservation.reservation_time
-                    && x.employee_id == reservation.employee_id))
-            {
-                
-                return false;
-            }
-            SLogToFile.SaveDataTebleInToFile("reservation", reservation.ToString());
-            insertReservation.InsertObjectToDB(reservation);
-            return true;
-        }
+      
         private void DtpDateFind_ValueChanged(object sender, EventArgs e)
         {
 
@@ -314,24 +266,12 @@ namespace salonfr
                 txbClientPhone.Text = client.client_phone;
             }
         }
-
-        private int GetEmployeeIdAndInsertToDB(string employeeName)
-        {
-            int employeID = -1;
-            employeID = selectEmployee.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestEmployeeID());
-            Employee employee = new Employee()
-            {
-                employee_id = employeID,
-                employee_name = employeeName
-            };
-            return insertEmployee.InsertObjectToDB(employee);
-        }
         private void BtnAddEmployee_Click(object sender, EventArgs e)
         {
             int employeID = -1;
             if (tscmbEmployee.ComboBox.SelectedIndex == 0)
             {
-                employeID = GetEmployeeIdAndInsertToDB(tstxbEmployeeName.TextBox.Text);
+                employeID = insertObjectToDB.GetEmployeeIdAndInsertToDB(tstxbEmployeeName.TextBox.Text);
                 ComboBoxSetData.SetDataToCmbEmployee(tscmbEmployee.ComboBox);
             }
             else
