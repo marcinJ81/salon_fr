@@ -1,0 +1,97 @@
+﻿@model IEnumerable<salonfr.VReservation>
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+<p>
+    <a asp-action="Create">Create New</a>
+</p>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.reservation_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.reservation_date)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.reservation_time)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.client_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.client_sname)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.client_description)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.client_phone)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.services_name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.services_id)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.employee_name)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(modelItem => item.reservation_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reservation_date)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.reservation_time)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.client_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.client_sname)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.client_description)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.client_phone)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.services_name)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.services_id)
+            </td>
+            <td>
+                @Html.DisplayFor(modelItem => item.employee_name)
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>
+        </tr>
+}
+    </tbody>
+</table>
+</body>
+</html>
