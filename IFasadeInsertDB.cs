@@ -12,7 +12,7 @@ using System.Threading.Tasks;
 
 namespace salonfr
 {
-   public interface IFasadeInsertDB
+    public interface IFasadeInsertDB
     {
         int GetClientIdAndInsertToDB(string clientName, string clientSName, string clientPhone, string clientDescription);
         int GetServicesIdAndInsertDB(string servicesName);
@@ -21,7 +21,7 @@ namespace salonfr
         int GetEmployeeIdAndInsertToDB(string employeeName);
     }
     public class FasadeInsertDB : IFasadeInsertDB
-    {
+    { 
         //----------------------------------------------
         private IInsertToDB<Client> insertClient;
         private ISelectTableObject<Client> selectClient;
