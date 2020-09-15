@@ -1,5 +1,6 @@
-﻿using salonfr;
-using salonfr.DBConnect;
+﻿using salonfrSource;
+using salonfrSource.DBConnect;
+using salonfrSource.ModelDB;
 using System;
 using System.Collections.Generic;
 using System.Text;

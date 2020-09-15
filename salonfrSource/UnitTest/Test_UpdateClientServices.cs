@@ -1,9 +1,9 @@
 ﻿using NUnit.Framework;
-using salonfr;
-using salonfr.DBConnect;
-using salonfr.QuerySelect;
-using salonfr.SQLScripts;
+using salonfrSource;
+using salonfrSource.DBConnect;
+using salonfrSource.ModelDB;
 using salonfrSource.QuerySelect;
+using salonfrSource.SQLScripts;
 using salonfrSource.UpdateObjectInBase;
 using System;
 using System.Collections.Generic;

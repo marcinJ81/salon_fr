@@ -1,7 +1,8 @@
-﻿using salonfr.DBConnect;
+﻿using salonfrSource.DBConnect;
+using salonfrSource.ModelDB;
 using System;
 
-namespace salonfr.InsertDateToBase
+namespace salonfrSource.InsertDateToBase
 {
 
     public class ServicesAndClientFunctions 

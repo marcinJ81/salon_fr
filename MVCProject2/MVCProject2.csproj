@@ -15,6 +15,10 @@
     <ProjectReference Include="..\salonfrSource\salonfrSource.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Scripts\" />
+  </ItemGroup>
+
 
 
 </Project>

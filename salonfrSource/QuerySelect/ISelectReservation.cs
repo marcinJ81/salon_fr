@@ -1,12 +1,13 @@
 ﻿using Microsoft.Data.Sqlite;
-using salonfr.DBConnect;
+using salonfrSource.DBConnect;
+using salonfrSource.ModelDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace salonfr.QuerySelect
+namespace salonfrSource.QuerySelect
 {
     public interface ISelectReservation
     {

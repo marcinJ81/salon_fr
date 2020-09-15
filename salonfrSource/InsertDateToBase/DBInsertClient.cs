@@ -1,15 +1,14 @@
-﻿using salonfr.DBConnect;
-using salonfr.QuerySelect;
-using salonfr.SQLScripts;
+﻿using salonfrSource.QuerySelect;
+using salonfrSource.DBConnect;
 using salonfrSource.ModelDB;
-using salonfrSource.QuerySelect;
+using salonfrSource.SQLScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace salonfr.InsertDateToBase
+namespace salonfrSource.InsertDateToBase
 {
     public class DBInsertClient : IInsertToDB<Client>
     {

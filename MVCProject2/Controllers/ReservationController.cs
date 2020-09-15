@@ -6,11 +6,9 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using MVCProject2.Models;
-using salonfr;
-using salonfr.QuerySelect;
-using salonfr.SQLScripts;
-using salonfrSource.ModelDB;
 using salonfrSource.QuerySelect;
+using salonfrSource.ModelDB;
+using salonfrSource.SQLScripts;
 
 namespace MVCProject2.Controllers
 {
@@ -57,7 +55,14 @@ namespace MVCProject2.Controllers
 
             return View(reservationList);
         }
-
+        [HttpPost]
+        public ActionResult Index(string dateReservation,int clientList,int serviceList, int employeeList)
+        {
+            var reservationList = getVReservation.GetVReservations();
+            var dt = dateReservation;
+            int cl_id = clientList;
+            return View(reservationList);
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
