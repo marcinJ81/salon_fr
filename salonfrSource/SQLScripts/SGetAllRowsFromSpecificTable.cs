@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace salonfr.SQLScripts
+namespace salonfrSource.SQLScripts
 {
    public static class SGetAllRowsFromSpecificTable
     {

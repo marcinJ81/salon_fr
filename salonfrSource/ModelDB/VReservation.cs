@@ -1,14 +1,13 @@
-﻿using salonfr.QuerySelect;
-using salonfr.SQLScripts;
+﻿using salonfrSource.QuerySelect;
 using salonfrSource.ModelDB;
-using salonfrSource.QuerySelect;
+using salonfrSource.SQLScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace salonfr
+namespace salonfrSource.ModelDB
 {
     public interface IGetVReservation
     {

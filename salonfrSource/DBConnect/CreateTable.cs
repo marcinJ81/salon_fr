@@ -5,7 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace salonfr.DBConnect
+namespace salonfrSource.DBConnect
 {
     public class TableScripts
     {

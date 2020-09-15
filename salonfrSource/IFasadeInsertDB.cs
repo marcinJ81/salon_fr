@@ -1,9 +1,8 @@
-﻿using salonfr.DBConnect;
-using salonfr.QuerySelect;
-using salonfr.SQLScripts;
+﻿using salonfrSource.DBConnect;
+using salonfrSource.QuerySelect;
+using salonfrSource.SQLScripts;
 using salonfrSource.Log;
 using salonfrSource.ModelDB;
-using salonfrSource.QuerySelect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -12,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace salonfr
 {
-   public interface IFasadeInsertDB
+    public interface IFasadeInsertDB
     {
         int GetClientIdAndInsertToDB(string clientName, string clientSName, string clientPhone, string clientDescription);
         int GetServicesIdAndInsertDB(string servicesName);
@@ -21,7 +20,7 @@ namespace salonfr
         int GetEmployeeIdAndInsertToDB(string employeeName);
     }
     public class FasadeInsertDB : IFasadeInsertDB
-    {
+    { 
         //----------------------------------------------
         private IInsertToDB<Client> insertClient;
         private ISelectTableObject<Client> selectClient;

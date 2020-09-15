@@ -1,5 +1,5 @@
 ﻿using Microsoft.Data.Sqlite;
-using salonfr.DBConnect;
+using salonfrSource.DBConnect;
 using salonfrSource.ModelDB;
 using System;
 using System.Collections.Generic;

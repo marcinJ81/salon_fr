@@ -1,5 +1,7 @@
 ﻿using NUnit.Framework;
 using salonfr.UnitTest;
+using salonfrSource;
+using salonfrSource.ModelDB;
 using System;
 using System.Collections.Generic;
 using System.Linq;

@@ -1,7 +1,6 @@
-﻿using salonfr.QuerySelect;
-using salonfr.SQLScripts;
+﻿using salonfrSource.QuerySelect;
+using salonfrSource.SQLScripts;
 using salonfrSource.ModelDB;
-using salonfrSource.QuerySelect;
 using System;
 using System.Collections.Generic;
 using System.Linq;
