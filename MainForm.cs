@@ -1,12 +1,10 @@
-﻿using salonfr.DBConnect;
-using salonfr.InsertDateToBase;
-using salonfr.QuerySelect;
-using salonfr.SQLScripts;
-using salonfr.UserInterface;
+﻿using salonfrSource.DBConnect;
+using salonfrSource.InsertDateToBase;
+using salonfrSource.QuerySelect;
+using salonfrSource.SQLScripts;
 using salonfrSource.DeleteReservation;
 using salonfrSource.Log;
 using salonfrSource.ModelDB;
-using salonfrSource.QuerySelect;
 using salonfrSource.UpdateObjectInBase;
 using System;
 using System.Collections.Generic;
@@ -17,6 +15,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using salonfr.UserInterface;
+using salonfrSource;
 
 namespace salonfr
 {

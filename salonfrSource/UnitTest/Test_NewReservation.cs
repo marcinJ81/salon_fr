@@ -1,9 +1,10 @@
 ﻿using Microsoft.Data.Sqlite;
 using NUnit.Framework;
-using salonfr.DBConnect;
-using salonfr.InsertDateToBase;
-using salonfr.QuerySelect;
+using salonfrSource.DBConnect;
+using salonfrSource.InsertDateToBase;
+using salonfrSource.ModelDB;
 using salonfrSource.QuerySelect;
+using salonfrSource.SQLScripts;
 using System;
 using System.Collections.Generic;
 using System.Linq;
