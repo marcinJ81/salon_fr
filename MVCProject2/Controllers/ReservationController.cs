@@ -9,9 +9,17 @@ using MVCProject2.Models;
 using salonfrSource.QuerySelect;
 using salonfrSource.ModelDB;
 using salonfrSource.SQLScripts;
+using salonfrSource;
+using salonfrSource.InsertDateToBase;
 
 namespace MVCProject2.Controllers
 {
+    public enum systemTableType
+    {
+        clientTable,
+        serviceTable,
+        employyeTable
+    }
     public class ReservationController : Controller
     {
         private ISelectTableObject<Client> selectClient;
@@ -19,7 +27,7 @@ namespace MVCProject2.Controllers
         private ISelectReservation selectReservation;
         private IGetVReservation getVReservation;
         private ISelectTableObject<Employee> selectEmployee;
-
+        private IFasadeInsertDB insertObjectToDB;
 
         public ReservationController()
         {
@@ -28,6 +36,9 @@ namespace MVCProject2.Controllers
             this.selectReservation = new SelectReservation();
             this.selectEmployee = new SelectEmployee();
             this.getVReservation = new CreateViewVreservation(selectClient, selectReservation, selectServices, selectEmployee);
+            this.insertObjectToDB = new FasadeInsertDB(new DBInsertClient(selectClient), new DBInsertServices(selectServices), new DBInsertReservation(selectReservation),
+                new DBInsertEmployee(selectEmployee), new SelectClient(), new SelectServices(), new SelectReservation(), new SelectEmployee());
+
         }
 
         public IActionResult Index()
@@ -58,11 +69,17 @@ namespace MVCProject2.Controllers
         [HttpPost]
         public ActionResult Index(string dateReservation,int clientList,int serviceList, int employeeList)
         {
-            var reservationList = getVReservation.GetVReservations();
+            
             var dt = dateReservation;
             int cl_id = clientList;
-            return View(reservationList);
+            var datetimeReservation = dateReservation.Split(' ');
+            DateTime dateReservation1 = DateTime.Parse(datetimeReservation[0]);
+
+            bool result = insertObjectToDB.GetReservationIdAndInsertToDB(dateReservation1, 1, 1, clientList, serviceList, employeeList);
+
+            return RedirectToAction("Index", "Reservation", null); 
         }
+       
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

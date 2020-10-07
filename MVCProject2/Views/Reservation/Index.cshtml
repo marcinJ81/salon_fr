@@ -47,7 +47,7 @@
                         <div class="row" style="padding-top:10px;padding-bottom:10px;">
                             <div class="table">
                                 <div class="col-md-2">
-                                    @Html.TextBox("dateReservation", null, new { @class = "form-control", @placeholder = "Data rezerwacji" })
+                                    @Html.TextBox("dateReservation", null, new { @class = "datepicker", @placeholder = "Data rezerwacji" })
                                 </div>
                                 <div class="col-md-2">
                                     @Html.DropDownList("clientList", (MultiSelectList)ViewBag.clientList, htmlAttributes: new { @class = "form-control" })
