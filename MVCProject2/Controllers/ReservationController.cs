@@ -79,6 +79,7 @@ namespace MVCProject2.Controllers
 
             return RedirectToAction("Index", "Reservation", null); 
         }
+        #region modalWindows_GET
         [HttpGet]
         public PartialViewResult AddClient()
         {
@@ -94,6 +95,23 @@ namespace MVCProject2.Controllers
         {
             return PartialView();
         }
+        #endregion
+        #region modalWindows_POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddClient(Client client)
+        {
+            if (!ModelState.IsValid)
+            {
+                return AddClient(client);
+            }
+            else
+            {
+                return RedirectToAction("Index", "Reservation", new { visibleTrue = false });
+            }
+
+        }
+        #endregion
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
