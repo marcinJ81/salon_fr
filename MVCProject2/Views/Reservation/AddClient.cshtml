@@ -30,38 +30,48 @@
                             @ViewBag.InfoMessage
                         </p>
                     </div>
-                    <div class="row">
+                    <div class="row" style="padding-top:10px; padding-bottom:10px;">
                         <div class="col-md-2">
-                            <div class="editor-field">
-                               
-                            </div>
+                           
+                          
+                         
                         </div>
                         <div class="col-md-2">
 
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            imie
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2">
+                                @Html.TextBox("client_name", null, new { @class = "form form-control", @placeholder = "Imię klienta" })
+                            </div>
+
+
+                            <div class="col-md-2">
+                                @Html.TextBox("client_sname", null, new { @class = "form form-control", @placeholder = "Nazwisko klienta" })
+                            </div>
                         </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            nazwisko
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            nr tel
-                        </div>
-                    </div>
-                    <div class="row">
-                        <div class="col-md-2">
-                            opis
+                        <div class="row" style="padding-top:10px; padding-bottom:10px;">
+                            <div class="col-md-2">
+                                @Html.TextBox("client_phone", null, new { @class = "form form-control", @placeholder = "numer telefonu" })
+                            </div>
+                            <div class="col-md-2">
+                                @Html.TextBox("client_description", null, new { @class = "form form-control", @placeholder = "opis" })
+                            </div>
                         </div>
                     </div>
                     <div class="modal-footer">
-                        @Html.ActionLink("OK", "Index", "Reservation", null, new { @class = "btn btn-danger" })
+                        <div class="row">
+                            <div class="col-md-8">
+                                
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" value="Dodaj" class="btn btn-info" />
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ActionLink("Anuluj", "Index", "Reservation", null, new { @class = "btn btn-danger" })
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
