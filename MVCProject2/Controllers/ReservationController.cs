@@ -44,25 +44,7 @@ namespace MVCProject2.Controllers
         public IActionResult Index()
         {
             var reservationList = getVReservation.GetVReservations();
-            var clientList = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
-            var serviceList = selectServices.GetRowsForTable(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery());
-            var employreList = selectEmployee.GetRowsForTable(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery());
-
-            ViewBag.clientList = new MultiSelectList(clientList.Select( x => new 
-            {
-                key = x.client_id,
-                value = x.client_name + " " +x.client_sname
-            }), "key", "value");
-            ViewBag.serviceList = new MultiSelectList(serviceList.Select(x => new
-            {
-                key = x.services_id,
-                value = x.services_name
-            }), "key", "value");
-            ViewBag.employeeList = new MultiSelectList(employreList.Select(x => new
-            {
-                key = x.employee_id,
-                value = x.employee_name
-            }), "key", "value");
+            
 
             return View(reservationList);
         }
@@ -81,6 +63,31 @@ namespace MVCProject2.Controllers
         }
         #region modalWindows_GET
         [HttpGet]
+        public PartialViewResult AddReservation()
+        {
+            var clientList = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
+            var serviceList = selectServices.GetRowsForTable(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery());
+            var employreList = selectEmployee.GetRowsForTable(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery());
+
+            ViewBag.clientList = new MultiSelectList(clientList.Select(x => new
+            {
+                key = x.client_id,
+                value = x.client_name + " " + x.client_sname
+            }), "key", "value");
+            ViewBag.serviceList = new MultiSelectList(serviceList.Select(x => new
+            {
+                key = x.services_id,
+                value = x.services_name
+            }), "key", "value");
+            ViewBag.employeeList = new MultiSelectList(employreList.Select(x => new
+            {
+                key = x.employee_id,
+                value = x.employee_name
+            }), "key", "value");
+
+            return PartialView();
+        }
+        [HttpGet]
         public PartialViewResult AddClient()
         {
             return PartialView();
@@ -95,6 +102,12 @@ namespace MVCProject2.Controllers
         {
             return PartialView();
         }
+        [HttpGet]
+        public PartialViewResult info1(string messageWindow)
+        {
+            ViewBag.InfoMessage = messageWindow;
+            return PartialView();
+        }
         #endregion
         #region modalWindows_POST
         [HttpPost]
@@ -107,9 +120,21 @@ namespace MVCProject2.Controllers
             }
             else
             {
+
+               int clientID = insertObjectToDB.GetClientIdAndInsertToDB(client.client_name, client.client_sname, client.client_phone, client.client_description);
+                if(clientID == -1)
+                {
+                    return RedirectToAction("info1", new { messageWindow = "Bład przy dodawaniu nowego klienta" });
+                }
                 return RedirectToAction("Index", "Reservation", new { visibleTrue = false });
             }
 
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult AddReservation(Reservation reservation)
+        {
+            return AddReservation( reservation);
         }
         #endregion
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
