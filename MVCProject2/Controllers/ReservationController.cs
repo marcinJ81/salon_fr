@@ -79,7 +79,21 @@ namespace MVCProject2.Controllers
 
             return RedirectToAction("Index", "Reservation", null); 
         }
-       
+        [HttpGet]
+        public PartialViewResult AddClient()
+        {
+            return PartialView();
+        }
+        [HttpGet]
+        public PartialViewResult AddEmployee()
+        {
+            return PartialView();
+        }
+        [HttpGet]
+        public PartialViewResult AddServices()
+        {
+            return PartialView();
+        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

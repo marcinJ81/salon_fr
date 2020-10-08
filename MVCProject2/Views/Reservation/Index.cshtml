@@ -9,7 +9,35 @@
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validate/1.19.1/jquery.validate.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-validation-unobtrusive/3.2.11/jquery.validate.unobtrusive.min.js"></script>
     <title>Index</title>
+
+    <script>
+
+        $(document).ready(function () {
+            $("#btnAddNewClient").click(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Reservation/AddClient",
+                    contentType: "html",
+                    success: function (response) {
+                        // debugger
+                        $("#newClient").empty();
+                        $("#newClient").append(response);
+                    },
+                    error: function (ex) {
+                        alert('Blad skryptu' + ex);
+                    }
+                })
+            })
+        });
+
+    </script>
 </head>
 <body>
 
@@ -32,22 +60,14 @@
         </div>
 
     </div>
-    <script>
-        $('#sandbox-container input').datepicker({
-            clearBtn: true,
-            language: "pl"
-        });
-    </script>
-    <div class="input-group date" data-provide="datepicker">
-        <input type="text" class="form-control">
-        <div class="input-group-addon">
-            <span class="glyphicon glyphicon-th"></span>
-        </div>
-    </div>
 
-    <div id="okienkoWyskakujace">
+    <div id="newClient">
 
     </div>
+
+
+
+
 
     <div class="container" style="padding-top:20px;">
         <div class="panel panel-default">
