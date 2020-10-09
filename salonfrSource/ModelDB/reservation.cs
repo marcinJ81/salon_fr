@@ -40,5 +40,34 @@ namespace salonfrSource.ModelDB
 
             return result;
         }
+        public  bool Equal(object obj)
+        {
+            if (obj == null)
+            {
+                return false;
+            }
+            Reservation result = (Reservation)obj;
+            if (result.client_id == 0)
+            {
+                return false;
+            }
+            if (result.employee_id == 0)
+            {
+                return false;
+            }
+            if (result.reservation_id == 0)
+            {
+                return false;
+            }
+            if (result.reservation_date == null)
+            {
+                return false;
+            }
+            if (result.reservation_time == null)
+            {
+                return false;
+            }
+            return true;
+        }
     }
 }

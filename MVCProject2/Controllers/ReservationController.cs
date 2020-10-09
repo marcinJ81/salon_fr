@@ -114,7 +114,7 @@ namespace MVCProject2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddClient(Client client)
         {
-            if (!ModelState.IsValid)
+            if (String.IsNullOrEmpty(client.client_phone))
             {
                 return AddClient(client);
             }
@@ -134,7 +134,18 @@ namespace MVCProject2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddReservation(Reservation reservation)
         {
-            return AddReservation( reservation);
+            if (!reservation.Equal(reservation))
+            {
+                //komunikat
+                return AddReservation(reservation);
+            }
+            else
+            {
+                insertObjectToDB.GetReservationIdAndInsertToDB(reservation.reservation_date, reservation.reservation_time.Hours, reservation.reservation_time.Minutes,
+                reservation.client_id, reservation.services_id, reservation.employee_id);
+               
+                return RedirectToAction("Index", "Reservation", new { visibleTrue = false });
+            }
         }
         #endregion
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
