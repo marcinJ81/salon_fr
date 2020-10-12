@@ -41,26 +41,18 @@ namespace MVCProject2.Controllers
 
         }
 
-        public IActionResult Index()
+        public IActionResult Index(string dateReservation)
         {
+            DateTime reservationdate;
             var reservationList = getVReservation.GetVReservations();
-            
-
+            if (!String.IsNullOrEmpty(dateReservation))
+            {
+                reservationdate = DateTime.Parse(dateReservation);
+                reservationList = reservationList.Where(x => x.reservation_date.ToShortDateString() == reservationdate.ToShortDateString()).ToList();
+            }
             return View(reservationList);
         }
-        [HttpPost]
-        public ActionResult Index(string dateReservation,int clientList,int serviceList, int employeeList)
-        {
-            
-            var dt = dateReservation;
-            int cl_id = clientList;
-            var datetimeReservation = dateReservation.Split(' ');
-            DateTime dateReservation1 = DateTime.Parse(datetimeReservation[0]);
-
-            bool result = insertObjectToDB.GetReservationIdAndInsertToDB(dateReservation1, 1, 1, clientList, serviceList, employeeList);
-
-            return RedirectToAction("Index", "Reservation", null); 
-        }
+       
         #region modalWindows_GET
         [HttpGet]
         public PartialViewResult AddReservation()
@@ -88,8 +80,22 @@ namespace MVCProject2.Controllers
             return PartialView();
         }
         [HttpGet]
-        public PartialViewResult AddClient()
+        public PartialViewResult AddClient(int? client_id)
         {
+            var allclientList = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
+            ViewBag.clientList = new MultiSelectList(allclientList.Select(x => new
+            {
+                key = x.client_id,
+                value = x.client_name + " " + x.client_sname
+            }), "key", "value");
+
+            if (client_id != null)
+            {
+                var selectedClient = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
+                           .Where(x => x.client_id == client_id).ToList();
+                return PartialView(selectedClient);
+            }
+
             return PartialView();
         }
         [HttpGet]
@@ -145,7 +151,7 @@ namespace MVCProject2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddClient(Client client)
         {
-            if (String.IsNullOrEmpty(client.client_phone))
+            if ( !ModelState.IsValid)
             {
                 return AddClient(client);
             }
@@ -163,20 +169,25 @@ namespace MVCProject2.Controllers
         }
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult AddReservation(Reservation reservation)
+        public ActionResult AddReservation(Reservation reservation, string findClient)
         {
-            if (!ModelState.IsValid)
+            int clientId = reservation.client_id;
+            if (!String.IsNullOrEmpty(findClient))
             {
-                //komunikat
-                return AddReservation(reservation);
+                var clientList = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
+                                 .Select( x => new
+                                 {
+                                     desccription = x.client_name + " " + x.client_sname + " " + x.client_phone + " " + x.client_description,
+                                     clientId = x.client_id
+                                 }).ToList();
+
+                clientId = clientList.Where(x => x.desccription.Contains(findClient)).First().clientId;
             }
-            else
-            {
                 insertObjectToDB.GetReservationIdAndInsertToDB(reservation.reservation_date, reservation.reservation_time.Hours, reservation.reservation_time.Minutes,
-                reservation.client_id, reservation.services_id, reservation.employee_id);
+                clientId, reservation.services_id, reservation.employee_id);
                
                 return RedirectToAction("Index", "Reservation", new { visibleTrue = false });
-            }
+    
         }
         #endregion
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

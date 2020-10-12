@@ -17,7 +17,6 @@ namespace salonfrSource.ModelDB
         [Required] 
         public TimeSpan reservation_time { get; set; }
         [Required]
-        [Range(0, int.MaxValue, ErrorMessage = "")]
         public int client_id { get; set; }
         [Required]
         public int services_id { get; set; }

@@ -44,93 +44,94 @@
     <div class="panel panel-default">
        
         <div class="panel-body">
-            <div class=" container-fluid">
-                <div class="row">
-                    <div class="table">
-                        <div class="col-md-2">
-                            Filtr pracownik
-                        </div>
-                        <div class="col-md-2">
-                            Filtr klient
-                        </div>
-                        <div class="col-md-2">
-                            Filtr  Usługa
-                        </div>
-                        <div class="col-md-2">
-                            Filtr  Termin Rezerwacji
-                        </div>
-                        <div class="col-md-1">
-                            <input id="btnSzukaj" type="submit" value="Szukaj" class="btn btn-primary" />
+            @using (Html.BeginForm("Index", "Reservation", FormMethod.Get, new { @id = "SetFilterForm" }))
+            {
+                <div class=" container-fluid">
+                    <div class="row">
+                        <div class="table">
+                            <div class="col-md-2">
+                                Filtr pracownik
+                            </div>
+                            <div class="col-md-2">
+                                Filtr klient
+                            </div>
+                            <div class="col-md-2">
+                                Filtr  Usługa
+                            </div>
+                            <div class="col-md-2">                                
+                                    @Html.TextBox("dateReservation", null, new { @class = "form-control",@type="date", @placeholder = "Data rezerwacji" })
+                            </div>
+                            <div class="col-md-1">
+                                <input id="btnSzukaj" type="submit" value="Szukaj" class="btn btn-primary" />
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <hr>
-            <div class="container-fluid ">
-                <div class="row">
-                    <div class="col-md-12">
-                        <table class="table table table-striped">
-                            <thead>
-                                <tr>
-                                    <th class="hidden">
-                                        @Html.DisplayNameFor(model => model.reservation_id)
-                                    </th>
-                                    <th>
-                                        <p>Data rezerwacji</p>
-                                    </th>
-                                    <th>
-                                        <p>Godzina rezerwacji</p>
-                                    </th>
-                                    <th>
-                                        <p>Dane klienta</p>
-                                    </th>
-                                    <th>
-                                        <p>Usługa</p>
-                                    </th>
-                                    <th>
-                                        <p>Pracownik</p>
-                                    </th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach (var item in Model)
-                                {
+            }
+                <hr>
+                <div class="container-fluid ">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <table class="table table table-striped">
+                                <thead>
                                     <tr>
-                                        <td class="hidden">
-                                            @Html.DisplayFor(modelItem => item.reservation_id)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.reservation_date)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.reservation_time)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.client_name)
-                                            &nbsp; @Html.DisplayFor(modelItem => item.client_sname)
-                                            &nbsp; @Html.DisplayFor(modelItem => item.client_phone)
-                                            &nbsp; @Html.DisplayFor(modelItem => item.client_description)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.services_name)
-                                        </td>
-                                        <td>
-                                            @Html.DisplayFor(modelItem => item.employee_name)
-                                        </td>
-                                        <td>
-                                            @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                                            @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                                            @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
-                                        </td>
+                                        <th class="hidden">
+                                            @Html.DisplayNameFor(model => model.reservation_id)
+                                        </th>
+                                        <th>
+                                            <p>Data rezerwacji</p>
+                                        </th>
+                                        <th>
+                                            <p>Godzina rezerwacji</p>
+                                        </th>
+                                        <th>
+                                            <p>Dane klienta</p>
+                                        </th>
+                                        <th>
+                                            <p>Usługa</p>
+                                        </th>
+                                        <th>
+                                            <p>Pracownik</p>
+                                        </th>
+                                        <th></th>
                                     </tr>
-                                }
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    @foreach (var item in Model)
+                                    {
+                                        <tr>
+                                            <td class="hidden">
+                                                @Html.DisplayFor(modelItem => item.reservation_id)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.reservation_date)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.reservation_time)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.client_name)
+                                                &nbsp; @Html.DisplayFor(modelItem => item.client_sname)
+                                                &nbsp; @Html.DisplayFor(modelItem => item.client_phone)
+                                                &nbsp; @Html.DisplayFor(modelItem => item.client_description)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.services_name)
+                                            </td>
+                                            <td>
+                                                @Html.DisplayFor(modelItem => item.employee_name)
+                                            </td>
+                                            <td>
+                                                @Html.ActionLink("Usuń", "Delete", new {  id=item.reservation_id })
+                                            </td>
+                                        </tr>
+                                    }
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
     </div>
 </div>
 
@@ -214,6 +215,10 @@
                     }
                 })
             })
-        });
+         });
+
+         $("#btnSzukaj").on('click', function (event) {
+                                $('#SetFilterForm').submit();
+             });
     </script>
 }
