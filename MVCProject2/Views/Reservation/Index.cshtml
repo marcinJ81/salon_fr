@@ -32,6 +32,10 @@
 
 </div>
 
+<div id="newEmployee">
+
+</div>
+
 <div class="container" style="padding-top:20px;">
     <div class="panel panel-default">
        
@@ -160,6 +164,26 @@
                         // debugger
                         $("#newReservation").empty();
                         $("#newReservation").append(response);
+                    },
+                    error: function (ex) {
+                        alert('Blad skryptu' + ex);
+                    }
+                })
+            })
+         });
+
+        $(document).ready(function () {
+            $("#btnAddNewEmployee").click(function (e) {
+                e.preventDefault();
+
+                $.ajax({
+                    type: "GET",
+                    url: "/Reservation/AddEmployee",
+                    contentType: "html",
+                    success: function (response) {
+                        // debugger
+                        $("#newEmployee").empty();
+                        $("#newEmployee").append(response);
                     },
                     error: function (ex) {
                         alert('Blad skryptu' + ex);
