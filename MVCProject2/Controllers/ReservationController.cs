@@ -112,6 +112,20 @@ namespace MVCProject2.Controllers
         #region modalWindows_POST
         [HttpPost]
         [ValidateAntiForgeryToken]
+        public ActionResult AddServices(Services services)
+        {
+            if (!ModelState.IsValid)
+            {
+                return AddServices(services);
+            }
+            else
+            {
+                int servicesID = insertObjectToDB.GetServicesIdAndInsertDB(services.services_name);
+                return RedirectToAction("Index", "Reservation", new { visibleTrue = false });
+            }
+        }
+        [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult AddEmployee(Employee employee)
         {
             if (!ModelState.IsValid)
