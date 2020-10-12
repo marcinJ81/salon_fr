@@ -1,0 +1,106 @@
+﻿@model salonfrSource.ModelDB.Reservation
+
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Dodaj rezerwacja</title>
+</head>
+<body>
+   
+    
+
+    <div class="modal fade" id="myModal" role="dialog">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <p style="font-size:22px;font-weight: bold;">
+                        Nowa rezerwacja
+                    </p>
+                </div>
+                <div class="modal-body">
+                    <div class="panel-heading">
+                        <div class="container" style="">
+                            @using (Html.BeginForm("AddReservation", "Reservation", FormMethod.Post, new { @id = "AddReservationForm" }))
+                            {
+                                @Html.AntiForgeryToken()
+                                @Html.ValidationSummary(true)
+                                <div class="row" style="padding-top:10px;padding-bottom:10px;">
+                                    <div class="table">
+                                        <div class="col-md-2">
+                                            <div class="input-group date datepicker" id="datetimepicker2">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                                @Html.TextBox("reservation_date", null, new { @class = "form-control", @type = "date", @placeholder = "Data rezerwacji" })
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="input-group date datepicker" id="datetimepicker1">
+                                                <span class="input-group-addon">
+                                                    <span class="glyphicon glyphicon-calendar"></span>
+                                                </span>
+                                                @Html.TextBox("reservation_time", null, new { @class = "form-control", @type = "time", @placeholder = "Czas rezerwacji" })
+
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:10px;padding-bottom:10px;">
+                                    <div class="col-md-2">
+                                        @Html.DropDownList("client_id", (MultiSelectList)ViewBag.clientList, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.DropDownList("services_id", (MultiSelectList)ViewBag.serviceList, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                    <div class="col-md-1">
+                                        @Html.DropDownList("employee_id", (MultiSelectList)ViewBag.employeeList, htmlAttributes: new { @class = "form-control" })
+                                    </div>
+                                </div>
+                                 <div class="row" style="padding-top:10px;padding-bottom:10px;">
+                                     <div class="col-md-2">
+                                         @Html.TextBox("findClient", null, new { @class = "form-control", @placeholder = "Wyszukaj klienta" })
+                                     </div>
+                                 </div>
+                            }
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <div class="row">
+                        <div class="col-md-8">
+
+                        </div>
+                        <div class="col-md-2">
+                            <input id="btnAddReservation" type="submit" value="Dodaj" class="btn btn-success" />
+                        </div>
+                        <div class="col-md-2">
+                            @Html.ActionLink("Anuluj", "Index", "Reservation", null, new { @class = "btn btn-danger" })
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // debugger
+            $('#myModal').modal({ backdrop: 'static' });
+
+            $('#klozet').on('click', function (event) {
+                event.preventDefault();
+                // $('#myModal').modal('close');
+            });
+            $("#btnAddReservation").on('click', function (event) {
+                $('#AddReservationForm').submit();
+            });
+        });
+
+
+
+    </script>
+</body>
+</html>

@@ -3,16 +3,24 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 
 namespace salonfrSource.ModelDB
 {
     public class Reservation
     {
+        [Required]
         public int reservation_id { get; set; }
+        [Required]
         public DateTime reservation_date { get; set; }
+        [Required] 
         public TimeSpan reservation_time { get; set; }
+        [Required]
         public int client_id { get; set; }
+        [Required]
         public int services_id { get; set; }
+        [Required]
         public int employee_id { get; set; }
         public override string ToString()
         {
@@ -40,5 +48,6 @@ namespace salonfrSource.ModelDB
 
             return result;
         }
+       
     }
 }

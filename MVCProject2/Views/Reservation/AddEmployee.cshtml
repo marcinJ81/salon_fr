@@ -1,0 +1,73 @@
+﻿
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Dodaj pracownika</title>
+</head>
+<body>
+    @using (Html.BeginForm())
+    {
+        @Html.AntiForgeryToken()
+        @Html.ValidationSummary(true)
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p style="font-size:22px;font-weight: bold;">
+                            Dodanie nowego pracownika
+                        </p>
+                    </div>
+                    <div class="modal-body">
+                        <p style="font-size:17px;">
+                            @ViewBag.InfoMessage
+                        </p>
+                    </div>
+                    <div class="container">
+                        <div class="row">
+                            <div class="col-md-2" style="padding-left:10px;">
+                                Dane pracownika
+                            </div>
+                            <div class="col-md-2">
+                                @Html.TextBox("employee_name", null, new { @class = "form form-control", @placeholder = "Dane pracownika" })
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <div class="row">
+                            <div class="col-md-8">
+                            </div>
+                            <div class="col-md-2">
+                                <input type="submit" value="Dodaj" class="btn btn-success" />
+                            </div>
+                            <div class="col-md-2">
+                                @Html.ActionLink("Anuluj", "Index", "Reservation", null, new { @class = "btn btn-danger" })
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    }
+
+    <script type="text/javascript">
+                        $(document).ready(function () {
+                            // debugger
+                            $('#myModal').modal({ backdrop: 'static' });
+
+                            $('#klozet').on('click', function (event) {
+                                event.preventDefault();
+                                // $('#myModal').modal('close');
+                            });
+                           
+                        });
+    </script>
+</body>
+</html>

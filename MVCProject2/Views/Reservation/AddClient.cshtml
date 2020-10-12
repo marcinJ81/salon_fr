@@ -1,0 +1,108 @@
+﻿@model IEnumerable<salonfrSource.ModelDB.Client>
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Dodaj klienta</title>
+</head>
+<body>
+   
+
+        <div class="modal fade" id="myModal" role="dialog">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <p style="font-size:22px;font-weight: bold;">
+                            Dodanie nowego klienta
+                        </p>
+                    </div>
+                    <div class="modal-body">
+                        <p style="font-size:17px;">
+                            @ViewBag.InfoMessage
+                        </p>
+                    </div>
+                    @using (Html.BeginForm("AddClient", "Reservation", FormMethod.Get, new { @id = "SetClientForm" }))
+                    {
+                        <div class="row" style="padding-top:10px; padding-bottom:10px;">
+                            <div class="col-md-1">
+                            </div>
+                            <div class="col-md-4">
+
+                                @Html.DropDownList("client_id", (MultiSelectList)ViewBag.clientList, htmlAttributes: new { @class = "form-control" })
+
+                            </div>
+                            <div class="col-md-2">
+                                <input id="btnSetClient" type="submit" value="Wyszukaj" class="btn btn-info" />
+                            </div>
+                        </div>
+                    }
+                        @using (Html.BeginForm("AddClient", "Reservation", FormMethod.Post, new { @id = "AddClientForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            @Html.ValidationSummary(true)
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-2">
+                                        @Html.TextBox("client_name", null, new { @class = "form form-control", @placeholder = "Imię klienta" })
+                                    </div>
+
+
+                                    <div class="col-md-2">
+                                        @Html.TextBox("client_sname", null, new { @class = "form form-control", @placeholder = "Nazwisko klienta" })
+                                    </div>
+                                </div>
+                                <div class="row" style="padding-top:10px; padding-bottom:10px;">
+                                    <div class="col-md-2">
+                                        @Html.TextBox("client_phone", null, new { @class = "form form-control", @placeholder = "numer telefonu" })
+                                    </div>
+                                    <div class="col-md-2">
+                                        @Html.TextBox("client_description", null, new { @class = "form form-control", @placeholder = "opis" })
+                                    </div>
+                                </div>
+                            </div>
+                        }
+                        <div class="modal-footer">
+                            <div class="row">
+                                <div class="col-md-8">
+
+                                </div>
+                                <div class="col-md-2">
+                                    <input id="btnAddClient" type="submit" value="Dodaj" class="btn btn-success" />
+                                </div>
+                                <div class="col-md-2">
+                                    @Html.ActionLink("Anuluj", "Index", "Reservation", null, new { @class = "btn btn-danger" })
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+            </div>
+        </div>
+
+   
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // debugger
+            $('#myModal').modal({ backdrop: 'static' });
+
+            $('#klozet').on('click', function (event) {
+                event.preventDefault();
+                // $('#myModal').modal('close');
+            });
+
+             $("#btnAddClient").on('click', function (event) {
+                                $('#AddClientForm').submit();
+             });
+
+             //$("#btnSetClient").on('click', function (event) {
+             //                   $('#SetClientForm').submit();
+             //});
+        });
+    </script>
+</body>
+</html>
