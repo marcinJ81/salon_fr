@@ -134,7 +134,7 @@ namespace MVCProject2.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult AddReservation(Reservation reservation)
         {
-            if (!reservation.Equal(reservation))
+            if (!ModelState.IsValid)
             {
                 //komunikat
                 return AddReservation(reservation);
