@@ -40,6 +40,10 @@
 
 </div>
 
+<div id="deleteReservationPlace">
+
+</div>
+
 <div class="container" style="padding-top:20px;">
     <div class="panel panel-default">
        
@@ -50,13 +54,13 @@
                     <div class="row">
                         <div class="table">
                             <div class="col-md-2">
-                                Filtr pracownik
+                                @Html.DropDownList("employee_id", (MultiSelectList)ViewBag.employeeList, htmlAttributes: new { @class = "form-control" })
                             </div>
                             <div class="col-md-2">
-                                Filtr klient
+                                @Html.DropDownList("client_id", (MultiSelectList)ViewBag.clientList, htmlAttributes: new { @class = "form-control" })
                             </div>
                             <div class="col-md-2">
-                                Filtr  Usługa
+                                @Html.DropDownList("services_id", (MultiSelectList)ViewBag.serviceList, htmlAttributes: new { @class = "form-control" })
                             </div>
                             <div class="col-md-2">                                
                                     @Html.TextBox("dateReservation", null, new { @class = "form-control",@type="date", @placeholder = "Data rezerwacji" })
@@ -122,7 +126,7 @@
                                                 @Html.DisplayFor(modelItem => item.employee_name)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Usuń", "Delete", new {  id=item.reservation_id })
+                                                @Html.ActionLink("Usuń", "deleteReservation","Reservation", new {  reservation_id=item.reservation_id },new { @id="btnDeleteReservation"} )
                                             </td>
                                         </tr>
                                     }
@@ -209,6 +213,25 @@
                         // debugger
                         $("#newServices").empty();
                         $("#newServices").append(response);
+                    },
+                    error: function (ex) {
+                        alert('Blad skryptu' + ex);
+                    }
+                })
+            })
+         });
+
+         $(document).ready(function () {
+            $("#btnDeleteReservation").click(function (e) {
+                e.preventDefault();
+                $.ajax({
+                    type: "GET",
+                    url: "/Reservation/deleteReservation",
+                    contentType: "html",
+                    success: function (response) {
+                        // debugger
+                        $("#deleteReservationPlace").empty();
+                        $("#deleteReservationPlace").append(response);
                     },
                     error: function (ex) {
                         alert('Blad skryptu' + ex);

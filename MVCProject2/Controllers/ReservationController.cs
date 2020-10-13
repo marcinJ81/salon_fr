@@ -11,6 +11,7 @@ using salonfrSource.ModelDB;
 using salonfrSource.SQLScripts;
 using salonfrSource;
 using salonfrSource.InsertDateToBase;
+using salonfrSource.DeleteReservation;
 
 namespace MVCProject2.Controllers
 {
@@ -28,6 +29,7 @@ namespace MVCProject2.Controllers
         private IGetVReservation getVReservation;
         private ISelectTableObject<Employee> selectEmployee;
         private IFasadeInsertDB insertObjectToDB;
+        private IDeleteReservation deletereservation;
 
         public ReservationController()
         {
@@ -38,11 +40,32 @@ namespace MVCProject2.Controllers
             this.getVReservation = new CreateViewVreservation(selectClient, selectReservation, selectServices, selectEmployee);
             this.insertObjectToDB = new FasadeInsertDB(new DBInsertClient(selectClient), new DBInsertServices(selectServices), new DBInsertReservation(selectReservation),
                 new DBInsertEmployee(selectEmployee), new SelectClient(), new SelectServices(), new SelectReservation(), new SelectEmployee());
+            
 
         }
 
         public IActionResult Index(string dateReservation)
         {
+            var clientList = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
+            var serviceList = selectServices.GetRowsForTable(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery());
+            var employreList = selectEmployee.GetRowsForTable(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery());
+
+            ViewBag.clientList = new MultiSelectList(clientList.Select(x => new
+            {
+                key = x.client_id,
+                value = x.client_name + " " + x.client_sname
+            }), "key", "value");
+            ViewBag.serviceList = new MultiSelectList(serviceList.Select(x => new
+            {
+                key = x.services_id,
+                value = x.services_name
+            }), "key", "value");
+            ViewBag.employeeList = new MultiSelectList(employreList.Select(x => new
+            {
+                key = x.employee_id,
+                value = x.employee_name
+            }), "key", "value");
+
             DateTime reservationdate;
             var reservationList = getVReservation.GetVReservations();
             if (!String.IsNullOrEmpty(dateReservation))
@@ -114,8 +137,31 @@ namespace MVCProject2.Controllers
             ViewBag.InfoMessage = messageWindow;
             return PartialView();
         }
+        [HttpGet]
+        public PartialViewResult deleteReservation(int reservation_id)
+        {
+            if (getVReservation.GetVReservations()
+                .Where(x => x.reservation_id == reservation_id).Any())
+            {
+                var reservationList = getVReservation.GetVReservations()
+                                      .Where(x => x.reservation_id == reservation_id).First();
+                return PartialView(reservationList);
+            }
+            else
+            {
+                return PartialView();
+            }
+        }
         #endregion
         #region modalWindows_POST
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult deleteReservation(VReservation vReservation)
+        {
+            deletereservation = new DeleteReservation();
+            deletereservation.DeleteReservation(vReservation.reservation_id);
+            return RedirectToAction("Index", "Reservation", new { visibleTrue = false });
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult AddServices(Services services)
