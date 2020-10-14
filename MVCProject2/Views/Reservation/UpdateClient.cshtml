@@ -1,0 +1,64 @@
+﻿@model salonfrSource.ModelDB.Client
+
+@{
+    ViewData["Title"] = "UpdateClient";
+    Layout = "~/Views/_Layout.cshtml";
+}
+
+<h2>Aktualizacja danych klienta</h2>
+<hr />
+<div class="container">
+    @using (Html.BeginForm("AddClient", "Reservation", FormMethod.Get, new { @id = "SetClientForm" }))
+    {
+        <div class="row">
+            <div class="col-md-2">
+                @Html.DropDownList("client_id", (MultiSelectList)ViewBag.clientList, htmlAttributes: new { @class = "form-control" })
+            </div>
+                <div class="col-md-2">
+                    @Html.TextBox("findClient", null, new { @class = "form-control", @placeholder = "Wyszukaj klienta" })
+                </div>
+            <div class="col-md-2">
+                <input id="btnSetClient" type="submit" value="Wyszukaj" class="btn btn-info" />
+            </div>
+        </div>
+    }
+    <div class="row">
+        <div class="col-md-4">
+            <form asp-action="UpdateClient">
+                <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+                <div class="form-group">
+                    <label asp-for="client_id" class="control-label"></label>
+                    <input asp-for="client_id" class="form-control" />
+                    <span asp-validation-for="client_id" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="client_name" class="control-label"></label>
+                    <input asp-for="client_name" class="form-control" />
+                    <span asp-validation-for="client_name" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="client_sname" class="control-label"></label>
+                    <input asp-for="client_sname" class="form-control" />
+                    <span asp-validation-for="client_sname" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="client_phone" class="control-label"></label>
+                    <input asp-for="client_phone" class="form-control" />
+                    <span asp-validation-for="client_phone" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <label asp-for="client_description" class="control-label"></label>
+                    <input asp-for="client_description" class="form-control" />
+                    <span asp-validation-for="client_description" class="text-danger"></span>
+                </div>
+                <div class="form-group">
+                    <input type="submit" value="Save" class="btn btn-default" />
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+<div>
+    <a asp-action="Index">Back to List</a>
+</div>
+
