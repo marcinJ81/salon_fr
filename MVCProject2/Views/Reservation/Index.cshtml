@@ -133,7 +133,7 @@
                                                 @Html.DisplayFor(modelItem => item.employee_name)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Usuń", "deleteReservation","Reservation", new {  reservation_id=item.reservation_id },new { @id="btnDeleteReservation"} )
+                                                @Html.ActionLink("Usuń", "deleteReservation","Reservation", new {  reservation_id=item.reservation_id },new { @id="btnDeleteReservation", @class = "btn btn-danger" } )
                                             </td>
                                         </tr>
                                     }

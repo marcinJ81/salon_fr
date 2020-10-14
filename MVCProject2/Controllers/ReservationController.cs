@@ -12,6 +12,7 @@ using salonfrSource.SQLScripts;
 using salonfrSource;
 using salonfrSource.InsertDateToBase;
 using salonfrSource.DeleteReservation;
+using salonfrSource.UpdateObjectInBase;
 
 namespace MVCProject2.Controllers
 {
@@ -30,18 +31,18 @@ namespace MVCProject2.Controllers
         private ISelectTableObject<Employee> selectEmployee;
         private IFasadeInsertDB insertObjectToDB;
         private IDeleteReservation deletereservation;
+        private IUpdateObject<Client> updateClient;
 
         public ReservationController()
         {
-            this.selectClient = new SelectClient(); 
+            this.selectClient = new SelectClient();
+            this.updateClient = new UpdateClient(selectClient);
             this.selectServices = new SelectServices();
             this.selectReservation = new SelectReservation();
             this.selectEmployee = new SelectEmployee();
             this.getVReservation = new CreateViewVreservation(selectClient, selectReservation, selectServices, selectEmployee);
             this.insertObjectToDB = new FasadeInsertDB(new DBInsertClient(selectClient), new DBInsertServices(selectServices), new DBInsertReservation(selectReservation),
-                new DBInsertEmployee(selectEmployee), new SelectClient(), new SelectServices(), new SelectReservation(), new SelectEmployee());
-            
-
+                new DBInsertEmployee(selectEmployee), new SelectClient(), new SelectServices(), new SelectReservation(), new SelectEmployee()); 
         }
 
         public IActionResult Index(string dateReservation)
@@ -119,19 +120,36 @@ namespace MVCProject2.Controllers
             }
         }
         [HttpGet]
-        public PartialViewResult UpdateClient(Client client)
+        public PartialViewResult UpdateClient(int? client_id,string findClient)
         {
 
             ViewBag.clientList = GenerateMultiSelectListWithClient();
 
-            if (client != null)
+            if ((client_id != null) || (client_id == 0))
             {
-                return PartialView(client);
+                return PartialView(selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
+                    .Where(x => x.client_id == client_id).First());
+            }
+            if (!String.IsNullOrEmpty(findClient))
+            {
+                var clientList = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery())
+                                .Select(x => new
+                                {
+                                    desccription = x.client_name + " " + x.client_sname + " " + x.client_phone + " " + x.client_description,
+                                    clientId = x.client_id
+                                }).ToList();
+                return PartialView(clientList.Where(x => x.desccription.Contains(findClient)).First());
             }
             return PartialView();
         }
         #endregion
         #region modalWindows_POST
+        [HttpPost]
+        public ActionResult UpdateClient(Client client)
+        {
+            bool updateResult = updateClient.UpdateObject(client, client.client_id);
+            return RedirectToAction("UpdateClient", "Reservation", new { @client_id = client.client_id, @findClient="Aktualizacja OK"});
+        }
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult deleteReservation(VReservation vReservation)
