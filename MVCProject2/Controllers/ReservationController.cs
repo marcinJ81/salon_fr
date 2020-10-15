@@ -45,10 +45,8 @@ namespace MVCProject2.Controllers
                 new DBInsertEmployee(selectEmployee), new SelectClient(), new SelectServices(), new SelectReservation(), new SelectEmployee()); 
         }
 
-        public IActionResult Index(string dateReservation)
+        public IActionResult Index(string dateReservation, int? client_id, int? services_id,int? employee_id)
         {
-            var employreList = selectEmployee.GetRowsForTable(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery());
-
             ViewBag.clientList = GenerateMultiSelectListWithClient();
             ViewBag.serviceList = GenerateMultiSelectListWithServices();
             ViewBag.employeeList = GenerateMultiSelectListWithEmployee();
@@ -59,6 +57,20 @@ namespace MVCProject2.Controllers
             {
                 reservationdate = DateTime.Parse(dateReservation);
                 reservationList = reservationList.Where(x => x.reservation_date.ToShortDateString() == reservationdate.ToShortDateString()).ToList();
+            }
+            if ((client_id > 0) || (services_id > 0) || (employee_id > 0))
+            {
+                if (services_id > 0)
+                {
+                    reservationList = reservationList.Where(x => x.services_id == services_id).ToList();
+                }
+                if (employee_id > 0)
+                {
+                    string empName = selectEmployee.GetRowsForTable(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery())
+                                    .Where(x => x.employee_id == employee_id)
+                                    .FirstOrDefault().employee_name;
+                    reservationList = reservationList.Where(y => y.employee_name == empName).ToList();
+                }
             }
             return View(reservationList);
         }
