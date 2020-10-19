@@ -8,22 +8,27 @@
 {
     <div class="container">
         <div class="row" style="padding-top:100px; padding-bottom:10px;">
+            <div class="col-md-4">
+                @Html.TextBox("client_data", null, new { @readonly = "readonly",  @class = "form form-control" })
+            </div>
+        </div>
+        <div class="row" style="padding-top:10px; padding-bottom:10px;">
             <div class="col-md-1 hidden">
-                @Html.TextBox("reservation_id", null, new { @readonly = "readonly", @class = "form form-control" })
+                @Html.TextBox("reservation_id", Model.reservation_id, new { @readonly = "readonly", @class = "form form-control" })
             </div>
             <div class="col-md-2">
-                @Html.TextBox("reservation_date", null, new { @readonly = "readonly", @type = "date", @class = "form form-control" })
+                @Html.TextBox("reservation_date", Model.reservation_date.ToShortDateString(), new { @type = "date", @class = "form form-control" })
             </div>
             <div class="col-md-2">
-                @Html.TextBox("reservation_time", null, new { @readonly = "readonly", @type = "time", @class = "form form-control" })
+                @Html.TextBox("reservation_time", Model.reservation_time, new {  @type = "time", @class = "form form-control" })
             </div>
         </div>
         <div class="row" style="padding-top:10px;padding-bottom:10px;">
             <div class="col-md-2">
                 @Html.DropDownList("client_id", (MultiSelectList)ViewBag.clientList, htmlAttributes: new { @class = "form-control" })
             </div>
-            <div>
-                @Html.TextBox("client_name", null, new { @readonly = "readonly", @type = "time", @class = "form form-control" })
+            <div class="col-md-2">
+                @Html.TextBox("client_name", Model.client_name + " " + Model.client_sname, new { @readonly = "readonly", @class = "form form-control" })
             </div>
 
         </div>
@@ -31,21 +36,25 @@
             <div class="col-md-2">
                 @Html.DropDownList("services_id", (MultiSelectList)ViewBag.serviceList, htmlAttributes: new { @class = "form-control" })
             </div>
-            <div>
-                @Html.TextBox("service_name", null, new { @readonly = "readonly", @type = "time", @class = "form form-control" })
+            <div class="col-md-2">
+                @Html.TextBox("service_name", Model.services_name, new { @readonly = "readonly", @class = "form form-control" })
             </div>
         </div>
         <div class="row" style="padding-top:10px;padding-bottom:10px;">
-            <div class="col-md-1">
+            <div class="col-md-2">
                 @Html.DropDownList("employee_id", (MultiSelectList)ViewBag.employeeList, htmlAttributes: new { @class = "form-control" })
             </div>
-            <div>
-                @Html.TextBox("employee_name", null, new { @readonly = "readonly", @type = "time", @class = "form form-control" })
+            <div class="col-md-2">
+                @Html.TextBox("employee_name", Model.employee_name, new { @readonly = "readonly", @class = "form form-control" })
             </div>
         </div>
         <hr />
         <div class="row" style="padding-top:10px; padding-bottom:10px;">
             <div class="col-md-2">
+                @if(!String.IsNullOrEmpty(ViewBag.Info))
+                {
+                    @ViewBag.Info
+                } 
             </div>
             <div class="col-md-2">
                 <input id="btnUpdateReservation" type="submit" value="Aktualizuj" class="btn btn-success" />

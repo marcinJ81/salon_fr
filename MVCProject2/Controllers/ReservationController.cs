@@ -181,10 +181,26 @@ namespace MVCProject2.Controllers
         #endregion
         #region modalWindows_POST
         [HttpPost]
-        public ActionResult UpdateReservation(Reservation reservation)
+        public ActionResult UpdateReservation(VReservation vreservation)
         {
-            bool updateResult = updateReservation.UpdateObject(reservation, reservation.reservation_id);
-           return RedirectToAction("UpdateReservation", "Reservation", new { @reservation_id = reservation.reservation_id, @UpdateResult = "Aktualizacja OK" });
+            Reservation reservation = new Reservation()
+            {
+                reservation_id = vreservation.reservation_id,
+                reservation_date = vreservation.reservation_date,
+                reservation_time = vreservation.reservation_time,
+                client_id = vreservation.client_id,
+                employee_id = vreservation.employee_id,
+                services_id = vreservation.services_id
+            };
+            bool updateResult = updateReservation.UpdateObject(reservation, vreservation.reservation_id);
+            if (updateResult)
+            {
+                return RedirectToAction("UpdateReservation", "Reservation", new { @reservation_id = reservation.reservation_id, @UpdateResult = "Aktualizacja OK" });
+            }
+            else
+            {
+                return RedirectToAction("UpdateReservation", "Reservation", new { @reservation_id = reservation.reservation_id, @UpdateResult = "Aktualizacja Not OK" });
+            }
         }
         [HttpPost]
         public ActionResult UpdateClient(Client client)
