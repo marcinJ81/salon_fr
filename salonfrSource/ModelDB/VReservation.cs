@@ -16,11 +16,11 @@ namespace salonfrSource.ModelDB
     public class CreateViewVreservation : IGetVReservation
     {
         private ISelectTableObject<Client> selectClient;
-        private ISelectReservation selectReservation;
+        private ISelectTableObject<Reservation> selectReservation;
         private ISelectTableObject<Services> selectServices;
         private ISelectTableObject<Employee> selectEmployee;
 
-        public CreateViewVreservation(ISelectTableObject<Client> selectClient, ISelectReservation selectReservation,
+        public CreateViewVreservation(ISelectTableObject<Client> selectClient, ISelectTableObject<Reservation> selectReservation,
             ISelectTableObject<Services> selectServices, ISelectTableObject<Employee> selectEmployee)
         {
             this.selectClient = selectClient;
@@ -32,7 +32,7 @@ namespace salonfrSource.ModelDB
         {
             var clientsList = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
             var servicesList = selectServices.GetRowsForTable(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery());
-            var reservationList = selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery());
+            var reservationList = selectReservation.GetRowsForTable(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery());
             var employeeList = selectEmployee.GetRowsForTable(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery());
 
             var result = reservationList.Join(clientsList,
@@ -48,7 +48,8 @@ namespace salonfrSource.ModelDB
                     resDate = x.reservation_date,
                     resTime = x.reservation_time,
                     serId = x.services_id,
-                    empID = x.employee_id
+                    empID = x.employee_id,
+                    clId = y.client_id
                 })
                 .Join(servicesList,
                 x => x.serId,
@@ -64,7 +65,8 @@ namespace salonfrSource.ModelDB
                     x.clDesc,
                     y.services_name,
                     y.services_id,
-                    x.empID 
+                    x.empID,
+                    x.clId
                 })
                 .Join(employeeList,
                 x => x.empID,
@@ -80,7 +82,9 @@ namespace salonfrSource.ModelDB
                     x.resTime,
                     x.services_id,
                     x.services_name,
-                    empName = y.employee_name
+                    empName = y.employee_name,
+                    x.empID,
+                    x.clId
                 }).Select(x => new VReservation
                 {
                     reservation_id = x.resId,
@@ -92,7 +96,10 @@ namespace salonfrSource.ModelDB
                     client_description = x.clDesc,
                     services_name = x.services_name,
                     services_id = x.services_id,
-                    employee_name = x.empName
+                    employee_name = x.empName,
+                    client_id = x.clId,
+                    employee_id = x.empID,
+                    client_data = x.clName + " " + x.clSname + " " + x.clPhone + " " + x.clDesc
                 }).OrderByDescending(x => x.reservation_date.ToShortDateString()).ThenByDescending(y => y.reservation_time).ToList();
 
             return result;
@@ -111,6 +118,9 @@ namespace salonfrSource.ModelDB
         public string services_name { get; set; }
         public int services_id { get; set; }
         public string employee_name { get; set; } 
+        public int employee_id { get; set; }
+        public int client_id { get; set; }
+        public string client_data { get; set; }
     }
 
 

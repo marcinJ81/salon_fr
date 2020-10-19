@@ -9,40 +9,14 @@ using System.Threading.Tasks;
 
 namespace salonfrSource.QuerySelect
 {
-    public interface ISelectReservation
-    {
-        List<Reservation> GetReservations(string query);
-        int GetNextReservationtId(string query);
-    }
 
-    public class SelectReservation : ISelectReservation
+    public class SelectReservation : ISelectTableObject<Reservation>
     {
         private SqliteConnection sqliteConnection;
         public SelectReservation()
         {
             this.sqliteConnection = new SqliteConnection(SDataSourceTableFilename.GetDirectoryFileDatabaseReservation());
         }
-        public List<Reservation> GetReservations(string query)
-        {
-            List<Reservation> result = new List<Reservation>();
-            try
-            {
-                sqliteConnection.Open();
-                SqliteCommand sqliteCommand = new SqliteCommand(query, this.sqliteConnection);
-                sqliteCommand.ExecuteNonQuery();
-                List<string> result2 = new List<string>();
-                var rdr = sqliteCommand.ExecuteReader();
-                result = GetAllRows(rdr);
-                sqliteConnection.Close();
-                return result;
-            }
-            catch (SqliteException ex)
-            {
-                string er = ex.Message;
-                return result;
-            }
-        }
-
         private int GetIDFromReservationTable(SqliteDataReader reader)
         {
             List<Reservation> result = new List<Reservation>();
@@ -85,8 +59,28 @@ namespace salonfrSource.QuerySelect
            
             return result;
         }
+        public List<Reservation> GetRowsForTable(string query)
+        {
+            List<Reservation> result = new List<Reservation>();
+            try
+            {
+                sqliteConnection.Open();
+                SqliteCommand sqliteCommand = new SqliteCommand(query, this.sqliteConnection);
+                sqliteCommand.ExecuteNonQuery();
+                List<string> result2 = new List<string>();
+                var rdr = sqliteCommand.ExecuteReader();
+                result = GetAllRows(rdr);
+                sqliteConnection.Close();
+                return result;
+            }
+            catch (SqliteException ex)
+            {
+                string er = ex.Message;
+                return result;
+            }
+        }
 
-        public int GetNextReservationtId(string query)
+        public int GetNextTabletId(string query)
         {
             int result = -1;
             try
