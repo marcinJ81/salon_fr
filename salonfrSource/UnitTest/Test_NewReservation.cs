@@ -20,7 +20,7 @@ namespace salonfr.UnitTest
         private IInsertToDB<Reservation> addReservation;
         private ISelectTableObject<Client> selectClient;
         private ISelectTableObject<Services> selectServices;
-        private ISelectReservation selectReservation;
+        private ISelectTableObject<Reservation> selectReservation;
          [SetUp]
         public void Setup()
         {
@@ -68,7 +68,7 @@ namespace salonfr.UnitTest
         public void ShouldAddNewReservation_ReturnNewID()
         {
             SqlLiteDB.SqlLiteDBCreateTableIFNotExist();
-            int reservationID = selectReservation.GetNextReservationtId(SGetIdFromSpecificTable.queryGetLatestReservationID());
+            int reservationID = selectReservation.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestReservationID());
             Reservation reservation = new Reservation()
             {
                 reservation_id = reservationID,

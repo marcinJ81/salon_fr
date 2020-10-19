@@ -16,11 +16,11 @@ namespace salonfrSource.ModelDB
     public class CreateViewVreservation : IGetVReservation
     {
         private ISelectTableObject<Client> selectClient;
-        private ISelectReservation selectReservation;
+        private ISelectTableObject<Reservation> selectReservation;
         private ISelectTableObject<Services> selectServices;
         private ISelectTableObject<Employee> selectEmployee;
 
-        public CreateViewVreservation(ISelectTableObject<Client> selectClient, ISelectReservation selectReservation,
+        public CreateViewVreservation(ISelectTableObject<Client> selectClient, ISelectTableObject<Reservation> selectReservation,
             ISelectTableObject<Services> selectServices, ISelectTableObject<Employee> selectEmployee)
         {
             this.selectClient = selectClient;
@@ -32,7 +32,7 @@ namespace salonfrSource.ModelDB
         {
             var clientsList = selectClient.GetRowsForTable(SGetAllRowsFromSpecificTable.ClientSelectAllRowsQuery());
             var servicesList = selectServices.GetRowsForTable(SGetAllRowsFromSpecificTable.ServicesSelectAllRowsQuery());
-            var reservationList = selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery());
+            var reservationList = selectReservation.GetRowsForTable(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery());
             var employeeList = selectEmployee.GetRowsForTable(SGetAllRowsFromSpecificTable.EmployeeSelectAllRowsQuery());
 
             var result = reservationList.Join(clientsList,

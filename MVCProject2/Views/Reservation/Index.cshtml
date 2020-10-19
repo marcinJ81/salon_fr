@@ -45,9 +45,7 @@
 
 </div>
 
-<div id="deleteReservationPlace">
 
-</div>
 
 
 
@@ -133,7 +131,16 @@
                                                 @Html.DisplayFor(modelItem => item.employee_name)
                                             </td>
                                             <td>
-                                                @Html.ActionLink("Usuń", "deleteReservation","Reservation", new {  reservation_id=item.reservation_id },new { @id="btnDeleteReservation", @class = "btn btn-danger" } )
+                                                <div class="row">
+                                                    <div class="col-md-2">
+                                                        @Html.ActionLink("Aktualizuj", "updateReservation", "Reservation", new { reservation_id = item.reservation_id }, new { @id = "btnUpdateReservation", @class = "btn btn-success" })
+                                                    </div>
+                                                    <div class="col-md-2"> </div>
+                                                    <div class="col-md-2">
+                                                        @Html.ActionLink("Usuń", "deleteReservation", "Reservation", new { reservation_id = item.reservation_id }, new { @id = "btnDeleteReservation", @class = "btn btn-danger" })
+                                                    </div>
+                                                </div>
+                                               
                                             </td>
                                         </tr>
                                     }
@@ -228,24 +235,9 @@
             })
          });
 
-         $(document).ready(function () {
-            $("#btnDeleteReservation").click(function (e) {
-                e.preventDefault();
-                $.ajax({
-                    type: "GET",
-                    url: "/Reservation/deleteReservation",
-                    contentType: "html",
-                    success: function (response) {
-                        // debugger
-                        $("#deleteReservationPlace").empty();
-                        $("#deleteReservationPlace").append(response);
-                    },
-                    error: function (ex) {
-                        alert('Blad skryptu' + ex);
-                    }
-                })
-            })
-         });
+        
+
+         
 
        
 

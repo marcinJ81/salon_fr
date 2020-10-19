@@ -29,15 +29,15 @@ namespace salonfrSource
         private ISelectTableObject<Services> selectServices;
         //----------------------------------------------
         private IInsertToDB<Reservation> insertReservation;
-        private ISelectReservation selectReservation;
+        private ISelectTableObject<Reservation> selectReservation;
         //----------------------------------------------
         private IInsertToDB<Employee> insertEmployee;   
         private ISelectTableObject<Employee> selectEmployee;
         //----------------------------------------------
         public FasadeInsertDB(IInsertToDB<Client> insertClient, IInsertToDB<Services> insertServices, 
             IInsertToDB<Reservation> insertReservation, IInsertToDB<Employee> insertEmployee,
-            ISelectTableObject<Client> selectClient, ISelectTableObject<Services> selectServices, 
-            ISelectReservation selectReservation, ISelectTableObject<Employee> selectEmployee)
+            ISelectTableObject<Client> selectClient, ISelectTableObject<Services> selectServices,
+            ISelectTableObject<Reservation> selectReservation, ISelectTableObject<Employee> selectEmployee)
         {
             this.insertClient = insertClient;
             this.insertServices = insertServices;
@@ -76,7 +76,7 @@ namespace salonfrSource
 
         public bool GetReservationIdAndInsertToDB(DateTime reservationDate, int reservationHour, int reservationMinute, int clientID, int servicesID, int employeeID)
         {
-            int reservationID = selectReservation.GetNextReservationtId(SGetIdFromSpecificTable.queryGetLatestReservationID());
+            int reservationID = selectReservation.GetNextTabletId(SGetIdFromSpecificTable.queryGetLatestReservationID());
             Reservation reservation = new Reservation()
             {
                 reservation_id = reservationID,
@@ -86,7 +86,7 @@ namespace salonfrSource
                 services_id = servicesID,
                 employee_id = employeeID
             };
-            if (selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery())
+            if (selectReservation.GetRowsForTable(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery())
                     .Any(x => x.reservation_date == reservation.reservation_date
                     && x.reservation_time == reservation.reservation_time
                     && x.employee_id == reservation.employee_id))

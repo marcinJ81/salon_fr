@@ -13,6 +13,25 @@ namespace salonfrSource.UpdateObjectInBase
         {
             return Environment.GetFolderPath(Environment.SpecialFolder.ApplicationData);
         }
+        public static TableScripts SqlLiteDBUpdateReservation(Reservation model, int reservation_id)
+        {
+            TableScripts tableInsertScripts;
+            tableInsertScripts = new TableScripts
+            {
+                nameTable = @"\reservation.db",
+                script = @"update Reservation "
+                + " set "
+                + " reservation_date= " + "'" + model.reservation_date + "',"
+                + " reservation_time= " + "'" + model.reservation_time + "',"
+                + " client_id= " + "'" + model.client_id + "',"
+                + " services_id= " + "'" + model.services_id + "',"
+                + " employee_id= " + "'" + model.employee_id + "'"
+                + " where reservation_id=" + reservation_id.ToString(),
+                operationType = OperationType.update,
+                connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + GetPathDBFile() + @"\reservation.db")
+            };
+            return tableInsertScripts;
+        }
         public static TableScripts SqlLiteDBUpdateClient(Client model, int client_id)
         {
             TableScripts tableInsertScripts;

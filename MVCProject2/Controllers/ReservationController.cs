@@ -26,12 +26,14 @@ namespace MVCProject2.Controllers
     {
         private ISelectTableObject<Client> selectClient;
         private ISelectTableObject<Services> selectServices;
-        private ISelectReservation selectReservation;
+        private ISelectTableObject<Reservation> selectReservationList;
+        private ISelectTableObject<Reservation> selectReservation;
         private IGetVReservation getVReservation;
         private ISelectTableObject<Employee> selectEmployee;
         private IFasadeInsertDB insertObjectToDB;
         private IDeleteReservation deletereservation;
         private IUpdateObject<Client> updateClient;
+        private IUpdateObject<Reservation> updateReservation;
 
         public ReservationController()
         {
@@ -40,9 +42,11 @@ namespace MVCProject2.Controllers
             this.selectServices = new SelectServices();
             this.selectReservation = new SelectReservation();
             this.selectEmployee = new SelectEmployee();
+            this.selectReservationList = new SelectReservation();
             this.getVReservation = new CreateViewVreservation(selectClient, selectReservation, selectServices, selectEmployee);
             this.insertObjectToDB = new FasadeInsertDB(new DBInsertClient(selectClient), new DBInsertServices(selectServices), new DBInsertReservation(selectReservation),
-                new DBInsertEmployee(selectEmployee), new SelectClient(), new SelectServices(), new SelectReservation(), new SelectEmployee()); 
+                new DBInsertEmployee(selectEmployee), new SelectClient(), new SelectServices(), new SelectReservation(), new SelectEmployee());
+            this.updateReservation = new UpdateReservation(selectReservation);
         }
 
         public IActionResult Index(string dateReservation, int? client_id, int? services_id,int? employee_id)
@@ -132,6 +136,26 @@ namespace MVCProject2.Controllers
             }
         }
         [HttpGet]
+        public PartialViewResult UpdateReservation(int? reservation_id, string UpdateResult)
+        {
+            ViewBag.Info = UpdateResult;
+            ViewBag.clientList = GenerateMultiSelectListWithClient();
+            ViewBag.serviceList = GenerateMultiSelectListWithServices();
+            ViewBag.employeeList = GenerateMultiSelectListWithEmployee();
+
+            if (getVReservation.GetVReservations()
+                .Where(x => x.reservation_id == reservation_id).Any())
+            {
+                var reservationList = getVReservation.GetVReservations()
+                                      .Where(x => x.reservation_id == reservation_id).First();
+                return PartialView(reservationList);
+            }
+            else
+            {
+                return PartialView();
+            }
+        }
+        [HttpGet]
         public PartialViewResult UpdateClient(int? client_id,string findClient)
         {
 
@@ -156,6 +180,12 @@ namespace MVCProject2.Controllers
         }
         #endregion
         #region modalWindows_POST
+        [HttpPost]
+        public ActionResult UpdateReservation(Reservation reservation)
+        {
+            bool updateResult = updateReservation.UpdateObject(reservation, reservation.reservation_id);
+           return RedirectToAction("UpdateReservation", "Reservation", new { @reservation_id = reservation.reservation_id, @UpdateResult = "Aktualizacja OK" });
+        }
         [HttpPost]
         public ActionResult UpdateClient(Client client)
         {

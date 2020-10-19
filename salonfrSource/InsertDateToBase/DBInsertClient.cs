@@ -57,9 +57,9 @@ namespace salonfrSource.InsertDateToBase
 
     public class DBInsertReservation : IInsertToDB<Reservation>
     {
-        private ISelectReservation selectReservation;
+        private ISelectTableObject<Reservation> selectReservation;
 
-        public DBInsertReservation(ISelectReservation selectReservation)
+        public DBInsertReservation(ISelectTableObject<Reservation> selectReservation)
         {
             this.selectReservation = selectReservation;
         }
@@ -72,7 +72,7 @@ namespace salonfrSource.InsertDateToBase
             {
                 return -1;
             }
-            var lastAddedReservation = selectReservation.GetReservations(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery())
+            var lastAddedReservation = selectReservation.GetRowsForTable(SGetAllRowsFromSpecificTable.ReservationSelectAllRowsQuery())
                             .Where(x => x.reservation_id == dataObject.reservation_id).First();
             return lastAddedReservation.reservation_id;
         }

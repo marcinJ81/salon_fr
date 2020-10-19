@@ -24,7 +24,7 @@ namespace salonfr
     {
         private ISelectTableObject<Client> selectClient;
         private ISelectTableObject<Services> selectServices;
-        private ISelectReservation selectReservation;
+        private ISelectTableObject<Reservation> selectReservation;
         private IGetVReservation getVReservation;
         private ISelectTableObject<Employee> selectEmployee;
         private IUpdateObject<Client> updateClient;
