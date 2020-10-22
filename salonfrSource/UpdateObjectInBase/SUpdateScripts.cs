@@ -51,5 +51,39 @@ namespace salonfrSource.UpdateObjectInBase
             };
             return tableInsertScripts;
         }
+
+        public static TableScripts SqlLiteDBUpdateServices(Services model, int services_id)
+        {
+            TableScripts tableInsertScripts;
+
+            tableInsertScripts = new TableScripts
+            {
+                nameTable = @"\services.db",
+                script = @"update Services "
+                  + " set "
+                  + " services_name= " + "'" + model.services_name + "',"
+                  + " where services_id=" + services_id.ToString(),
+                operationType = OperationType.update,
+                connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + GetPathDBFile() + @"\services.db")
+            };
+            return tableInsertScripts;
+        }
+
+        public static TableScripts SqlLiteDBUpdateEmployee(Employee model, int employee_id)
+        {
+            TableScripts tableInsertScripts;
+
+            tableInsertScripts = new TableScripts
+            {
+                nameTable = @"\employee.db",
+                script = @"update Employee "
+                  + " set "
+                  + " employee_name= " + "'" + model.employee_name + "',"
+                  + " where employee_id=" + employee_id.ToString(),
+                operationType = OperationType.update,
+                connectionProperties = new Microsoft.Data.Sqlite.SqliteConnection(@"DataSource=" + GetPathDBFile() + @"\employee.db")
+            };
+            return tableInsertScripts;
+        }
     }
 }
